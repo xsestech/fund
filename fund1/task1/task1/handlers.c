@@ -53,3 +53,13 @@ void a_arg_handler(const int token_count, const char** tokens) {
   }
   printf("Sum of natural until %d is %lld\n", max_number, sum_of_natural(max_number));
 }
+
+void f_arg_handler(const int token_count, const char** tokens) {
+  int input = 0;
+  parse_handle_errors(parse_one_int(token_count, tokens, &input));
+  if (input < 1 || input > 25) {
+    error_print("Input number must be greater than 1 and less than 25.");
+    return;
+  }
+  printf("Factorial of %d is %lld\n", input, factorial(input));
+}

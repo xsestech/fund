@@ -54,4 +54,13 @@ void e_arg_handler(const int token_count, const char** tokens);
  * @param tokens array of tokens
  */
 void a_arg_handler(const int token_count, const char** tokens);
+
+/**
+ * @brief f arg
+ * @details вычислить факториал x и вывести полученное значение в консоль.
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void f_arg_handler(const int token_count, const char** tokens);
+
 #endif //HANDLER_H

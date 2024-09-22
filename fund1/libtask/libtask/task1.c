@@ -80,6 +80,14 @@ long long int sum_of_natural(const int max_number) {
   return (ll_max + 1) * (ll_max) / 2;
 }
 
+long long int factorial(const int number) {
+  long long int result = 1;
+  for (int i = 1; i <= number; i++) {
+    result *= i;
+  }
+  return result;
+}
+
 void task1_error_handler(const task1_error_t error) {
   switch (error) {
     case TASK1_SUCCESS:
