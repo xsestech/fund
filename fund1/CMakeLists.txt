@@ -111,10 +111,12 @@ message("########################################")
 
 
 #add_executable(fund_lab1 ${sources})
-add_subdirectory(errors)
-add_subdirectory(cli)
+add_subdirectory(liberrors)
+add_subdirectory(libcli)
+add_subdirectory(libtask)
 add_subdirectory(task1)
-target_link_libraries(cli PUBLIC errors)
-target_link_libraries(task1 PUBLIC errors cli)
+target_link_libraries(libcli PUBLIC liberrors)
+target_link_libraries(libtask PUBLIC liberrors libcli)
+target_link_libraries(task1 PUBLIC liberrors libcli libtask)
 
 

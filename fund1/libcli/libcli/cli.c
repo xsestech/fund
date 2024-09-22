@@ -1,8 +1,5 @@
+#include <libcli/cli.h>
 
-
-#include "cli.h"
-
-#include <string.h>
 
 struct cli_handle_t {
   cli_command_t* commands;
@@ -55,22 +52,23 @@ cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
 void cli_destroy(cli_handle_t* cli) {
   free(cli);
 }
+
 void cli_error_handler(const cli_error_t error) {
   switch (error) {
     case CLI_ALLOCATION_ERROR:
-      printf("Failed to allocate memory for cli_parse_args\n");
+      error_print("Failed to allocate memory for cli_parse_args\n");
       break;
     case CLI_ARGUMENT_NOT_FOUND_ERROR:
-      printf("Argument not found\n");
+      error_print("Argument not found\n");
       break;
     case CLI_INVALID_PARAMS_COUNT_ERROR:
-      printf("Invalid number of parameters\n");
+      error_print("Invalid number of parameters\n");
       break;
     case CLI_INVALID_ARGUMENT_NAME_ERROR:
-      printf("Invalid name of argument\n");
+      error_print("Invalid name of argument\n");
       break;
     case CLI_INVALID_ARGUMENT_FORMAT_ERROR:
-      printf("Argument does not match expected input type");
+      error_print("Argument does not match expected input type");
       break;
     case CLI_SUCCESS:
       break;
