@@ -45,6 +45,7 @@ bool is_prime(const int number);
  * @warning
  */
 task1_error_t convert_to_base(int number, const int base, char** output);
+
 /**
  * @brief Prints table of powers for 1 to 10 bases
  * @param max_power max power to print
