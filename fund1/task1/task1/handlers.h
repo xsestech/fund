@@ -46,4 +46,12 @@ void s_arg_handler(const int token_count, const char** tokens);
  */
 void e_arg_handler(const int token_count, const char** tokens);
 
+/**
+ * @brief a arg
+ * @details вычислить сумму всех натуральных чисел от 1 до x и вывести полученное
+ * значение в консоль;
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void a_arg_handler(const int token_count, const char** tokens);
 #endif //HANDLER_H

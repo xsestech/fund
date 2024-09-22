@@ -51,9 +51,16 @@ task1_error_t convert_to_base(int number, const int base, char** output);
  * @param max_power max power to print
  */
 void print_powers_table(const int max_power);
+/**
+ * @brief Sums all natural numbers until reaching max number
+ * @param max_number sum limit
+ * @return sum
+ */
+long long int sum_of_natural(const int max_number);
 
 /**
  * @brief Prints error raised in parsing to stderr.
+ * @details Uses Gauss method to do that
  * @param error instance of parsing error
  */
 void task1_error_handler(const task1_error_t error);

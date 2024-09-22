@@ -75,6 +75,11 @@ void print_powers_table(const int max_power) {
   }
 }
 
+long long int sum_of_natural(const int max_number) {
+  long long int ll_max = max_number;
+  return (ll_max + 1) * (ll_max) / 2;
+}
+
 void task1_error_handler(const task1_error_t error) {
   switch (error) {
     case TASK1_SUCCESS:

@@ -43,3 +43,13 @@ void e_arg_handler(const int token_count, const char** tokens) {
   }
   print_powers_table(max_power);
 }
+
+void a_arg_handler(const int token_count, const char** tokens) {
+  int max_number = 0;
+  parse_handle_errors(parse_one_int(token_count, tokens, &max_number));
+  if (max_number < 1) {
+    error_print("Input number must be greater than 1");
+    return;
+  }
+  printf("Sum of natural until %d is %lld\n", max_number, sum_of_natural(max_number));
+}
