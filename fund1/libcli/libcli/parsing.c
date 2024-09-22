@@ -1,9 +1,4 @@
-//
-// Created by Alex on 14.09.2024.
-//
-#include "parsing.h"
-
-
+#include <libcli/parsing.h>
 
 
 parsing_error_t parse_int(const char* str, int* result, bool allow_negative) {
@@ -50,4 +45,5 @@ void parse_error_handler(parsing_error_t error) {
       return;
   }
 }
+
 //@todo STRTOD impl

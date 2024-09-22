@@ -52,7 +52,7 @@ cli_error_t cli_init(cli_handle_t** cli, cli_command_t* commands,
                      int num_commands);
 /**
  * @brief Destroys cli object, doesn't do anything with commands array
- * @param cli handle pointer
+ * @param[ cli handle pointer
  */
 void cli_destroy(cli_handle_t* cli);
 /**

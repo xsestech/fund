@@ -1,0 +1,49 @@
+/**
+ * @file
+ * @brief Handlers functions for different args
+ * @author xsestech 
+ * @date 22.09.2024
+ */
+#ifndef HANDLER_H
+#define HANDLER_H
+
+#include <libtask/task1.h>
+#include <libcli/parsing.h>
+/**
+ * @brief h arg
+ * @details Вывести в консоль натуральные числа в пределах 100 включительно, кратные x.
+ * Если таковых нету – вывести соответствующее сообщение;
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void h_arg_handler(const int token_count, const char** tokens);
+
+/**
+ * @brief p arg
+ * @details определить, является ли число x простым; является ли x составным;
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void p_arg_handler(const int token_count, const char** tokens);
+
+/**
+ * @brief s arg
+ * @details разделить число x на отдельные цифры системы счисления с основанием
+ * 16 и вывести отдельно каждую цифру числа, разделяя их пробелом, от старших
+ * разрядов к младшим, без ведущих нулей в строковом представлении;
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void s_arg_handler(const int token_count, const char** tokens);
+
+/**
+ * @brief e arg
+ * @details таблицу степеней (для всех показателей в диапазоне от 1 до x)
+ * оснований от 1 до 10; для этого флага работает ограничение на вводимое число:
+ * x должен быть не больше 10;
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ */
+void e_arg_handler(const int token_count, const char** tokens);
+
+#endif //HANDLER_H
