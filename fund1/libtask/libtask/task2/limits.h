@@ -12,7 +12,12 @@
 /**
  * @brief Type for sequence function
  */
-typedef long double(* sequence_func_t)(long long int n);
+typedef long double(* sequence_func_t)(const long double n);
+
+typedef struct {
+  char name[50];
+  sequence_func_t func;
+} sequence_t;
 
 /**
  * @brief Calculates n-th sequence \f$ lim_{n\to\infinity} (1 + \frac{1}{n})^n \f$
@@ -20,7 +25,7 @@ typedef long double(* sequence_func_t)(long long int n);
  * @param n sequence member number
  * @return value of n-th member
  */
-long double e_sequence_func(long long int n);
+long double e_sequence_func(const long double n);
 
 /**
  * @brief Calculate limit of Cauchy sequence up to given precision
@@ -29,6 +34,8 @@ long double e_sequence_func(long long int n);
  * @return value of sequence for given precision
  */
 long double limit_with_precision(sequence_func_t func, long double eps);
+
+void limit_print_and_calc(const sequence_t sequence[] , int n_seq, long double eps);
 
 
 #endif //LIMITS_H

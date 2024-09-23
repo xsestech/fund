@@ -17,7 +17,7 @@ option(DEBUG_LOGGING "Enabling debug logging" FALSE)
 add_library(project_warnings INTERFACE)
 add_library(project_options INTERFACE)
 
-target_compile_features(project_options INTERFACE c_std_17)
+target_compile_features(project_options INTERFACE c_std_23)
 
 if (ENABLE_ASAN)
     target_compile_options(project_options INTERFACE -fsanitize=address)
@@ -118,7 +118,9 @@ add_subdirectory(task1)
 add_subdirectory(task2)
 target_link_libraries(libcli PUBLIC liberrors)
 target_link_libraries(libtask PUBLIC liberrors libcli)
-target_link_libraries(task1 PUBLIC liberrors libcli libtask)
-target_link_libraries(task2 PUBLIC liberrors libcli libtask)
+target_link_libraries(task1 PUBLIC liberrors libcli libtask project_options
+        project_warnings)
+target_link_libraries(task2 PUBLIC liberrors libcli libtask project_options
+        project_warnings)
 
 

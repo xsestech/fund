@@ -9,6 +9,10 @@
 
 
 #include <libcli/parsing/int.h>
+#include <libtask/task2/limits.h>
+
+#define DEFAULT_EPS 1e-6
+
 
 
 /**
@@ -30,3 +34,4 @@ void e_arg_handler(const int token_count, const char** tokens);
 
 
 #endif //HANDLER_H
+

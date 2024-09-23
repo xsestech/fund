@@ -4,18 +4,20 @@
  * @date 22.09.2024
  */
 #include <task2/handlers.h>
+const sequence_t sequence_table[] = {
+    {"e", e_sequence_func},
+};
+const int length_of_sequence = sizeof(sequence_table) / sizeof(sequence_t);
 
-void default_handler(const int token_count, const char** tokens) {
-  printf("Default handler called\n");
+void handle_limits(long double eps) {
+  printf("eps: %Lf\n", eps);
+  limit_print_and_calc(sequence_table, length_of_sequence, eps);
+}
+
+void default_limits(const int, const char**) {
+  handle_limits(DEFAULT_EPS);
 }
 
 void e_arg_handler(const int token_count, const char** tokens) {
-  int max_power = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &max_power));
-  if (max_power > 10 || max_power < 1) {
-    error_print("Input number must be in 1 to 10 range");
-    return;
-  }
-  // print_powers_table(max_power);
+  handle_limits(DEFAULT_EPS);
 }
-
