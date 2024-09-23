@@ -3,6 +3,7 @@
 
 struct cli_handle_t {
   cli_command_t* commands;
+  cli_callback_t default_callback;
   size_t num_commands;
 };
 
@@ -20,13 +21,25 @@ cli_error_t cli_init(cli_handle_t** cli, cli_command_t commands[],
   }
   config->commands = commands;
   config->num_commands = num_commands;
+  config->default_callback = NULL;
   *cli = config;
   return CLI_SUCCESS;
 }
 
+cli_error_t cli_init_optional_args(cli_handle_t** cli, cli_command_t* commands,
+                                   int num_commands,
+                                   cli_callback_t default_callback) {
+  cli_handle_error(cli_init(cli, commands, num_commands));
+  (*cli)->default_callback = default_callback;
+  return CLI_SUCCESS;
+}
 
 cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
                            const char** argv) {
+  if (argc == 1 && cli->default_callback) {
+    cli->default_callback(argc, argv);
+    return CLI_SUCCESS;
+  }
   if (argc < 2) {
     return CLI_INVALID_PARAMS_COUNT_ERROR;
   }
@@ -42,7 +55,7 @@ cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
   for (int i = 0; i < cli->num_commands; i++) {
     const cli_command_t command = cli->commands[i];
     if (command.argument_name == argv[1][1]) {
-      command.func(argc - 2, argv + 2);
+      command.callback(argc - 2, argv + 2);
       return CLI_SUCCESS;
     }
   }

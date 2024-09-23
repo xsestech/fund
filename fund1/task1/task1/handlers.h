@@ -8,7 +8,9 @@
 #define HANDLER_H
 
 #include <libtask/task1.h>
-#include <libcli/parsing.h>
+#include <libtask/math.h>
+#include <libcli/parsing/int.h>
+
 /**
  * @brief h arg
  * @details Вывести в консоль натуральные числа в пределах 100 включительно, кратные x.

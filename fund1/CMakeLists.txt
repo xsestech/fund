@@ -115,8 +115,10 @@ add_subdirectory(liberrors)
 add_subdirectory(libcli)
 add_subdirectory(libtask)
 add_subdirectory(task1)
+add_subdirectory(task2)
 target_link_libraries(libcli PUBLIC liberrors)
 target_link_libraries(libtask PUBLIC liberrors libcli)
 target_link_libraries(task1 PUBLIC liberrors libcli libtask)
+target_link_libraries(task2 PUBLIC liberrors libcli libtask)
 
 
