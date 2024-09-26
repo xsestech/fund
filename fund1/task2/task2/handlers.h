@@ -10,6 +10,7 @@
 
 #include <libcli/parsing/int.h>
 #include <libtask/task2/limits.h>
+#include <libcli/parsing/fp.h>
 
 #define DEFAULT_EPS 1e-6
 

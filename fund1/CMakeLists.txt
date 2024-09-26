@@ -6,7 +6,7 @@ set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 option(LIBCPP "Build with libc++" FALSE)
 option(ENABLE_ASAN "Enable address sanitizer" FALSE)
 option(ENABLE_CLANG_TIDY "Enable testing with clang-tidy" FALSE)
@@ -22,6 +22,7 @@ target_compile_features(project_options INTERFACE c_std_23)
 if (ENABLE_ASAN)
     target_compile_options(project_options INTERFACE -fsanitize=address)
     target_link_libraries(project_options INTERFACE -fsanitize=address)
+
 endif ()
 
 target_compile_options(project_warnings
@@ -59,6 +60,11 @@ if (${FORCE_COLORED_OUTPUT})
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         target_compile_options(project_options INTERFACE -fcolor-diagnostics)
     endif ()
+endif ()
+
+if (${DEBUG_LOGGING})
+    target_compile_options(project_options INTERFACE -g)
+    target_link_libraries(project_options INTERFACE -g)
 endif ()
 
 find_program(CCACHE ccache)
@@ -110,17 +116,29 @@ message("Version:          \t ${PROJECT_VERSION}")
 message("########################################")
 
 
+if (APPLE )
+
+endif ()
+
+
 #add_executable(fund_lab1 ${sources})
 add_subdirectory(liberrors)
 add_subdirectory(libcli)
 add_subdirectory(libtask)
 add_subdirectory(task1)
 add_subdirectory(task2)
-target_link_libraries(libcli PUBLIC liberrors)
-target_link_libraries(libtask PUBLIC liberrors libcli)
+target_link_libraries(libcli PUBLIC liberrors project_options)
+target_link_libraries(libtask PUBLIC liberrors libcli project_options)
 target_link_libraries(task1 PUBLIC liberrors libcli libtask project_options
         project_warnings)
 target_link_libraries(task2 PUBLIC liberrors libcli libtask project_options
         project_warnings)
 
-
+find_program(DSYMUTIL_PROGRAM dsymutil)
+if (APPLE)
+    add_custom_command(TARGET ${task_name} POST_BUILD
+            COMMAND dsymutil $<TARGET_FILE:${task_name}>
+            COMMENT Generate dSYM files for ${task_name}
+            OUTPUT $
+    )
+endif ()

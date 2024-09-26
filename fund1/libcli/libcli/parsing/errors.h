@@ -24,12 +24,15 @@ typedef enum {
  */
 void parse_error_handler(parsing_error_t error);
 /**
- * @brief Marco, that adds return to main if error is present and prints
+ * @brief Marco, that adds return to void func if error is present and prints
  * error description
  * @warning Use this macro *only* in main
  * @param error Error return from function
  */
 #define parse_handle_errors(error) \
   handle_errors_void(error, PARSING_SUCCESS, parse_error_handler)
+
+#define parse_handle_errors_int(error) \
+   handle_errors_int(error, PARSING_SUCCESS, parse_error_handler)
 
 #endif //PARSING_ERRORS_H
