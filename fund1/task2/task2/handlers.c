@@ -8,8 +8,10 @@
 
 
 const sequence_t sequence_table[] = {
-    {"e", e_sequence_func, false},
-    {"pi", pi_sequence_func_accum, true},
+    {"e", e_sequence_func},
+    {"π", pi_sequence_func_accum},
+    {"ln2", ln2_sequence_func},
+    {"√2", sqrt2_sequence_func_accum}
 };
 const int length_of_sequence = sizeof(sequence_table) / sizeof(sequence_t);
 
