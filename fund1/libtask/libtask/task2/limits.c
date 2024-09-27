@@ -58,6 +58,16 @@ long double sqrt2_sequence_func_accum(const long double n,
   return prev - powl(prev, 2) / 2  + 1;
 }
 
+
+long double gamma_sequence_func(const long double n,
+                                const long double prev) {
+  long double sum = 0;
+  for (int k = 1; k <= n; ++k) {
+    sum += combinations(n, k) * powl(-1, k) / k * log(factorial(k));
+  }
+  return sum;
+}
+
 void limit_print_and_calc(const sequence_t sequences[], const int n_seq,
                           const long double eps) {
   printf("Limits calculations:\n");
