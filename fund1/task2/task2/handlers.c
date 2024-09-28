@@ -14,19 +14,35 @@ const sequence_t sequence_table[] = {
     {"√2", sqrt2_sequence_func_accum},
     {"γ", gamma_sequence_func},
 };
-const int length_of_sequence = sizeof(sequence_table) / sizeof(sequence_t);
+const series_t series_table[] = {
+    {"e", e_series_func, SUM},
+    {"π", pi_series_func, SUM},
+    {"ln2", ln2_series_func, SUM},
+    {"√2", sqrt2_series_func_prod, PRODUCT},
+    {"γ", gamma_series_func, SUM},
+};
 
-void handle_limits(long double eps) {
+const dichotomy_t dichotomy_table[] = {
+  {"e", e_equation},
+  {"π", pi_equation},
+  {"ln2", ln2_equation},
+  {"√2", sqrt_equation},
+  {"γ", gamma_equation},
+};
+
+void handle_calcs(long double eps) {
   printf("eps: %Lf\n", eps);
-  limit_print_and_calc(sequence_table, length_of_sequence, eps);
+  limit_print_and_calc(sequence_table, SIZEOF_ARRAY(sequence_table), eps);
+  series_calc_and_print(series_table, SIZEOF_ARRAY(series_table), eps);
+  dichotomy_print_solutions(dichotomy_table, SIZEOF_ARRAY(dichotomy_table), eps);
 }
 
 void default_handler(const int, const char**) {
-  handle_limits(DEFAULT_EPS);
+  handle_calcs(DEFAULT_EPS);
 }
 
 void e_arg_handler(const int token_count, const char** tokens) {
   long double eps = 0;
   parse_handle_errors(parse_one_double(token_count, tokens, &eps));
-  handle_limits(eps);
+  handle_calcs(eps);
 }

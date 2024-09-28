@@ -1,8 +1,7 @@
 /**
  * @file
- * @brief
- * @details
- * @author xsestech 
+ * @brief Functions that makes working with strings easier
+ * @author xsestech
  * @date 22.09.2024
  */
 #include <libtask/string.h>

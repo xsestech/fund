@@ -8,6 +8,7 @@
 #define LIMITS_H
 
 #include <math.h>
+#include <stdio.h>
 #include <libtask/math.h>
 #include <libconfig/config.h>
 
@@ -15,12 +16,30 @@
  * @brief Type for sequence function
  */
 typedef long double (*sequence_func_t)(const long double n,
-                                       const long double prev);
+                                           const long double prev);
 
 typedef struct {
   char name[50];
   sequence_func_t func;
 } sequence_t;
+
+/**
+ * @brief Calculate limit of Cauchy sequence up to given precision
+ * @param func function, that calculates sequence value for n
+ * @param eps precision of calculations
+ * @return value of sequence for given precision
+ */
+long double limit_with_precision(const sequence_func_t func,
+                                 const long double eps);
+
+/**
+ * @brief Calculate limit up to precision and print
+ * @param sequences array of sequences funcs and names
+ * @param n_seq size of array
+ * @param eps precision of calculations
+ */
+void limit_print_and_calc(const sequence_t sequences[], int n_seq,
+                          long double eps);
 
 /**
  * @brief Calculates n-th sequence \f$ e_n = (1 + \frac{1}{n})^n \f$
@@ -62,24 +81,6 @@ long double sqrt2_sequence_func_accum(const long double n,
  */
 long double gamma_sequence_func(const long double n,
                                 const long double prev);
-
-/**
- * @brief Calculate limit of Cauchy sequence up to given precision
- * @param func function, that calculates sequence value for n
- * @param eps precision of calculations
- * @return value of sequence for given precision
- */
-long double limit_with_precision(const sequence_func_t func,
-                                 const long double eps);
-
-/**
- * @brief Calculate limit up to precision and print
- * @param sequences array of sequences funcs and names
- * @param n_seq size of array
- * @param eps precision of calculations
- */
-void limit_print_and_calc(const sequence_t sequences[], int n_seq,
-                          long double eps);
 
 
 #endif //LIMITS_H

@@ -26,3 +26,15 @@ long double combinations_incr_k(const int n, const int k, const int c_n_k) {
 long double combinations_incr_n(const int n, const int k, const int c_n_k) {
   return c_n_k * (n + 1) / (n + 1 - k);
 }
+
+void primes(bool* is_prime, const int n) {
+  memset(is_prime, true, sizeof(bool) * n - 1);
+
+  for (int i = 2; i <= n - 1; i++) {
+    if (is_prime[i]) {
+      for (int j = 2 * i; j <= n - 1; j += i) {
+        is_prime[j] = false;
+      }
+    }
+  }
+}

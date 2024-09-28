@@ -1,12 +1,12 @@
 /**
  * @file
- * @brief
- * @details
- * @author xsestech 
+ * @brief Shared math functions
+ * @author xsestech
  * @date 23.09.2024
  */
 #ifndef MATH_H
 #define MATH_H
+#include <string.h>
 
 /**
  * @brief Nothing more than simple factorial func.
@@ -44,5 +44,11 @@ long double combinations_incr_k(const int n, const int k, const int c_n_k);
  * @return \f$ C_{n + 1}^k \f$
  */
 long double combinations_incr_n(const int n, const int k, const int c_n_k);
+/**
+ * Calculate primes up to n - 1
+ * @param is_prime bool array of size n
+ * @param n size of primes
+ */
+void primes(bool* is_prime, const int n);
 
 #endif //MATH_H

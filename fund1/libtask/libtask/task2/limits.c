@@ -5,7 +5,7 @@
  */
 
 #include <libtask/task2/limits.h>
-#include <stdio.h>
+
 
 #define FIRST_PI_MEMBER 4.0
 #define FIRST_SQRT2_MEMBER -0.5
