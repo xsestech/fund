@@ -10,7 +10,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <libtask/math.h>
-#include <libtask/task2/limits.h>
+#include <libtask/numeric/limits.h>
 
 #define DICHOTOMY_START_RANGE 6 /** @brief Range of
 [-DICHOTOMY_START_RANGE, DICHOTOMY_START_RANGE] will be used on start  */

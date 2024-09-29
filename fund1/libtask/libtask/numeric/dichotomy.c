@@ -4,7 +4,7 @@
  * @date 28.09.2024
  */
 #include <stdlib.h>
-#include <libtask/task2/dichotomy.h>
+#include <libtask/numeric/dichotomy.h>
 
 long double gamma_c = 0;
 

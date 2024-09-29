@@ -7,6 +7,13 @@
 #ifndef MATH_H
 #define MATH_H
 #include <string.h>
+#include <math.h>
+
+
+typedef struct {
+  long double x1;
+  long double x2;
+} quadratic_solution_t;
 
 /**
  * @brief Nothing more than simple factorial func.
@@ -50,5 +57,13 @@ long double combinations_incr_n(const int n, const int k, const int c_n_k);
  * @param n size of primes
  */
 void primes(bool* is_prime, const int n);
-
+/**
+ * @brief Solve ax^2 + bx + c = 0
+ * @param a a coefficient
+ * @param b b coefficient
+ * @param c c coefficient
+ * @param eps comparison epsilon
+ */
+quadratic_solution_t solve_quadratic_equation(long double a, long double b,
+                                              long double c);
 #endif //MATH_H

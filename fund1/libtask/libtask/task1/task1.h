@@ -12,7 +12,6 @@
 #include <stdbool.h>
 
 #include <liberrors/errors.h>
-// #include <libcli3/cli.h>
 #include <libtask/string.h>
 #include <stdlib.h>
 

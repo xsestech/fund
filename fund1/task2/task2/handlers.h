@@ -9,11 +9,11 @@
 
 
 #include <libcli3/parsing/int.h>
-#include <libtask/task2/limits.h>
-#include <libtask/task2/series.h>
-#include <libtask/task2/dichotomy.h>
+#include <libtask/numeric/limits.h>
+#include <libtask/numeric/series.h>
+#include <libtask/numeric/dichotomy.h>
 #include <libcli3/parsing/params.h>
-#include <task2/utils.h>
+#include <libtask/utils.h>
 
 #define DEFAULT_EPS 1e-6
 

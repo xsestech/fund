@@ -2,7 +2,7 @@
 
 #include <libcli3/cli.h>
 
-#include <libtask/task1.h>
+#include <libtask/task1/task1.h>
 #include <libtask/utils.h>
 #include <task1/handlers.h>
 

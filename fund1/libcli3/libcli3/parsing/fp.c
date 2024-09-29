@@ -46,7 +46,7 @@ parsing_error_t parse_ld(const char* str, long double* result) {
     }
     mant = mant * 10 + (*str - '0');
   }
-  if (mant == 0) {
+  if (mant == 0 && frac) {
     mant = 1;
   }
   *result = mant / exp * sign;

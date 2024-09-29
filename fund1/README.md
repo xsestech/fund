@@ -1,4 +1,4 @@
-# Lab 1
+# Lab 1 [![wakatime](https://wakatime.com/badge/github/xsestech/fund.svg)](https://wakatime.com/badge/github/xsestech/fund)
 ## Usage
 ### Prerequisites
 You will need:
