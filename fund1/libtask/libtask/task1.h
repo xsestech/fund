@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief All math functions for task1
+ * @brief All math functions for task3
  * @author xsestech
  * @date 22.09.2024
  */
@@ -12,8 +12,9 @@
 #include <stdbool.h>
 
 #include <liberrors/errors.h>
-#include <libcli/cli.h>
+// #include <libcli3/cli.h>
 #include <libtask/string.h>
+#include <stdlib.h>
 
 typedef enum {
   TASK1_SUCCESS,

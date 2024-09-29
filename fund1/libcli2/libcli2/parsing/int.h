@@ -8,7 +8,7 @@
 #ifndef INT_H
 #define INT_H
 
-#include <libcli/parsing/errors.h>
+#include <libcli2/parsing/errors.h>
 #include <stdbool.h>
 #include <ctype.h>
 
@@ -32,7 +32,7 @@ parsing_error_t parse_int(const char* str, int* result, bool allow_negative);
  * PARSING_INVALID_TOKEN_COUNT_ERROR, PARSING_INVALID_CHARACTER_ERROR,
  * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
  */
-parsing_error_t parse_one_int(int token_count, const char** tokens,
+parsing_error_t parse_one_int(const int token_count, const char** tokens,
                               int* out);
 
 #endif //INT_H

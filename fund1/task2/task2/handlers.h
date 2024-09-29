@@ -8,11 +8,11 @@
 #define HANDLER_H
 
 
-#include <libcli/parsing/int.h>
+#include <libcli3/parsing/int.h>
 #include <libtask/task2/limits.h>
 #include <libtask/task2/series.h>
 #include <libtask/task2/dichotomy.h>
-#include <libcli/parsing/fp.h>
+#include <libcli3/parsing/params.h>
 #include <task2/utils.h>
 
 #define DEFAULT_EPS 1e-6

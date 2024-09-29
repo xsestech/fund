@@ -54,8 +54,8 @@ void dichotomy_print_solutions(const dichotomy_t dichotomies[],
 
 long double e_equation(long double x) {
   if (x == 0)
-    x = 1e-3;
-  return logl(x) - 1;
+    x = 1e-3L;
+  return logl(x) - 1.0L;
 }
 
 long double pi_equation(const long double x) {

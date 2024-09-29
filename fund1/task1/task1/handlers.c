@@ -4,6 +4,7 @@
  * @date 22.09.2024
  */
 #include <task1/handlers.h>
+#include <libtask/utils.h>
 
 
 void h_arg_handler(const int token_count, const char** tokens) {
@@ -51,7 +52,8 @@ void a_arg_handler(const int token_count, const char** tokens) {
     error_print("Input number must be greater than 1");
     return;
   }
-  printf("Sum of natural until %d is %lld\n", max_number, sum_of_natural(max_number));
+  printf("Sum of natural until %d is %lld\n", max_number,
+         sum_of_natural(max_number));
 }
 
 void f_arg_handler(const int token_count, const char** tokens) {

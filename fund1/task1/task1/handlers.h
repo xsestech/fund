@@ -9,7 +9,8 @@
 
 #include <libtask/task1.h>
 #include <libtask/math.h>
-#include <libcli/parsing/int.h>
+#include <libcli3/parsing/int.h>
+#include <libcli3/parsing/params.h>
 
 /**
  * @brief h arg

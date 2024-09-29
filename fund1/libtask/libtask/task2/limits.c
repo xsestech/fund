@@ -25,7 +25,7 @@ long double limit_with_precision(const sequence_func_t func,
 }
 
 long double e_sequence_func(const long double n, const long double) {
-  return powl(1 + 1 / n, n);
+  return powl(1.0L + 1.0L / n, n);
 }
 
 /**
@@ -35,7 +35,8 @@ long double e_sequence_func(const long double n, const long double) {
  * @return n + 1 member
  */
 long double delta_pi(const long double n) {
-  return (16 * powl(n + 1, 3) * n) / (powl(2 * n + 2, 2) * powl(2 * n + 1, 2));
+  return (16.0L * powl(n + 1.0L, 3) * n) / (
+           powl(2.0L * n + 2.0L, 2) * powl(2.0L * n + 1.0L, 2));
 }
 
 long double
@@ -55,7 +56,7 @@ long double sqrt2_sequence_func_accum(const long double n,
   if (n == 1) {
     return FIRST_SQRT2_MEMBER;
   }
-  return prev - powl(prev, 2) / 2  + 1;
+  return prev - powl(prev, 2) / 2 + 1;
 }
 
 

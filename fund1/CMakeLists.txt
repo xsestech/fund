@@ -38,7 +38,7 @@ target_compile_options(project_warnings
         -Woverloaded-virtual
         -Wpedantic
         -Wconversion
-        -Wsign-conversion
+#        -Wsign-conversion
         -Wnull-dereference
         -Wdouble-promotion
         -Wformat=2)
@@ -124,19 +124,26 @@ endif ()
 
 #add_executable(fund_lab1 ${sources})
 add_subdirectory(liberrors)
-add_subdirectory(libcli)
+#add_subdirectory(libcli)
+#add_subdirectory(libcli2)
+add_subdirectory(libcli3)
 add_subdirectory(libtask)
 add_subdirectory(libconfig)
 add_subdirectory(task1)
 add_subdirectory(task2)
+#add_subdirectory(task3)
 
-target_link_libraries(libcli PUBLIC liberrors project_options)
-target_link_libraries(libtask PUBLIC liberrors libcli libconfig project_options)
-target_link_libraries(task1 PUBLIC liberrors libcli libtask project_options
+#target_link_libraries(libcli PUBLIC liberrors project_options)
+#target_link_libraries(libcli2 PUBLIC liberrors project_options)
+target_link_libraries(libcli3 PUBLIC liberrors project_options)
+target_link_libraries(libtask PUBLIC liberrors libcli3 libconfig project_options)
+target_link_libraries(task1 PUBLIC liberrors libcli3 libtask project_options
         project_warnings)
-target_link_libraries(task2 PUBLIC liberrors libcli libtask project_options
+target_link_libraries(task2 PUBLIC liberrors libcli3 libtask project_options
         project_warnings)
-
+#target_link_libraries(task3 PUBLIC liberrors libcli3 libtask project_options
+#        project_warnings)
+#
 find_program(DSYMUTIL_PROGRAM dsymutil)
 if (APPLE)
     add_custom_command(TARGET ${task_name} POST_BUILD

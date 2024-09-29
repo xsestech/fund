@@ -13,3 +13,5 @@ void error_print(const char* format, ...) {
   vfprintf(stderr, format, args);
   va_end(args);
 }
+
+void error_handle_no_print(int error) {}

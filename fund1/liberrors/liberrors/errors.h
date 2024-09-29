@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdint.h>
 
 /** @brief Checks for liberrors in main, prints them and then returns code
  * @details This is the base for all modules to handle their
@@ -25,9 +26,10 @@
  */
 #define handle_errors_int(error, success, error_handle) \
   do {                                              \
-    if ((error) != (success)) {                     \
-      error_handle(error);                          \
-      return (error);                               \
+    int error__ = (error);                          \
+    if ((error__) != (success)) {                   \
+      error_handle(error__);                        \
+      return (error__);                             \
     }                                               \
   } while (0);
 /** @brief Checks for liberrors, prints them and exits function
@@ -44,8 +46,9 @@
  */
 #define handle_errors_void(error, success, error_handle) \
   do {                                              \
-    if ((error) != (success)) {                     \
-      error_handle(error);                          \
+    int error__ = (error);                          \
+    if (error__ != (success)) {                     \
+      error_handle(error__);                        \
       return;                                       \
     }                                               \
   } while (0);
@@ -55,4 +58,11 @@
  * @param ... vars to fill in format as in printf
  */
 void error_print(const char* format, ...);
+/**
+ * @brief Does nothing
+ * @details This func is needed internally to not print out error, until they
+ * reach higher level.
+ * @param error error code
+ */
+void error_handle_no_print(int error);
 #endif //ERRORS_H
