@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['limit_5fprint_5fand_5fcalc_0',['limit_print_and_calc',['../d6/d8f/limits_8c.html#a29e1c408008692eeb9462f14f29eedcf',1,'limit_print_and_calc(const sequence_t sequences[], const int n_seq, const long double eps):&#160;limits.c'],['../d9/d86/limits_8h.html#aaf878d8a5ff0760a27ca60f269e5ee0d',1,'limit_print_and_calc(const sequence_t sequences[], int n_seq, long double eps):&#160;limits.c']]],
+  ['limit_5fwith_5fprecision_1',['limit_with_precision',['../d6/d8f/limits_8c.html#a17a121555665dae718a0f3882b6641ef',1,'limit_with_precision(const sequence_func_t func, const long double eps):&#160;limits.c'],['../d9/d86/limits_8h.html#a17a121555665dae718a0f3882b6641ef',1,'limit_with_precision(const sequence_func_t func, const long double eps):&#160;limits.c']]],
+  ['ln2_5fequation_2',['ln2_equation',['../df/dea/dichotomy_8c.html#a9fe06930d810631178fd447f15205e50',1,'ln2_equation(const long double x):&#160;dichotomy.c'],['../d8/d43/dichotomy_8h.html#a9fe06930d810631178fd447f15205e50',1,'ln2_equation(const long double x):&#160;dichotomy.c']]],
+  ['ln2_5fsequence_5ffunc_3',['ln2_sequence_func',['../d6/d8f/limits_8c.html#a82b9e92ac8ecee809f9182e3a86b504d',1,'ln2_sequence_func(const long double n, const long double):&#160;limits.c'],['../d9/d86/limits_8h.html#a82b9e92ac8ecee809f9182e3a86b504d',1,'ln2_sequence_func(const long double n, const long double):&#160;limits.c']]],
+  ['ln2_5fseries_5ffunc_4',['ln2_series_func',['../d7/dbc/numeric_2series_8c.html#afe55c8a01cd71db428a5008c136b54ca',1,'ln2_series_func(const long double n, va_list):&#160;series.c'],['../da/d9d/numeric_2series_8h.html#aa22dba638e093b544c6b9cb78bd5af68',1,'ln2_series_func(const long double n, va_list args):&#160;series.c']]]
+];
