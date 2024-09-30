@@ -32,6 +32,9 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}/fund1
     steps:
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - name: Install doxygen
         run: sudo apt install -y doxygen
       - name: Generate docs for fund1
