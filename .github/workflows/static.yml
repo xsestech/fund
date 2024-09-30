@@ -28,9 +28,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}/fund1
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: fund1/
+    # defaults:
+    #   run:
+    #     working-directory: fund1/
     steps:
       - name: Install doxygen
         run: ls && sudo apt install doxygen
