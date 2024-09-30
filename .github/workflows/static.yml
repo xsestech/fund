@@ -26,9 +26,13 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/fund1
     runs-on: ubuntu-latest
     steps:
+      - name: Install doxygen
+        run: sudo apt install doxygen
+      - name: Generate docs for fund1
+        run: cd fund1/ && cmake -S . -B build && cmake --build build --target doc_doxygen
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
