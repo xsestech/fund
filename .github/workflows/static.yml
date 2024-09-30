@@ -28,12 +28,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}/fund1
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: fund1/
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/fund1
     steps:
       - name: Install doxygen
-        run: ls && sudo apt install doxygen
+        run: sudo apt install -y doxygen
       - name: Generate docs for fund1
         run: cmake -S . -B build && cmake --build build --target doc_doxygen
       - name: Checkout
