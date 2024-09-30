@@ -28,11 +28,14 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}/fund1
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./fund1
     steps:
       - name: Install doxygen
         run: sudo apt install doxygen
       - name: Generate docs for fund1
-        run: cd fund1/ && cmake -S . -B build && cmake --build build --target doc_doxygen
+        run: cmake -S . -B build && cmake --build build --target doc_doxygen
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
@@ -41,7 +44,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'fund1/docs/html'
+          path: 'docs/html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
