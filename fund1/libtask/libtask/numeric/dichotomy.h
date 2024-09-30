@@ -21,9 +21,10 @@
  */
 typedef long double (*dichotomy_func_t)(const long double n);
 
-typedef struct {
-  char name[50];
-  dichotomy_func_t func;
+typedef struct
+{
+    char name[50];
+    dichotomy_func_t func;
 } dichotomy_t;
 
 
@@ -46,36 +47,36 @@ void dichotomy_print_solutions(const dichotomy_t dichotomies[],
                                const long double eps);
 
 /**
- * @brief ln(x) = 1 in form of f(x) = 0
+ * @brief \f$ ln(x) = 1 \f$  in form of  \f$ f(x) = 0 \f$
  * @param x x variable for func
  * @return 
  */
 long double e_equation(const long double x);
 
 /**
- * @brief cos(x) = -1 in form of f(x) = 0
+ * @brief \f$ cos(x) = -1 \f$  in form of \f$ f(x) = 0 \f$
  * @param x x variable for func
  * @return
  */
 long double pi_equation(const long double x);
 
 /**
- * @brief e^x = 2 in form of f(x) = 0
+ * @brief \f$ e^x = 2 \f$  in form of \f$  f(x) = 0\f$
  * @param x x variable for func
  * @return
  */
 long double ln2_equation(const long double x);
 
 /**
- * @brief x^2 = 2 in form of f(x) = 0
+ * @brief \f$ x^2 = 2 \f$  in form of \f$ f(x) = 0 \f$
  * @param x x variable for func
  * @return
  */
 long double sqrt_equation(const long double x);
 
 /**
- * @brief \f$ e^-x = \lim_{t\to\inf} ln(t) \prod{p \leq t, p\inP} \frac{p - 1}{p}\f$
- * in form of f(x) = 0
+ * @brief \f$ \displaystyle e^{-x} = \lim\limits_{t\to\infty} ln(t) \prod_{p \leq t, p \in P} \frac{p - 1}{p} \f$
+ * in form of \f$ f(x) = 0 \f$
  * @param x x variable for func
  * @return
  */

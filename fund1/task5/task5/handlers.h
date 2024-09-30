@@ -14,10 +14,10 @@
 #include <libtask/numeric/dichotomy.h>
 #include <libcli3/parsing/params.h>
 #include <libtask/utils.h>
-
+#include <libtask/task5/series.h>
 
 #define DEFAULT_EPS 1e-6
-
+#define DEFAULT_X 1
 
 
 /**

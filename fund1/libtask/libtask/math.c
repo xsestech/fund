@@ -16,6 +16,7 @@ long long int factorial(const int number) {
   return result;
 }
 
+
 long double combinations(const int n, const int k) {
   return factorial(n) / (factorial(k) * factorial(n - k));
 }

@@ -6,7 +6,6 @@ set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 option(LIBCPP "Build with libc++" FALSE)
 option(ENABLE_ASAN "Enable address sanitizer" FALSE)
 option(ENABLE_CLANG_TIDY "Enable testing with clang-tidy" FALSE)
@@ -14,6 +13,7 @@ option(ENABLE_CPPCHECK "Enable testing with cppcheck" FALSE)
 option(SIMPLE_BUILD "Build the project as minimally as possible" FALSE)
 option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." TRUE)
 option(DEBUG_LOGGING "Enabling debug logging" FALSE)
+option(BUILD_DOC "Build documentation" FALSE)
 add_library(project_warnings INTERFACE)
 add_library(project_options INTERFACE)
 
@@ -94,10 +94,30 @@ if (ENABLE_CLANG_TIDY)
         message(SEND_ERROR "clang-tidy requested but executable not found")
     endif ()
 endif ()
-#configure_file (
-#        "${PROJECT_SOURCE_DIR}/config/config.hpp.in"
-#        "${PROJECT_BINARY_DIR}/config/config.hpp")
-#
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+    # set input and output files
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    set(DOXYGEN_HTML ${CMAKE_CURRENT_SOURCE_DIR}/docs/html/index.html)
+    # request to configure the file
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    message("Doxygen build started")
+
+    # note the option ALL which allows to build the docs together with the application
+    add_custom_target(doc_doxygen ALL
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM )
+    ADD_CUSTOM_COMMAND(OUTPUT ${DOXYGEN_HTML}
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+            MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
+            COMMENT "Generating Doxygen documentation"
+            VERBATIM)
+else (DOXYGEN_FOUND)
+    message("Doxygen need to be installed to generate the doxygen documentation")
+endif (DOXYGEN_FOUND)
 
 message("#########################################")
 message("\t \t Summary")
@@ -114,15 +134,7 @@ message("CCache executable:\t ${CCACHE}")
 message("Building doc:     \t ${BUILD_DOC}")
 message("------------------------------------------")
 message("Version:          \t ${PROJECT_VERSION}")
-message("########################################")
 
-
-if (APPLE )
-
-endif ()
-
-
-#add_executable(fund_lab1 ${sources})
 add_subdirectory(liberrors)
 #add_subdirectory(libcli)
 #add_subdirectory(libcli2)
@@ -132,6 +144,7 @@ add_subdirectory(libconfig)
 add_subdirectory(task1)
 add_subdirectory(task2)
 add_subdirectory(task3)
+add_subdirectory(task5)
 
 #target_link_libraries(libcli PUBLIC liberrors project_options)
 #target_link_libraries(libcli2 PUBLIC liberrors project_options)
@@ -142,6 +155,8 @@ target_link_libraries(task1 PUBLIC liberrors libcli3 libtask project_options
 target_link_libraries(task2 PUBLIC liberrors libcli3 libtask project_options
         project_warnings)
 target_link_libraries(task3 PUBLIC liberrors libcli3 libtask project_options
+        project_warnings)
+target_link_libraries(task5 PUBLIC liberrors libcli3 libtask project_options
         project_warnings)
 
 find_program(DSYMUTIL_PROGRAM dsymutil)

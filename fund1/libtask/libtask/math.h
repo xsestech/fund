@@ -26,6 +26,7 @@ typedef struct {
  * @return number!
  */
 long long int factorial(const int number);
+long double factoriald(const double number);
 
 /**
  * Computes \f$ C_n^k \f$ using factorial

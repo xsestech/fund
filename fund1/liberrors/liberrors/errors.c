@@ -9,7 +9,7 @@
 void error_print(const char* format, ...) {
   va_list args;
   va_start(args, format);
-  fprintf(stderr, "Error: ");
+  // fprintf(stderr, "Error: ");
   vfprintf(stderr, format, args);
   va_end(args);
 }

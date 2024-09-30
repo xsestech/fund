@@ -20,7 +20,7 @@ typedef struct {
   parsing_param_type_t param_type;
 
   union {
-    double fp;
+    long double fp;
     int integer;
     char string[PARSING_MAX_STRING_LENGTH];
   };

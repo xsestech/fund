@@ -50,7 +50,7 @@ void limit_print_and_calc(const sequence_t sequences[], int n_seq,
 long double e_sequence_func(const long double n, const long double);
 
 /**
- * @brief Calculates delta for \f$ {\pi}_n = frac{(2^n * n!)^4}{n((2n)!)^2}\f$
+ * @brief Calculates delta for \f$ {\pi}_n = \frac{(2^n * n!)^4}{n((2n)!)^2}\f$
  * member value
  * @param n sequence member number
  * @return value of n-th member
@@ -67,7 +67,7 @@ long double ln2_sequence_func(const long double n, const long double);
 
 /**
  * @brief Calculates sqrt(2) using limits
- * @details \f$ x_0 = -0.5 \f$ \f$ {\x}_{n + 1} = x_n - \frac{x_n^2}{2}\f$
+ * @details \f$ x_0 = -0.5 \f$ \f$ {x}_{n + 1} = x_n - \frac{x_n^2}{2} + 1\f$
  * member value
  * @param n sequence member number
  * @return value of n-th member

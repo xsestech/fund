@@ -30,6 +30,9 @@ void parse_error_handler(const parsing_error_t error) {
     case PARSING_PARAMS_ALLOCATION_ERROR:
       error_print("Parameters allocation error");
       break;
+    case PARSING_PARAM_TYPE_ERROR:
+      error_print("Unknown parameter type was specified");
+      break;
     default: error_print("Unknown error");
   }
 }

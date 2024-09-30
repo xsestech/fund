@@ -43,23 +43,28 @@ cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
   if (argc < 2) {
     return CLI_INVALID_PARAMS_COUNT_ERROR;
   }
-  if (strlen(argv[1]) > 2) {
-    return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
-  }
-  if (argv[1][0] != '-' && argv[1][0] != '/') {
-    return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
-  }
+  // if (strlen(argv[1]) > 2) {
+  //   return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
+  // }
+  // if (argv[1][0] != '-' && argv[1][0] != '/') {
+  //   return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
+  // }
   if (!isalpha(argv[1][1])) {
     return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
   }
-  for (int i = 0; i < cli->num_commands; i++) {
-    const cli_command_t command = cli->commands[i];
-    if (command.argument_name == argv[1][1]) {
-      command.callback(argc - 1, argv + 1);
-      return CLI_SUCCESS;
+  if (argv[1][0] == '-' || argv[1][0] == '/') {
+    for (int i = 0; i < cli->num_commands; i++) {
+      const cli_command_t command = cli->commands[i];
+      if (command.argument_name == argv[1][strlen(argv[1]) - 1]) {
+        command.callback(argc - 1, argv + 1);
+        return CLI_SUCCESS;
+      }
     }
+    return CLI_ARGUMENT_NOT_FOUND_ERROR;
   }
-  return CLI_ARGUMENT_NOT_FOUND_ERROR;
+  if (cli->default_callback) {
+    cli->default_callback(argc, argv);
+  }
 }
 
 void cli_destroy(cli_handle_t* cli) {
@@ -67,6 +72,7 @@ void cli_destroy(cli_handle_t* cli) {
 }
 
 void cli_error_handler(const cli_error_t error) {
+  error_print("CLI Error: ");
   switch (error) {
     case CLI_ALLOCATION_ERROR:
       error_print("Failed to allocate memory for cli_parse_args\n");

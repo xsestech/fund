@@ -11,8 +11,9 @@
 #include <stdio.h>
 #include <libtask/math.h>
 #include <libconfig/config.h>
+#include <stdarg.h>
 
-typedef long double (*series_member_func_t)(long double);
+typedef long double (*series_member_func_t)(long double, va_list args);
 
 typedef enum {
   SUM,
@@ -31,7 +32,7 @@ typedef struct {
  * @param n series member number
  * @return value of n-th member
  */
-long double e_series_func(const long double n);
+long double e_series_func(const long double n, va_list args);
 
 /**
  * @brief Calculates pi using series
@@ -39,21 +40,21 @@ long double e_series_func(const long double n);
  * @param n series member number
  * @return value of n-th member
  */
-long double pi_series_func(const long double n);
+long double pi_series_func(const long double n, va_list args);
 /**
  * @brief Calculates ln2 using series
  * SUM SERIES
  * @param n series member number
  * @return value of n-th member
  */
-long double ln2_series_func(const long double n);
+long double ln2_series_func(const long double n, va_list args);
 /**
  * @brief Calculates sqrt2 using series
  * PRODUCT SERIES
  * @param n series member number
  * @return value of n-th member
  */
-long double sqrt2_series_func_prod(const long double n);
+long double sqrt2_series_func_prod(const long double n, va_list args);
 
 /**
  * @brief Calculates sqrt2 using series
@@ -61,7 +62,7 @@ long double sqrt2_series_func_prod(const long double n);
  * @param n series member number
  * @return value of n-th member
  */
-long double gamma_series_func(const long double n);
+long double gamma_series_func(const long double n, va_list args);
 
 /**
  * Calculate series value up to precision. Precision is calculated based on
@@ -69,11 +70,12 @@ long double gamma_series_func(const long double n);
  * @param series_member_func series kth memeber value
  * @param series_type Type of series
  * @param eps precision
+ * @param args argruments
  * @return Value up to precision
  */
 long double series_with_precision(series_member_func_t series_member_func,
                                   series_type_t series_type,
-                                  long double eps);
+                                  long double eps, va_list args);
 
 
 /**
@@ -81,9 +83,10 @@ long double series_with_precision(series_member_func_t series_member_func,
  * @param series_array
  * @param n_series
  * @param eps precision of calculations
+ * @param ... additional args to pass to series func
  */
 void series_calc_and_print(series_t series_array[], int n_series,
-                           long double eps);
+                           long double eps, ...);
 
 
 #endif //SERIES_H
