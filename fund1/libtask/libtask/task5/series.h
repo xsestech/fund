@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Functions for series for task5
+ * @brief Functions for series for task6
  * @details
  * @author xsestech 
  * @date 30.09.2024
