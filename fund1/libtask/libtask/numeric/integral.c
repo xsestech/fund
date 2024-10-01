@@ -8,12 +8,11 @@
 
 #include <libtask/numeric/integral.h>
 
-typedef long double (*integral_method_t)(integral_func_t f, long double a,
-                                         long double b, long int steps);
 
 long double integrate_trapezoidal_steps(const integral_func_t f,
                                         const long double a,
-                                        const long double b, const long int steps) {
+                                        const long double b,
+                                        const long int steps) {
   long double dx = (b - a) / steps;
   long double y_a = f(a);
   if (isnan(y_a) || isinf(y_a)) {
@@ -31,7 +30,7 @@ long double integrate_trapezoidal_steps(const integral_func_t f,
   return result * dx / 2;
 }
 
-long double integrate_until_runge_precision_reached(
+long double integrate_until_precision_reached(
     const integral_method_t m, const integral_func_t f, const long double a,
     const long double b, const long double eps) {
   long int steps = 1;
@@ -54,18 +53,20 @@ long double integrate_until_runge_precision_reached(
 
 long double integrate_trapezoidal(const integral_func_t f, const long double a,
                                   const long double b, const long double eps) {
-  return integrate_until_runge_precision_reached(
+  return integrate_until_precision_reached(
       integrate_trapezoidal_steps, f, a, b, eps);
 
 }
 
-void integrate_and_print(const integral_t* integrals, const int n_int,
+void integrate_and_print(const integral_method_t m, const integral_t* integrals,
+                         const int n_int,
                          const long double eps) {
   printf("Integrals:\n");
   for (int i = 0; i < n_int; i++) {
     integral_t integral = integrals[i];
     printf("%s integral: %Lf\n", integral.name,
-           integrate_trapezoidal(integral.f, integral.a, integral.b, eps));
+           integrate_until_precision_reached(m, integral.f, integral.a,
+                                             integral.b, eps));
   }
 }
 

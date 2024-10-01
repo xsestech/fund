@@ -17,19 +17,19 @@ const integral_t integrals_table[] = {
 };
 
 
-
-
 void default_handler(const int token_count, const char** tokens) {
   long double eps = DEFAULT_EPS;
   if (token_count > 1) {
     parse_handle_errors(parse_one_double(token_count, tokens, &eps));
   }
-  integrate_and_print(integrals_table, SIZEOF_ARRAY(integrals_table), eps);
+  integrate_and_print(integrate_trapezoidal_steps, integrals_table,
+                      SIZEOF_ARRAY(integrals_table), eps);
 }
 
 void e_arg_handler(const int token_count, const char** tokens) {
   long double eps = 0;
   parse_handle_errors(parse_one_double(token_count, tokens, &eps));
 
-  integrate_and_print(integrals_table, SIZEOF_ARRAY(integrals_table), eps);
+  integrate_and_print(integrate_trapezoidal_steps, integrals_table,
+                      SIZEOF_ARRAY(integrals_table), eps);
 }
