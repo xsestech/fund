@@ -64,7 +64,9 @@ cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
   }
   if (cli->default_callback) {
     cli->default_callback(argc, argv);
+    return CLI_SUCCESS;
   }
+  return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
 }
 
 void cli_destroy(cli_handle_t* cli) {
