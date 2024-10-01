@@ -19,6 +19,8 @@
 
 /**
  * @brief Default function to call if not args are present
+ * @details Вычислить значения интегралов с точностью ε, где ε
+ * (вещественное число) подаётся программе в виде аргумента командной строки
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
@@ -26,9 +28,8 @@ void default_handler(const int token_count, const char** tokens);
 
 /**
  * @brief e arg
- * @details таблицу степеней (для всех показателей в диапазоне от 1 до x)
- * оснований от 1 до 10; для этого флага работает ограничение на вводимое число:
- * x должен быть не больше 10;
+ * @details Вычислить значения интегралов с точностью ε, где ε
+ * (вещественное число) подаётся программе в виде аргумента командной строки
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
