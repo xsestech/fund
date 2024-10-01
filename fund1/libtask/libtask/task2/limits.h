@@ -1,45 +1,15 @@
 /**
  * @file
- * @brief Calculating limits
- * @author xsestech
- * @date 23.09.2024
+ * @brief
+ * @details
+ * @author xsestech 
+ * @date 01.10.2024
  */
-#ifndef LIMITS_H
-#define LIMITS_H
-
-#include <math.h>
-#include <stdio.h>
-#include <libtask/math.h>
-#include <libconfig/config.h>
-
-/**
- * @brief Type for sequence function
- */
-typedef long double (*sequence_func_t)(const long double n,
-                                           const long double prev);
-
-typedef struct {
-  char name[50];
-  sequence_func_t func;
-} sequence_t;
-
-/**
- * @brief Calculate limit of Cauchy sequence up to given precision
- * @param func function, that calculates sequence value for n
- * @param eps precision of calculations
- * @return value of sequence for given precision
- */
-long double limit_with_precision(const sequence_func_t func,
-                                 const long double eps);
-
-/**
- * @brief Calculate limit up to precision and print
- * @param sequences array of sequences funcs and names
- * @param n_seq size of array
- * @param eps precision of calculations
- */
-void limit_print_and_calc(const sequence_t sequences[], int n_seq,
-                          long double eps);
+#ifndef TASK2_LIMITS_H
+#define TASK2_LIMITS_H
+#include <libmath/math.h>
+#include <stdlib.h>
+#include <libmath/numeric/limits.h>
 
 /**
  * @brief Calculates n-th sequence \f$ e_n = (1 + \frac{1}{n})^n \f$
@@ -53,6 +23,7 @@ long double e_sequence_func(const long double n, const long double);
  * @brief Calculates delta for \f$ {\pi}_n = \frac{(2^n * n!)^4}{n((2n)!)^2}\f$
  * member value
  * @param n sequence member number
+ * @param prev previous func value
  * @return value of n-th member
  */
 long double pi_sequence_func_accum(const long double n, const long double prev);
@@ -70,6 +41,7 @@ long double ln2_sequence_func(const long double n, const long double);
  * @details \f$ x_0 = -0.5 \f$ \f$ {x}_{n + 1} = x_n - \frac{x_n^2}{2} + 1\f$
  * member value
  * @param n sequence member number
+ * @param prev previous func value
  * @return value of n-th member
  */
 long double sqrt2_sequence_func_accum(const long double n,
@@ -77,10 +49,17 @@ long double sqrt2_sequence_func_accum(const long double n,
 /**
  * @brief Calculates gamma using limits
  * @param n sequence member number
+ * @param prev previous func value
  * @return value of n-th member
  */
 long double gamma_sequence_func(const long double n,
                                 const long double prev);
 
+/**
+ * @brief Constant sequence in gamma dichotomy
+ */
+long double gamma_const_sequence(const long double x, const long double prev);
 
-#endif //LIMITS_H
+
+
+#endif //TASK2_LIMITS_H

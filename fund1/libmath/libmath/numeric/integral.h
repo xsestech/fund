@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <libconfig/config.h>
 
-// @todo ADD DOCS
 
 typedef long double (*integral_func_t)(const long double); /** @breif function,
 that we will be integrating */
@@ -80,9 +79,6 @@ long double integrate_until_precision_reached(
 void integrate_and_print(const integral_method_t m,const integral_t* integrals, const int n_int,
                          const long double eps);
 
-long double a_func(long double x);
-long double b_func(long double x);
-long double c_func(long double x);
-long double d_func(long double x);
+
 
 #endif //INTEGRAL_H

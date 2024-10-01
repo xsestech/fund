@@ -9,9 +9,6 @@
 
 
 #include <libcli3/parsing/int.h>
-#include <libtask/numeric/limits.h>
-#include <libtask/numeric/series.h>
-#include <libtask/numeric/dichotomy.h>
 #include <libcli3/parsing/params.h>
 #include <libtask/utils.h>
 #include <libtask/task5/series.h>

@@ -8,10 +8,7 @@
 
 #include <libtask/task3/task3.h>
 
-bool is_lf_equal(const long double a, const long double b,
-                 const long double eps) {
-  return fabsl(a - b) < eps;
-}
+
 
 // int lf_compare(long double a, long double b, long double eps) {
 //   if (is_lf_equal(a, b, eps))
@@ -70,10 +67,15 @@ bool next_permutation(long double* a, const int n, const long double eps) {
 //     printf("%Lf %Lf %Lf \n", coef[0], coef[1], coef[2]);
 //   }
 // }
+/**
+ * @brief Prints quadratic equation solutions
+ * @details Solves quadratic equations and prints out the solution if equation is
+ * solvable
+ */
 void print_solution(const long double a, const long double b,
                     const long double c,
                     const long double eps) {
-  const quadratic_solution_t solution = solve_quadratic_equation(a, b, c);
+  const quadratic_solution_t solution = solve_quadratic_equation(a, b, c, eps);
   if (isnan(solution.x1) || isnan(solution.x2)) {
     return;
   }
@@ -89,7 +91,9 @@ void print_solution(const long double a, const long double b,
   printf("%Lf %Lf \n", solution.x1, solution.x2);
 }
 
-
+/**
+ * @brief Prints solutions for all variables permutations
+ */
 void permute_solutions(const long double a, const long double b,
                        const long double c,
                        const long double eps) {
@@ -107,16 +111,26 @@ void permute_solutions(const long double a, const long double b,
   }
 }
 
+
 void task3_solve_quadratic_equation(const long double a, const long double b,
                                     const long double c,
                                     const long double eps) {
   permute_solutions(a, b, c, eps);
 }
 
+/**
+ * @brief Checks if \f$ a^2 + b^2 = c^2 \f$
+ * @param a length of leg
+ * @param b length of another leg
+ * @param c length of hypotenuse
+ * @param eps precision of comparison
+ * @return
+ */
 bool check_triangle(const long double a, const long double b,
-                    const long double c, long double eps) {
+                    const long double c, const long double eps) {
   return is_lf_equal(a * a + b * b, c * c, eps);
 }
+
 
 bool task3_is_right_triangle(const long double a, const long double b,
                              const long double c, const long double eps) {

@@ -11,6 +11,11 @@
 #include <string.h>
 #include <math.h>
 
+/**
+ * @brief Reverses string
+ * @param str string to reverse
+ * @return reversed string
+ */
 char* strrev(char* str);
 
 #endif //STRING_H

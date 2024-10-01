@@ -7,7 +7,7 @@
  */
 #ifndef TASK3_H
 #define TASK3_H
-#include <libtask/math.h>
+#include <libmath/math.h>
 #include <libtask/utils.h>
 #include <stdio.h>
 #include <stdlib.h>

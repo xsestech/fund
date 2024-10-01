@@ -17,10 +17,11 @@
 
 /**
  * @brief Initialize params array based on amount of tokens
- * @param params[out] pointer to array, that will be initialized
- * @param num_tokens[in] number of tokens
+ * @param[out] params pointer to array, that will be initialized
+ * @param[in] num_tokens number of tokens
  * @return PARSING_ALLOCATION_ERROR or PARSING_SUCCESS
  */
+
 parsing_error_t parsing_init_params(parsing_param_t** params,
                                     const size_t num_tokens);
 /**
@@ -30,11 +31,11 @@ parsing_error_t parsing_init_params(parsing_param_t** params,
 void parsing_destroy_params(parsing_param_t* params);
 /**
  * @brief Parses given params according to given types
- * @param tokens[in] params tokens with args
- * @param n_tokens[in] number of tokens plus arg
- * @param param_types[in] types to parse
- * @param n_params[in] number of params
- * @param params[out] parsed params
+ * @param[in] tokens params tokens with args
+ * @param[in] n_tokens number of tokens plus arg
+ * @param[in] param_types types to parse
+ * @param[in] n_params number of params
+ * @param[out] params parsed params
  * @return Errors from parse_int, parse_ld, parse_string or
  * PARSING_INVALID_PARAMETER_AMOUNT_ERROR or PARSING_SUCCESS
  */
@@ -56,12 +57,42 @@ parsing_error_t parse_arg_params(
  */
 parsing_error_t parse_one_int(int token_count, const char** tokens,
                               int* out);
-
+/**
+ * @brief Converts only one double from tokens
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ * @param out variable to write converted int
+ * @return Error raised during parsing. Could be PARSING_SUCCESS,
+ * PARSING_INVALID_TOKEN_COUNT_ERROR, PARSING_INVALID_CHARACTER_ERROR,
+ * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
+ */
 parsing_error_t parse_one_double(int token_count, const char** tokens,
                                  long double* out);
-
-parsing_error_t parse_one_double_and_int(const int token_count, const char** tokens,
-                                 long double* eps, int* x);
+/**
+ * @brief Converts only one double and int from tokens
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ * @param eps pointer precision
+ * @param x pointer number
+ * @return Error raised during parsing. Could be PARSING_SUCCESS,
+ * PARSING_INVALID_TOKEN_COUNT_ERROR, PARSING_INVALID_CHARACTER_ERROR,
+ * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
+ */
+parsing_error_t parse_two_double(const int token_count, const char** tokens,
+                                         long double* eps, long double* x);
+/**
+ * @brief Converts only one double and int from tokens
+ * @param[in] token_count number of input tokens
+ * @param[in] tokens array of tokens
+ * @param[out] eps precision
+ * @param[out] a second parsed number
+ * @param[out] b third parsed number
+ * @param[out] c fourth parsed number
+ * @param[out] eps first parsed number(precision)
+ * @return Error raised during parsing. Could be PARSING_SUCCESS,
+ * PARSING_INVALID_TOKEN_COUNT_ERROR, PARSING_INVALID_CHARACTER_ERROR,
+ * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
+ */
 parsing_error_t parse_three_double_and_eps(int token_count, const char** tokens,
                                            long double* a, long double* b,
                                            long double* c, long double* eps);

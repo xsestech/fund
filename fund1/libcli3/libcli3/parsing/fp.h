@@ -13,8 +13,8 @@
 #include <ctype.h>
 /**
  * Parsing long double from a string
- * @param str[in] input string
- * @param result[out] double to parse
+ * @param[in] str input string
+ * @param[out] result double to parse
  * @return
  */
 parsing_error_t parse_ld(const char* str, long double* result);

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <task6/handlers.h>
 
-#include <libtask/numeric/integral.h>
+#include <libtask/task6/integral.h>
 
 
 const integral_t integrals_table[] = {

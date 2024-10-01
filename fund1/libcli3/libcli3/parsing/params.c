@@ -89,9 +89,9 @@ parsing_error_t parse_one_double(const int token_count, const char** tokens,
   parsing_destroy_params(params);
   return PARSING_SUCCESS;
 }
-parsing_error_t parse_one_double_and_int(const int token_count, const char** tokens,
-                                 long double* eps, int* x) {
-  const parsing_param_type_t param_types[] = {PARSING_FLOAT, PARSING_INT};
+parsing_error_t parse_two_double(const int token_count, const char** tokens,
+                                         long double* eps, long double* x) {
+  const parsing_param_type_t param_types[] = {PARSING_FLOAT, PARSING_FLOAT};
   parsing_param_t* params;
   parse_handle_errors_internal(parsing_init_params(&params, token_count));
   parse_handle_errors_internal(
@@ -99,7 +99,7 @@ parsing_error_t parse_one_double_and_int(const int token_count, const char** tok
         sizeof
         (param_types[0]), params));
   *eps = params[0].fp;
-  *x = params[1].integer;
+  *x = params[1].fp;
   parsing_destroy_params(params);
   return PARSING_SUCCESS;
 }

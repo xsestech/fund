@@ -1,28 +1,14 @@
 /**
  * @file
- * @author xsestech
- * @date 23.09.2024
+ * @brief
+ * @details
+ * @author xsestech 
+ * @date 01.10.2024
  */
-
-#include <libtask/numeric/limits.h>
-
+#include <libtask/task2/limits.h>
 
 #define FIRST_PI_MEMBER 4.0
 #define FIRST_SQRT2_MEMBER -0.5
-
-long double limit_with_precision(const sequence_func_t func,
-                                 const long double eps) {
-  long double prev = func(1, 0);
-  long long int n = 2;
-  do {
-    prev = func(n, prev);
-#ifdef DEBUG_LOGGING
-    printf("%Lf\n", prev);
-#endif
-    n += 1;
-  } while (fabsl(func(n, prev) - prev) >= eps);
-  return prev;
-}
 
 long double e_sequence_func(const long double n, const long double) {
   return powl(1.0L + 1.0L / n, n);
@@ -69,12 +55,17 @@ long double gamma_sequence_func(const long double n,
   return sum;
 }
 
-void limit_print_and_calc(const sequence_t sequences[], const int n_seq,
-                          const long double eps) {
-  printf("Limits calculations:\n");
-  for (int i = 0; i < n_seq; i++) {
-    sequence_t seq = sequences[i];
-    printf("%s value: %Lf\n", seq.name,
-           limit_with_precision(seq.func, eps));
+long double gamma_const_sequence(const long double x, const long double prev) {
+  const int x_int = x;
+  bool* is_prime = (bool*)malloc(sizeof(bool) * (x_int + 1));
+  primes(is_prime, x_int);
+  long double result = logl(x);
+  for (int p = 1; p <= x_int; p++) {
+    if (is_prime[p]) {
+      long double t = p;
+      result *= (t - 1) / t;
+    }
   }
+  free(is_prime);
+  return result;
 }

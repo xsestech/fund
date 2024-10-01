@@ -38,9 +38,9 @@ bool is_prime(const int number);
 
 /**
  *
- * @param number[in] number to convert
- * @param output[out] pointer to output string
- * @param base[in]
+ * @param[in] number number to convert
+ * @param[out] output pointer to output string
+ * @param[in] base
  * @return converted number in base as string
  * @warning
  */

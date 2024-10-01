@@ -13,6 +13,7 @@ parsing_error_t parse_ld(const char* str, long double* result) {
   long double exp = 1;
   long int mant = 0;
   if (*str == '-') {
+    sign = -1;
     ++str;
   }
   bool frac = false;

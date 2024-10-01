@@ -6,7 +6,7 @@
  * @date 01.10.2024
  */
 
-#include <libtask/numeric/integral.h>
+#include <libmath/numeric/integral.h>
 
 
 long double integrate_trapezoidal_steps(const integral_func_t f,
@@ -70,18 +70,3 @@ void integrate_and_print(const integral_method_t m, const integral_t* integrals,
   }
 }
 
-long double a_func(const long double x) {
-  return logl(1 + x) / x;
-}
-
-long double b_func(const long double x) {
-  return expl(-powl(x, 2) / 2);
-}
-
-long double c_func(long double x) {
-  return logl(1 / (1 - x));
-}
-
-long double d_func(long double x) {
-  return powl(x, x);
-}

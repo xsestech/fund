@@ -9,9 +9,10 @@
 #define SERIES_H
 
 #include <stdio.h>
-#include <libtask/math.h>
+#include <libmath/math.h>
 #include <libconfig/config.h>
 #include <stdarg.h>
+
 
 typedef long double (*series_member_func_t)(long double, va_list args);
 
@@ -25,44 +26,6 @@ typedef struct {
   series_member_func_t func;
   series_type_t type;
 } series_t;
-
-
-/**
- * @brief Calculates e using series
- * @param n series member number
- * @return value of n-th member
- */
-long double e_series_func(const long double n, va_list args);
-
-/**
- * @brief Calculates pi using series
- * SUM SERIES
- * @param n series member number
- * @return value of n-th member
- */
-long double pi_series_func(const long double n, va_list args);
-/**
- * @brief Calculates ln2 using series
- * SUM SERIES
- * @param n series member number
- * @return value of n-th member
- */
-long double ln2_series_func(const long double n, va_list args);
-/**
- * @brief Calculates sqrt2 using series
- * PRODUCT SERIES
- * @param n series member number
- * @return value of n-th member
- */
-long double sqrt2_series_func_prod(const long double n, va_list args);
-
-/**
- * @brief Calculates sqrt2 using series
- * PRODUCT SERIES
- * @param n series member number
- * @return value of n-th member
- */
-long double gamma_series_func(const long double n, va_list args);
 
 /**
  * Calculate series value up to precision. Precision is calculated based on

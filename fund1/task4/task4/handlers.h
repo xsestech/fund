@@ -8,7 +8,7 @@
 #define HANDLER_H
 
 #include <libtask/task1/task1.h>
-#include <libmath/math.h>
+#include <libtask/math.h>
 #include <libcli3/parsing/int.h>
 #include <libcli3/parsing/params.h>
 

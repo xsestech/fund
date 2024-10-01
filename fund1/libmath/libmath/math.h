@@ -58,6 +58,17 @@ long double combinations_incr_n(const int n, const int k, const int c_n_k);
  * @param n size of primes
  */
 void primes(bool* is_prime, const int n);
+
+/**
+ * @brief Checks if two long double are equal
+ * @param a first number to compare
+ * @param b second number to compare
+ * @param eps comparison precision
+ * @return True if equal
+ */
+bool is_lf_equal(const long double a, const long double b,
+                 const long double eps);
+
 /**
  * @brief Solve ax^2 + bx + c = 0
  * @param a a coefficient
@@ -66,5 +77,5 @@ void primes(bool* is_prime, const int n);
  * @param eps comparison epsilon
  */
 quadratic_solution_t solve_quadratic_equation(long double a, long double b,
-                                              long double c);
+                                              long double c, long double eps);
 #endif //MATH_H

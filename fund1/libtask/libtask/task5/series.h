@@ -8,7 +8,7 @@
 #ifndef TASK5_SERIES_H
 #define TASK5_SERIES_H
 
-#include <libtask/numeric/series.h>
+#include <libmath/numeric/series.h>
 /**
  * @brief Calculates \f$ \displaystyle \sum_{n=0}^{\infty} \frac{x^n}{n!} \f$ using series
  * @param n series member number
