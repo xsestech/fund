@@ -7,7 +7,6 @@
  */
 #include <libtask/task2/dichotomy.h>
 
-const int gamma_c = 0;
 
 
 long double e_equation(long double x, va_list) {

@@ -15,4 +15,9 @@ void r_arg_handler(const int token_count, const char** tokens) {
 
 }
 
-void a_arg_handler(const int token_count, const char** tokens) {}
+void a_arg_handler(const int token_count, const char** tokens) {
+  if (token_count != 3) {
+    parse_handle_errors(PARSING_INVALID_PARAMETER_AMOUNT_ERROR);
+  }
+  files_handle_errors(files_apply_processor(task7_lexemes_permutations, tokens[1], tokens[2]));
+}

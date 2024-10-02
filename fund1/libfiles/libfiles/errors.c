@@ -21,6 +21,8 @@ void files_error_handler(const files_error_t error) {
       break;
     case FILES_LOWER_LEVEL_ERROR:
       error_print("Error was raised on lower level\n");
+    case FILES_ALLOCATION_ERROR:
+      error_print("Allocation failed during processing\n");
     default:
       error_print("Unknown error\n");
       break;

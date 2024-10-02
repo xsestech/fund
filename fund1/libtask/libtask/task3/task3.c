@@ -97,7 +97,7 @@ void print_solution(const long double a, const long double b,
 void permute_solutions(const long double a, const long double b,
                        const long double c,
                        const long double eps) {
-  long double coef[3] = {a, b, c};
+  const long double coef[3] = {a, b, c};
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (i == j)

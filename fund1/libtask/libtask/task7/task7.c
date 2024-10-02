@@ -5,7 +5,10 @@
  * @author xsestech 
  * @date 02.10.2024
  */
+#include <ctype.h>
 #include <libtask/task7/task7.h>
+
+// @todo REFACTORING
 
 files_error_t task7_divide_lexemes(const char* odd_file_path,
                                    const char* even_file_path,
@@ -59,5 +62,133 @@ files_error_t task7_divide_lexemes(const char* odd_file_path,
   fclose(out_file);
   fclose(odd_file);
   fclose(even_file);
+  return FILES_SUCCESS;
+}
+
+/**
+ * в каждой десятой лексеме сначала все символы букв латинского алфавита были
+ * преобразованы в эквивалентные символы строчных букв латинского алфавита,
+ * а затем все символы были преобразованы в эквивалентные им ASCII-коды,
+ * записанные в системе счисления с основанием 4;
+ * @param lexeme lexeme to process
+ * @param out_file file to write
+ * @return FILES_IO_OPERATION_FAILED_ERROR,FILES_LOWER_LEVEL_ERROR,FILES_SUCCESS
+ */
+files_error_t process_every_tenth_lexeme(const char* lexeme, FILE* out_file) {
+  for (; *lexeme != '\0'; lexeme++) {
+    if (ferror(out_file)) {
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+    const char c = string_char_to_lower(*lexeme);
+    char* output;
+    const string_error_t error = string_convert_to_base(c, 4, &output);
+    if (error != STRING_SUCCESS) {
+      string_error_handler(error);
+      return FILES_LOWER_LEVEL_ERROR;
+    }
+    fprintf(out_file, "%s", output);
+    free(output);
+  }
+  fputc(' ', out_file);
+  return FILES_SUCCESS;
+}
+
+/**
+ * в каждой второй (и одновременно не десятой) лексеме все символы букв
+ * латинского алфавита были преобразованы в эквивалентные символы строчных
+ * букв латинского алфавита;
+ * @param lexeme lexeme to process
+ * @param out_file file to write
+ * @return FILES_IO_OPERATION_FAILED_ERROR,FILES_LOWER_LEVEL_ERROR,FILES_SUCCESS
+ */
+files_error_t process_every_second_lexeme(const char* lexeme, FILE* out_file) {
+  for (; *lexeme != '\0'; lexeme++) {
+    if (ferror(out_file)) {
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+    const char c = string_char_to_lower(*lexeme);
+    fputc(c, out_file);
+  }
+  fputc(' ', out_file);
+  return FILES_SUCCESS;
+}
+
+/**
+ * в каждой пятой (и одновременно не десятой) лексеме
+ * все символы были преобразованы в эквивалентные им ASCII-коды,
+ * записанные в системе счисления с основанием 8.
+ * @param lexeme lexeme to process
+ * @param out_file file to write
+ * @return FILES_IO_OPERATION_FAILED_ERROR,FILES_LOWER_LEVEL_ERROR,FILES_SUCCESS
+ */
+files_error_t process_every_fith_lexeme(const char* lexeme, FILE* out_file) {
+  for (; *lexeme != '\0'; lexeme++) {
+    if (ferror(out_file)) {
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+    char* output;
+    const string_error_t error = string_convert_to_base(*lexeme, 8, &output);
+    if (error != STRING_SUCCESS) {
+      string_error_handler(error);
+      return FILES_LOWER_LEVEL_ERROR;
+    }
+    fprintf(out_file, "%s", output);
+    free(output);
+  }
+  fputc(' ', out_file);
+  return FILES_SUCCESS;
+}
+
+files_error_t process_one_lexeme(const char* lexeme, const int lexeme_counter, FILE* out_file) {
+  if (lexeme_counter % 10 == 0) {
+    process_every_tenth_lexeme(lexeme, out_file);
+  } else if (lexeme_counter % 5 == 0) {
+    process_every_fith_lexeme(lexeme, out_file);
+  } else if (lexeme_counter % 2 == 0) {
+    process_every_second_lexeme(lexeme, out_file);
+  } else {
+    fprintf(out_file, "%s ", lexeme);
+  }
+}
+
+files_error_t task7_lexemes_permutations(FILE* in_file,
+                                         FILE* out_file) {
+  int current_buffer_suze = TASK7_BUFFER_SIZE;
+  char* token_buffer = calloc(current_buffer_suze, sizeof(char));
+  int chars_count = 0;
+  int lexeme_counter = 0;
+  char c;
+  bool is_spaces = false;
+  while ((c = fgetc(in_file)) != EOF) {
+    if (ferror(in_file) || feof(out_file)) {
+      free(token_buffer);
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+    if (c == '\n' || c == '\t' || c == ' ') {
+      if (!is_spaces) {
+        token_buffer[chars_count++] = '\0';
+        process_one_lexeme(token_buffer, ++lexeme_counter, out_file);
+        chars_count = 0;
+        is_spaces = true;
+      }
+
+      continue;
+    }
+    token_buffer[chars_count++] = c;
+    is_spaces = false;
+    if (chars_count >= current_buffer_suze - 2) {
+      current_buffer_suze *= 2;
+      char* new_token_buffer = realloc(token_buffer,
+                                       current_buffer_suze * sizeof(char));
+      if (!new_token_buffer) {
+        free(token_buffer);
+        return FILES_ALLOCATION_ERROR;
+      }
+      token_buffer = new_token_buffer;
+    }
+  }
+  token_buffer[chars_count++] = '\0';
+  process_one_lexeme(token_buffer, ++lexeme_counter, out_file);
+  free(token_buffer);
   return FILES_SUCCESS;
 }

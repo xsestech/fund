@@ -73,7 +73,7 @@ files_error_t task4_chars_to_hex(FILE* in, FILE* out) {
       continue;
     }
     char* char_in_hex;
-    const string_error_t error = convert_to_base(c, 16, &char_in_hex);
+    const string_error_t error = string_convert_to_base(c, 16, &char_in_hex);
     if (error != STRING_SUCCESS) {
       string_error_handler(error);
       return FILES_LOWER_LEVEL_ERROR;

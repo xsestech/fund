@@ -16,6 +16,7 @@ typedef enum {
   FILES_OPEN_FAILED_ERROR,
   FILES_IO_OPERATION_FAILED_ERROR,
   FILES_LOWER_LEVEL_ERROR,
+  FILES_ALLOCATION_ERROR,
 } files_error_t;
 
 void files_error_handler(const files_error_t error);
