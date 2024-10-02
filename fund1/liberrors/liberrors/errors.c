@@ -11,7 +11,7 @@ void error_print(const char* format, ...) {
   va_start(args, format);
   // fprintf(stderr, "Error: ");
   vfprintf(stderr, format, args);
-  fprintf(stderr, "\n");
+  // fprintf(stderr, "\n");
   va_end(args);
 }
 

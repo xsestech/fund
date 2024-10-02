@@ -89,7 +89,7 @@ void cli_error_handler(const cli_error_t error) {
       error_print("Invalid name of argument\n");
       break;
     case CLI_INVALID_ARGUMENT_FORMAT_ERROR:
-      error_print("Argument does not match expected input type");
+      error_print("Argument does not match expected input type\n");
       break;
     case CLI_SUCCESS:
       break;

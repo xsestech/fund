@@ -13,12 +13,12 @@
 #include <libconfig/config.h>
 
 
-typedef long double (*integral_func_t)(const long double); /** @breif function,
+typedef long double (*integral_func_t)(const long double); /**! function,
 that we will be integrating */
 
 typedef long double (*integral_method_t)(integral_func_t f, long double a,
                                          long double b,
-                                         long int steps); /** @breif
+                                         long int steps); /**!
 Integration method */
 
 typedef struct {

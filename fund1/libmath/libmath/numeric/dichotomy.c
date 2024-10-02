@@ -49,9 +49,6 @@ void dichotomy_print_solutions(const dichotomy_t dichotomies[],
   printf("Equations calculations:\n");
   for (int i = 0; i < n_dichot; i++) {
     dichotomy_t seq = dichotomies[i];
-    // if (strncmp(seq.name, "γ", 1) == 0) {
-    //   gamma_c = limit_with_precision(gamma_sequence_func, eps);
-    // }
     printf("%s value: %Lf\n", seq.name,
            dichotomy_find_solution(seq.func, eps, args));
   }

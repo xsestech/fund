@@ -1,8 +1,7 @@
 /**
- * @file
- * @brief
- * @details
- * @author xsestech 
+ * @file errors.h
+ * @brief Errors of libfiles module
+ * @author xsestech
  * @date 01.10.2024
  */
 #ifndef FILES_ERRORS_H
