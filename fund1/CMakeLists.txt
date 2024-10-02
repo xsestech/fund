@@ -78,7 +78,18 @@ if (ENABLE_CPPCHECK)
     if (CPPCHECK)
         set(CMAKE_CXX_CPPCHECK
                 ${CPPCHECK}
-                --suppress=syntaxError
+#                --suppress=syntaxError
+                --suppress=missingIncludeSystem
+                --suppress=unusedFunction
+                --check-level=exhaustive
+                --enable=all
+                --inconclusive)
+        set(CMAKE_C_CPPCHECK
+                ${CPPCHECK}
+#                --suppress=syntaxError
+                --suppress=unusedFunction
+                --suppress=missingIncludeSystem
+                --check-level=exhaustive
                 --enable=all
                 --inconclusive)
     else ()

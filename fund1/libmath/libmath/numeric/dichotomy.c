@@ -9,6 +9,7 @@
 
 long double dichotomy_find_solution(const dichotomy_func_t func,
                                     const long double eps, ...) {
+  // cppcheck-suppress-begin va_list_usedBeforeStarted
   va_list args;
   va_start(args, eps);
   const va_list args_to_pass = va_arg(args, va_list);
@@ -35,7 +36,9 @@ long double dichotomy_find_solution(const dichotomy_func_t func,
       left_bound = middle;
     }
   } while (fabsl(current_solution) > eps);
+  va_end(args);
   return middle;
+  // cppcheck-suppress-end va_list_usedBeforeStarted
 }
 
 void dichotomy_print_solutions(const dichotomy_t dichotomies[],
@@ -43,7 +46,6 @@ void dichotomy_print_solutions(const dichotomy_t dichotomies[],
                                const long double eps, ...) {
   va_list args;
   va_start(args, eps);
-  int i = 0;
   printf("Equations calculations:\n");
   for (int i = 0; i < n_dichot; i++) {
     dichotomy_t seq = dichotomies[i];
