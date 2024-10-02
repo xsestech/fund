@@ -1,4 +1,4 @@
-# Lab works for Fundamental Algorythoms Subject[![wakatime](https://wakatime.com/badge/github/xsestech/fund.svg)](https://wakatime.com/badge/github/xsestech/fund)
+# Lab works for Fundamental Algorithms Subject[![wakatime](https://wakatime.com/badge/github/xsestech/fund.svg)](https://wakatime.com/badge/github/xsestech/fund)
 ## List of solutions
 - [Lab 1](fund1/)
 ## Guidelines
