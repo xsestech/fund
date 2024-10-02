@@ -96,4 +96,5 @@ parsing_error_t parse_two_double(const int token_count, const char** tokens,
 parsing_error_t parse_three_double_and_eps(int token_count, const char** tokens,
                                            long double* a, long double* b,
                                            long double* c, long double* eps);
+
 #endif //PARSING_H

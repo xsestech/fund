@@ -93,3 +93,5 @@ fabric.properties
 libconfig/libconfig/*.h
 .DS_Store
 docs/html
+*.out
+out_*

@@ -7,61 +7,46 @@
 #include <libtask/utils.h>
 
 
-void d_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  print_natural_multiples(input, 100);
+void handle_arg(const int token_count, const char** tokens, files_processor_t processor) {
+  if (token_count < 2 || token_count > 3) {
+    error_print("Wrong number of arguments\n");
+    return;
+  }
+  const char* arg = tokens[0];
+  const char* in_file = tokens[1];
+  if (arg[1] == 'n') {
+    if (token_count != 2) {
+      error_print("Wrong number of arguments\n");
+      return;
+    }
+    const char* prefix = "out_";
+    char* out_file = files_add_prefix_to_path(in_file, prefix);
+    files_handle_errors(files_apply_processor(task4_remove_digits, in_file, out_file));
+    printf("Output file: %s\n", out_file);
+    free(out_file);
+  } else {
+    if (token_count != 3) {
+      error_print("Error: Wrong number of arguments\n");
+    }
+    const char* out_file = (char*)tokens[2];
+    files_handle_errors(files_apply_processor(processor, in_file, out_file));
+    printf("Output file: %s\n", out_file);
+  }
+}
+
+void h_arg_handler(const int token_count, const char** tokens) {
+  handle_arg(token_count, tokens, task4_remove_digits);
 }
 
 
-void i_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  if (is_prime(input)) {
-    printf("Number %d is a prime number\n", input);
-    return;
-  }
-  printf("Number %d is not a prime number\n", input);
+void p_arg_handler(const int token_count, const char** tokens) {
+  handle_arg(token_count, tokens, task4_count_letters);
 }
 
 void s_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  char* converted_str;
-  task1_handle_errors(convert_to_base(input, 16, &converted_str));
-  while (*converted_str != '\0') {
-    printf("%c ", *converted_str);
-    converted_str++;
-  }
-}
-
-void e_arg_handler(const int token_count, const char** tokens) {
-  int max_power = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &max_power));
-  if (max_power > 10 || max_power < 1) {
-    error_print("Input number must be in 1 to 10 range");
-    return;
-  }
-  print_powers_table(max_power);
+  handle_arg(token_count, tokens, task4_count_special_characters);
 }
 
 void a_arg_handler(const int token_count, const char** tokens) {
-  int max_number = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &max_number));
-  if (max_number < 1) {
-    error_print("Input number must be greater than 1");
-    return;
-  }
-  printf("Sum of natural until %d is %lld\n", max_number,
-         sum_of_natural(max_number));
-}
-
-void f_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  if (input < 1 || input > 25) {
-    error_print("Input number must be greater than 1 and less than 25.");
-    return;
-  }
-  printf("Factorial of %d is %lld\n", input, factorial(input));
+  handle_arg(token_count, tokens, task4_chars_to_hex);
 }

@@ -19,7 +19,7 @@
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void d_arg_handler(const int token_count, const char** tokens);
+void h_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief p arg
@@ -27,7 +27,7 @@ void d_arg_handler(const int token_count, const char** tokens);
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void i_arg_handler(const int token_count, const char** tokens);
+void p_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief s arg

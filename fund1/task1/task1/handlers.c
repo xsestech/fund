@@ -7,14 +7,14 @@
 #include <libtask/utils.h>
 
 
-void d_arg_handler(const int token_count, const char** tokens) {
+void h_arg_handler(const int token_count, const char** tokens) {
   int input = 0;
   parse_handle_errors(parse_one_int(token_count, tokens, &input));
   print_natural_multiples(input, 100);
 }
 
 
-void i_arg_handler(const int token_count, const char** tokens) {
+void p_arg_handler(const int token_count, const char** tokens) {
   int input = 0;
   parse_handle_errors(parse_one_int(token_count, tokens, &input));
   if (is_prime(input)) {
@@ -28,7 +28,7 @@ void s_arg_handler(const int token_count, const char** tokens) {
   int input = 0;
   parse_handle_errors(parse_one_int(token_count, tokens, &input));
   char* converted_str;
-  task1_handle_errors(convert_to_base(input, 16, &converted_str));
+  string_handle_errors(convert_to_base(input, 16, &converted_str));
   while (*converted_str != '\0') {
     printf("%c ", *converted_str);
     converted_str++;

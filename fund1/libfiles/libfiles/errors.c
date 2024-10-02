@@ -15,8 +15,16 @@ void files_error_handler(const files_error_t error) {
   switch (error) {
     case FILES_SUCCESS:
       break;
-    case FILES_FILE_NOT_FOUND_ERROR:
+    case FILES_OPEN_FAILED_ERROR:
       error_print("File was not found");
-    default: error_print("Unknown error");
+      break;
+    case FILES_IO_OPERATION_FAILED_ERROR:
+      error_print("File IO operation failed");
+      break;
+    case FILES_LOWER_LEVEL_ERROR:
+      error_print("Error was raised on lower level");
+    default:
+      error_print("Unknown error");
+      break;
   }
 }

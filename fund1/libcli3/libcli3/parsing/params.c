@@ -122,3 +122,8 @@ parsing_error_t parse_three_double_and_eps(const int token_count, const char** t
   parsing_destroy_params(params);
   return PARSING_SUCCESS;
 }
+
+parsing_error_t parse_two_string(const int token_count, const char** tokens,
+    char** string1, char** string2) {
+
+}

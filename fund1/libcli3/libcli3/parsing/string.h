@@ -5,8 +5,8 @@
  * @author xsestech 
  * @date 29.09.2024
  */
-#ifndef STRING_H
-#define STRING_H
+#ifndef PARSING_STRING_H
+#define PARSING_STRING_H
 
 #include <libcli3/parsing/errors.h>
 #include <libcli3/parsing/types.h>
@@ -22,4 +22,4 @@
  */
 parsing_error_t parse_string(char* input, char** output);
 
-#endif //STRING_H
+#endif //PARSING_STRING_H

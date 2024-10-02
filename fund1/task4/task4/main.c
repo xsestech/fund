@@ -10,8 +10,8 @@
 int main(const int argc, const char* argv[]) {
   cli_handle_t* cli;
   cli_command_t commands[] = {
-      {'d', d_arg_handler},
-      {'i', i_arg_handler},
+      {'d', h_arg_handler},
+      {'i', p_arg_handler},
       {'s', s_arg_handler},
       {'a', a_arg_handler},
   };
