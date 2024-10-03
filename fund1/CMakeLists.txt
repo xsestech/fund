@@ -38,7 +38,7 @@ target_compile_options(project_warnings
         -Woverloaded-virtual
         -Wpedantic
         -Wconversion
-#        -Wsign-conversion
+        #        -Wsign-conversion
         -Wnull-dereference
         -Wdouble-promotion
         -Wformat=2)
@@ -120,7 +120,7 @@ if (DOXYGEN_FOUND)
             COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             COMMENT "Generating API documentation with Doxygen"
-            VERBATIM )
+            VERBATIM)
     ADD_CUSTOM_COMMAND(OUTPUT ${DOXYGEN_HTML}
             COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
             MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
@@ -165,6 +165,7 @@ add_subdirectory(task6)
 add_subdirectory(task7)
 add_subdirectory(task8)
 add_subdirectory(task9)
+add_subdirectory(task10)
 
 #target_link_libraries(libcli PUBLIC liberrors project_options)
 target_link_libraries(libmath PUBLIC liberrors libconfig project_options)
@@ -190,6 +191,8 @@ target_link_libraries(task7 PUBLIC liberrors libcli3 libtask project_options
 target_link_libraries(task8 PUBLIC liberrors libcli3 libstring libtask project_options
         project_warnings)
 target_link_libraries(task9 PUBLIC liberrors libcli3 libtask libstruct project_options
+        project_warnings)
+target_link_libraries(task10 PUBLIC liberrors libstring libtask libfiles project_options
         project_warnings)
 
 find_program(DSYMUTIL_PROGRAM dsymutil)

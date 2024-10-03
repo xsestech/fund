@@ -34,7 +34,7 @@ string_error_t alloc_string_for_conversion(const long long int number, char** st
 
 string_error_t
 string_convert_to_base(long long int number, const int base, char** output) {
-  if (base > 32 || base < 1) {
+  if (base > 36 || base < 1) {
     return STRING_UNSUPPORTED_BASE_ERROR;
   }
   const string_error_t error =
