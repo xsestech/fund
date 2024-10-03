@@ -34,7 +34,7 @@ void handle_arg(const int token_count, const char** tokens, files_processor_t pr
   }
 }
 
-void r_arg_handler(const int token_count, const char** tokens) {
+void default_handler(const int token_count, const char** tokens) {
   handle_arg(token_count, tokens, task4_remove_digits);
 }
 

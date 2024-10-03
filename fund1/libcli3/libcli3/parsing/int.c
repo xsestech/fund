@@ -6,25 +6,19 @@
  */
 #include <libcli3/parsing/int.h>
 
+
+
+
 parsing_error_t parse_int(const char* str, int* result, bool allow_negative) {
-  *result = 0;
-  int sign = 1;
-  if (str[0] == '-') {
-    if (!allow_negative) {
+  if (str[0] == '-' && !allow_negative) {
       return PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR;
-    }
-    str++;
-    sign = -1;
   }
-  for (; *str != '\0'; ++str) {
-    if (!isdigit(*str)) {
-      return PARSING_INVALID_CHARACTER_ERROR;
-    }
-    if (*result * 10 < *result) {
-      return PARSING_OVERFLOW_ERROR;
-    }
-    *result = *result * 10 + (*str - '0');
+  long long int lld_result = 0;
+  const string_error_t string_error = string_to_int(str, &lld_result, 10);
+  *result = lld_result;
+  if (string_error != PARSING_SUCCESS) {
+    string_error_handler(string_error);
+    return PARSING_INT_PARSING_ERROR;
   }
-  *result *= sign;
   return PARSING_SUCCESS;
 }

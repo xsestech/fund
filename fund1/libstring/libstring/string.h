@@ -10,12 +10,15 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <liberrors/errors.h>
 
 typedef enum {
   STRING_SUCCESS,
   STRING_UNSUPPORTED_BASE_ERROR,
   STRING_ALLOCATION_ERROR,
+  STRING_INT_OVERFLOW_ERROR,
+  STRING_INVALID_CHARACTER_FOR_BASE_ERROR,
 } string_error_t;
 
 /**
@@ -32,7 +35,7 @@ char* string_reverse(char* str);
  * @return converted number in base as string
  * @warning This function allocates memory for string! Do not forget to free it
  */
-string_error_t string_convert_to_base(int number, const int base, char** output);
+string_error_t string_convert_to_base(long long int number, const int base, char** output);
 /**
  * @brief Prints error raised in parsing to stderr.
  * @details Uses Gauss method to do that
@@ -52,6 +55,28 @@ char* string_tokenize(char* str, const char* delim);
  * @return converted char
  */
 char string_char_to_lower(const char c);
+/**
+ * @brief Coverts latin lower letter to upper
+ * @param c input char
+ * @return converted char
+ */
+char string_char_to_upper(const char c);
+/**
+ * Checks if character is separator
+ * @param c input char
+ * @return True if character is separator
+ */
+bool string_char_is_sep(const char c);
+/**
+ *
+ * @param[in] str input string
+ * @param[out] result converted number
+ * @param[in] base base of input string number
+ * @return STRING_UNSUPPORTED_BASE_ERROR, STRING_INVALID_CHARACTER_FOR_BASE_ERROR,
+ * STRING_INT_OVERFLOW_ERROR, STRING_SUCCESS
+ */
+string_error_t string_to_int(const char* str, long long int* result,
+                             const int base);
 
 /**
  * @brief Marco, that adds return to main if error is present and prints

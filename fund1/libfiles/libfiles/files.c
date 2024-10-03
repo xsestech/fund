@@ -49,3 +49,48 @@ files_error_t files_apply_processor(const files_processor_t processor,
   fclose(out_file);
   return FILES_SUCCESS;
 }
+
+files_error_t files_get_lexeme(FILE* file, char** lexeme) {
+  *lexeme = NULL;
+  size_t buff_size = FILES_DEFAULT_LEXEME_BUFFER_SIZE;
+  char* buffer = calloc(buff_size, sizeof(char));
+  if (!buffer) {
+    return FILES_ALLOCATION_ERROR;
+  }
+  if (feof(file)) {
+    free(buffer);
+
+    return FILES_SUCCESS;
+  }
+  size_t buffer_pos = 0;
+  char c = fgetc(file);
+  if (c != EOF && !string_char_is_sep(c)) {
+    buffer[buffer_pos++] = c;
+  }
+  while ((c != EOF) && string_char_is_sep(c)) {
+    c = fgetc(file);
+    if (ferror(file)) {
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+  }
+  while (((c = fgetc(file)) != EOF) && !string_char_is_sep(c)) {
+    if (ferror(file)) {
+      return FILES_IO_OPERATION_FAILED_ERROR;
+    }
+    buffer[buffer_pos++] = c;
+    if (buffer_pos <= buff_size - 2) {
+      buff_size *= 2;
+      char* new_token_buffer = realloc(buffer,
+                                       buff_size * sizeof(char));
+      if (!new_token_buffer) {
+        free(buffer);
+        return FILES_ALLOCATION_ERROR;
+      }
+      buffer = new_token_buffer;
+    }
+  }
+  buffer[buffer_pos] = '\0';
+  *lexeme = buffer;
+  return FILES_SUCCESS;
+}
+

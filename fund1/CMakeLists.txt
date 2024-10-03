@@ -153,6 +153,7 @@ add_subdirectory(libcli3)
 add_subdirectory(libtask)
 add_subdirectory(libmath)
 add_subdirectory(libfiles)
+add_subdirectory(libstring)
 add_subdirectory(libconfig)
 add_subdirectory(task1)
 add_subdirectory(task2)
@@ -161,13 +162,15 @@ add_subdirectory(task4)
 add_subdirectory(task5)
 add_subdirectory(task6)
 add_subdirectory(task7)
+add_subdirectory(task8)
 
 #target_link_libraries(libcli PUBLIC liberrors project_options)
 target_link_libraries(libmath PUBLIC liberrors libconfig project_options)
-target_link_libraries(libcli3 PUBLIC liberrors project_options)
-target_link_libraries(libfiles PUBLIC liberrors libconfig project_options)
-target_link_libraries(libtask PUBLIC liberrors libcli3 libmath libfiles libconfig project_options)
-target_link_libraries(task1 PUBLIC liberrors libcli3 libmath libtask project_options
+target_link_libraries(libstring PUBLIC liberrors libconfig project_options)
+target_link_libraries(libcli3 PUBLIC liberrors libstring project_options)
+target_link_libraries(libfiles PUBLIC liberrors libconfig libstring project_options)
+target_link_libraries(libtask PUBLIC liberrors libcli3 libmath libfiles libconfig project_options libstring)
+target_link_libraries(task1 PUBLIC liberrors libcli3 libmath libstring libtask project_options
         project_warnings)
 target_link_libraries(task2 PUBLIC liberrors libcli3 libtask project_options
         project_warnings)
@@ -180,6 +183,8 @@ target_link_libraries(task5 PUBLIC liberrors libcli3 libmath libtask project_opt
 target_link_libraries(task6 PUBLIC liberrors libcli3 libmath libtask project_options
         project_warnings)
 target_link_libraries(task7 PUBLIC liberrors libcli3 libtask project_options
+        project_warnings)
+target_link_libraries(task8 PUBLIC liberrors libcli3 libstring libtask project_options
         project_warnings)
 
 find_program(DSYMUTIL_PROGRAM dsymutil)

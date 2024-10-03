@@ -9,6 +9,7 @@
 #define INT_H
 
 #include <libcli3/parsing/errors.h>
+#include <libstring/string.h>
 #include <stdbool.h>
 #include <ctype.h>
 

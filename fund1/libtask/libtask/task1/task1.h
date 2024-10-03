@@ -12,7 +12,7 @@
 #include <stdbool.h>
 
 #include <liberrors/errors.h>
-#include <libtask/string.h>
+#include <libstring/string.h>
 #include <stdlib.h>
 
 /**

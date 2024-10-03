@@ -8,9 +8,9 @@
 #ifndef TASK7_H
 #define TASK7_H
 #include <libfiles/files.h>
-#include <libtask/string.h>
+#include <libstring/string.h>
 
-#define TASK7_BUFFER_SIZE 10
+#define TASK7_BUFFER_SIZE 512
 
 files_error_t task7_divide_lexemes(const char* odd_file_path,
                                    const char* even_file_path,
