@@ -58,6 +58,18 @@ parsing_error_t parse_arg_params(
 parsing_error_t parse_one_int(int token_count, const char** tokens,
                               int* out);
 /**
+ * @brief Converts two integer from tokens
+ * @param token_count number of input tokens
+ * @param tokens array of tokens
+ * @param out1 variable to write converted int
+ *  @param out2 variable to write converted int
+ * @return Error raised during parsing. Could be PARSING_SUCCESS,
+ * PARSING_INVALID_TOKEN_COUNT_ERROR, PARSING_INVALID_CHARACTER_ERROR,
+ * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
+ */
+parsing_error_t parse_two_int(const int token_count, const char** tokens,
+                              int* out1, int* out2);
+/**
  * @brief Converts only one double from tokens
  * @param token_count number of input tokens
  * @param tokens array of tokens
@@ -79,7 +91,7 @@ parsing_error_t parse_one_double(int token_count, const char** tokens,
  * PARSING_NEGATIVE_IS_NOT_ALLOWED_ERROR.
  */
 parsing_error_t parse_two_double(const int token_count, const char** tokens,
-                                         long double* eps, long double* x);
+                                 long double* eps, long double* x);
 /**
  * @brief Converts only one double and int from tokens
  * @param[in] token_count number of input tokens

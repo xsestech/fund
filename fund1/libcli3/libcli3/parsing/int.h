@@ -5,8 +5,8 @@
  * @author xsestech 
  * @date 23.09.2024
  */
-#ifndef INT_H
-#define INT_H
+#ifndef PARSING_INT_H
+#define PARSING_INT_H
 
 #include <libcli3/parsing/errors.h>
 #include <libstring/string.h>
@@ -25,4 +25,4 @@
 parsing_error_t parse_int(const char* str, int* result, bool allow_negative);
 
 
-#endif //INT_H
+#endif //PARSING_INT_H

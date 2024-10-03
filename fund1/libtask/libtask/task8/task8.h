@@ -12,5 +12,6 @@
 #include <libstring/string.h>
 
 void task8_find_maximum_base(const char *string, int *base, long long int* number);
+void task9_print_array(const int* array, const size_t size);
 
 #endif //TASK8_H

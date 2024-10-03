@@ -76,6 +76,21 @@ parsing_error_t parse_one_int(const int token_count, const char** tokens,
   return PARSING_SUCCESS;
 }
 
+parsing_error_t parse_two_int(const int token_count, const char** tokens,
+                              int* out1, int* out2) {
+  const parsing_param_type_t param_types[] = {PARSING_INT, PARSING_INT};
+  parsing_param_t* params;
+  parse_handle_errors_internal(parsing_init_params(&params, token_count));
+  parse_handle_errors_internal(
+      parse_arg_params(tokens, token_count, param_types, sizeof(param_types)/
+        sizeof
+        (param_types[0]), params));
+  *out1 = params[0].integer;
+  *out2 = params[1].integer;
+  parsing_destroy_params(params);
+  return PARSING_SUCCESS;
+}
+
 parsing_error_t parse_one_double(const int token_count, const char** tokens,
                                  long double* out) {
   const parsing_param_type_t param_types[] = {PARSING_FLOAT};

@@ -49,9 +49,9 @@ cli_error_t cli_parse_args(const cli_handle_t* cli, const int argc,
   // if (argv[1][0] != '-' && argv[1][0] != '/') {
   //   return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
   // }
-  if (!isalpha(argv[1][1])) {
-    return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
-  }
+  // if (!isalpha(argv[1][1])) {
+  //   return CLI_INVALID_ARGUMENT_FORMAT_ERROR;
+  // }
   if (argv[1][0] == '-' || argv[1][0] == '/') {
     for (int i = 0; i < cli->num_commands; i++) {
       const cli_command_t command = cli->commands[i];
