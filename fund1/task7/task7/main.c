@@ -9,7 +9,7 @@
 int main(const int argc, const char* argv[]) {
   cli_handle_t* cli;
   cli_command_t commands[] = {
-      {'r', default_handler},
+      {'r', r_arg_handler},
       {'a', a_arg_handler},
   };
   cli_handle_error(cli_init(&cli, commands, SIZEOF_ARRAY(commands)));

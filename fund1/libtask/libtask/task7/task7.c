@@ -8,7 +8,6 @@
 #include <ctype.h>
 #include <libtask/task7/task7.h>
 
-// @todo REFACTORING
 
 
 files_error_t task7_divide_lexemes(const char* odd_file_path,
@@ -18,48 +17,31 @@ files_error_t task7_divide_lexemes(const char* odd_file_path,
   files_handle_errors_internal(
       files_open_and_check_error(out_file_path, "w", &out_file));
   files_handle_errors_internal(
-      files_open_and_check_error(odd_file_path, "r+", &odd_file));
+      files_open_and_check_error(odd_file_path, "r", &odd_file));
   files_handle_errors_internal(
-      files_open_and_check_error(even_file_path, "r+", &even_file));
-  char c;
-  bool is_spaces = false;
+      files_open_and_check_error(even_file_path, "r", &even_file));
   bool is_odd_lexeme = true;
   FILE* files[] = {even_file, odd_file};
-  while ((c = fgetc(files[is_odd_lexeme])) != EOF) {
-    if (ferror(files[!is_odd_lexeme]) || ferror(out_file)) {
-      return FILES_IO_OPERATION_FAILED_ERROR;
+  char *lexeme = NULL;
+  while (true) {
+    files_handle_errors_internal(files_get_lexeme(files[is_odd_lexeme], &lexeme));
+    if (lexeme == NULL) {
+      break;
     }
-    if (c == '\n' || c == '\t' || c == ' ') {
-      is_spaces = true;
-      continue;
+    fprintf(out_file, "%s ", lexeme);
+    is_odd_lexeme = !is_odd_lexeme;
+    free(lexeme);
+  }
+  // Write remaining lexems
+  while (true) {
+    files_handle_errors_internal(files_get_lexeme(files[!is_odd_lexeme], &lexeme));
+    if (lexeme == NULL) {
+      break;
     }
-    if (is_spaces) {
-      is_spaces = false;
-      fputc(' ', out_file);
-      ungetc(c, files[is_odd_lexeme]);
-      is_odd_lexeme = !is_odd_lexeme;
-      continue;
-    }
-    fputc(c, out_file);
+    fprintf(out_file, "%s ", lexeme);
+    free(lexeme);
+  }
 
-  }
-  // Writing remaining lexemes
-  fputc(' ', out_file);
-  is_spaces = false;
-  while ((c = fgetc(files[!is_odd_lexeme])) != EOF) {
-    if (ferror(files[!is_odd_lexeme])) {
-      return FILES_IO_OPERATION_FAILED_ERROR;
-    }
-    if (c == '\n' || c == '\t' || c == ' ') {
-      if (!is_spaces) {
-        fputc(' ', out_file);
-        is_spaces = true;
-      }
-      continue;
-    }
-    fputc(c, out_file);
-    is_spaces = false;
-  }
   fclose(out_file);
   fclose(odd_file);
   fclose(even_file);

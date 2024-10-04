@@ -7,7 +7,7 @@
 #include <libtask/utils.h>
 
 
-void default_handler(const int token_count, const char** tokens) {
+void r_arg_handler(const int token_count, const char** tokens) {
   if (token_count != 3) {
     error_print("Invalid number of arguments\n");
     return;

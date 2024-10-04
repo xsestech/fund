@@ -24,7 +24,7 @@ void handle_calcs(const long double eps, const long double x) {
   series_calc_and_print(series_table, SIZEOF_ARRAY(series_table), eps, x);
 }
 
-void default_handler(const int token_count, const char** tokens) {
+void r_arg_handler(const int token_count, const char** tokens) {
   long double eps = DEFAULT_EPS;
   long double x = DEFAULT_X;
   if (token_count > 1) {

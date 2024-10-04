@@ -42,7 +42,7 @@ void handle_calcs(long double eps) {
   dichotomy_print_solutions(dichotomy_table, SIZEOF_ARRAY(dichotomy_table), eps, gamma_c);
 }
 
-void default_handler(const int, const char**) {
+void r_arg_handler(const int, const char**) {
   handle_calcs(DEFAULT_EPS);
 }
 

@@ -17,7 +17,7 @@ const integral_t integrals_table[] = {
 };
 
 
-void default_handler(const int token_count, const char** tokens) {
+void r_arg_handler(const int token_count, const char** tokens) {
   long double eps = DEFAULT_EPS;
   if (token_count > 1) {
     parse_handle_errors(parse_one_double(token_count, tokens, &eps));

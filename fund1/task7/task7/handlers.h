@@ -16,7 +16,7 @@
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void default_handler(const int token_count, const char** tokens);
+void r_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief p arg
