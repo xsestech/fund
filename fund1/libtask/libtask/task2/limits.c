@@ -54,6 +54,18 @@ long double gamma_sequence_func(const long double n,
   }
   return sum;
 }
+// long double gamma_sequence_func(const long double n,
+//                                 const long double prev) {
+//   long double sum = 0;
+//   long long int prev_comb = n;
+//   long double prev_ln = 0;
+//   for (int k = 2; k <= n; ++k) {
+//     prev_comb = combinations_incr_k(n, k - 1, prev_comb);
+//     prev_ln += logl(k);
+//     sum += prev_comb * prev_ln / k * powl(-1, k);
+//   }
+//   return sum;
+// }
 
 long double gamma_const_sequence(const long double x, const long double prev) {
   const int x_int = x;

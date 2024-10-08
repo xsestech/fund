@@ -17,7 +17,7 @@
  * @param n sequence member number
  * @return value of n-th member
  */
-long double e_sequence_func(const long double n, const long double);
+long double e_sequence_func(const long double n, const long double prev);
 
 /**
  * @brief Calculates delta for \f$ {\pi}_n = \frac{(2^n * n!)^4}{n((2n)!)^2}\f$

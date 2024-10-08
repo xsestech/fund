@@ -16,7 +16,7 @@
 typedef long double (*integral_func_t)(const long double); /**! function,
 that we will be integrating */
 
-typedef long double (*integral_method_t)(integral_func_t f, long double a,
+typedef long double (*integral_rule_t)(integral_func_t f, long double a,
                                          long double b,
                                          long int steps); /**!
 Integration method */
@@ -51,15 +51,30 @@ long double integrate_trapezoidal(integral_func_t f, long double a,
  * @param steps steps to divide integration interval
  * @return Result of integration
  */
-long double integrate_trapezoidal_steps(const integral_func_t f,
+long double integrate_trapezoidal_rule(const integral_func_t f,
                                         const long double a,
                                         const long double b,
                                         const long int steps);
-
+/**
+ * @brief Integrate using Simpson rule
+ * @details To simplify calculations we are dividing into intervals of the same
+ * length. The formula will be \f$ \displaystyle \int_{a}^{b} f(x)dx =
+  \frac{\Delta x}{3}(f(a) + 2\sum_{i\ odd}^{steps - 1} f(a + i * \Delta x) +
+  4\sum_{i\ even}^{steps - 1} f(a + i * \Delta x) + f(b)) \f$
+ * @param f func to integrate
+ * @param a lower limit of integration
+ * @param b upper limit of integration
+ * @param steps steps to divide integration interval
+ * @return Result of integration
+ */
+long double integrate_simpson_rule(const integral_func_t f,
+                                   const long double a,
+                                   const long double b,
+                                   const long int steps);
 /**
  * @breif Integrating function until precision, estimated though Runge rule, is
  * reached
- * @param m method of integration
+ * @param rule method of integration
  * @param f function to integrate
  * @param a lower limit of integration
  * @param b upper limit of integration
@@ -67,7 +82,7 @@ long double integrate_trapezoidal_steps(const integral_func_t f,
  * @return Value of integral up to precision
  */
 long double integrate_until_precision_reached(
-    const integral_method_t m, const integral_func_t f, const long double a,
+    const integral_rule_t rule, const integral_func_t f, const long double a,
     const long double b, const long double eps);
 /**
  * @brief Integrating function using trapezoidal rule
@@ -76,7 +91,7 @@ long double integrate_until_precision_reached(
  * @param n_int size of array
  * @param eps precision of calculations
  */
-void integrate_and_print(const integral_method_t m,const integral_t* integrals, const int n_int,
+void integrate_and_print(const integral_rule_t m,const integral_t* integrals, const int n_int,
                          const long double eps);
 
 

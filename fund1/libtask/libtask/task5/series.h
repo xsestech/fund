@@ -12,10 +12,11 @@
 /**
  * @brief Calculates \f$ \displaystyle \sum_{n=0}^{\infty} \frac{x^n}{n!} \f$ using series
  * @param n series member number
+ * @param prev
  * @param args args, that contain x
  * @return value of n-th member
  */
-long double a_series_func(const long double n, va_list args);
+long double a_series_func(const long double n, long double prev, va_list args);
 
 /**
  * @brief Calculates e using series
@@ -23,21 +24,21 @@ long double a_series_func(const long double n, va_list args);
  * @param args args, that contain x
  * @return value of n-th member
  */
-long double b_series_func(const long double n, va_list args);
+long double b_series_func(const long double n, long double prev, va_list args);
 /**
  * @brief Calculates e using series
  * @param n series member number
  * @param args args, that contain x
  * @return value of n-th member
  */
-long double c_series_func(const long double n, va_list args);
+long double c_series_func(const long double n, long double prev, va_list args);
 /**
  * @brief Calculates e using series
  * @param n series member number
  * @param args args, that contain x
  * @return value of n-th member
  */
-long double d_series_func(const long double n, va_list args);
+long double d_series_func(const long double n, long double prev, va_list args);
 
 
 #endif //TASK5_SERIES_H

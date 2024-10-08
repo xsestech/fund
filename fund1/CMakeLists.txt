@@ -37,7 +37,7 @@ target_compile_options(project_warnings
         -Wunused
         -Woverloaded-virtual
         -Wpedantic
-        -Wconversion
+#        -Wconversion
         #        -Wsign-conversion
         -Wnull-dereference
         -Wdouble-promotion

@@ -13,6 +13,8 @@
 files_error_t task7_divide_lexemes(const char* odd_file_path,
                                    const char* even_file_path,
                                    const char* out_file_path) {
+  const char* paths[] = { odd_file_path, even_file_path };
+  files_handle_errors_internal(files_paths_check(paths, 2, out_file_path));
   FILE* out_file,* odd_file,* even_file;
   files_handle_errors_internal(
       files_open_and_check_error(out_file_path, "w", &out_file));

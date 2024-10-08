@@ -29,6 +29,8 @@ void handle_arg(const int token_count, const char** tokens, files_processor_t pr
       error_print("Error: Wrong number of arguments\n");
     }
     const char* out_file = (char*)tokens[2];
+
+    // files_handle_errors(files_paths_check(&in_file, 1, out_file));
     files_handle_errors(files_apply_processor(processor, in_file, out_file));
     printf("Output file: %s\n", out_file);
   }

@@ -39,6 +39,7 @@ files_error_t task4_count_letters(FILE* in, FILE* out) {
     }
     // fputc(c, out);
   }
+  fprintf(out, "%ld\n", letters);
   return FILES_SUCCESS;
 }
 files_error_t task4_count_special_characters(FILE* in, FILE* out) {
@@ -57,8 +58,8 @@ files_error_t task4_count_special_characters(FILE* in, FILE* out) {
       continue;
     }
     letters++;
-
   }
+  fprintf(out, "%ld\n", letters);
   return FILES_SUCCESS;
 }
 

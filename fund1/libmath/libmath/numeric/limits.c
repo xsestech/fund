@@ -19,7 +19,7 @@ long double limit_with_precision(const sequence_func_t func,
     printf("%Lf\n", prev);
 #endif
     n += 1;
-  } while (fabsl(func(n, prev) - prev) >= eps || prev == 0);
+  } while (fabsl(func(n, prev) - prev) > eps || (prev == 0 && fabsl(func(n, prev) == 0)));
   return prev;
 }
 

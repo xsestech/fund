@@ -19,7 +19,7 @@
  * @param args additional arguments
  * @return value of n-th member
  */
-long double e_series_func(const long double n, va_list args);
+long double e_series_func(const long double n, const long double prev, va_list args);
 
 /**
  * @brief Calculates pi using series
@@ -28,7 +28,7 @@ long double e_series_func(const long double n, va_list args);
  * @param args additional arguments
  * @return value of n-th member
  */
-long double pi_series_func(const long double n, va_list args);
+long double pi_series_func(const long double n, const long double prev, va_list args);
 /**
  * @brief Calculates ln2 using series
  * SUM SERIES
@@ -36,7 +36,7 @@ long double pi_series_func(const long double n, va_list args);
  * @param args additional arguments
  * @return value of n-th member
  */
-long double ln2_series_func(const long double n, va_list args);
+long double ln2_series_func(const long double n, const long double prev, va_list args);
 /**
  * @brief Calculates sqrt2 using series
  * PRODUCT SERIES
@@ -44,7 +44,7 @@ long double ln2_series_func(const long double n, va_list args);
  * @param args additional arguments
  * @return value of n-th member
  */
-long double sqrt2_series_func_prod(const long double n, va_list args);
+long double sqrt2_series_func_prod(const long double n, const long double, va_list args);
 
 /**
  * @brief Calculates sqrt2 using series
@@ -53,7 +53,7 @@ long double sqrt2_series_func_prod(const long double n, va_list args);
  * @param args additional arguments
  * @return value of n-th member
  */
-long double gamma_series_func(const long double n, va_list args);
+long double gamma_series_func(const long double n, const long double, va_list args);
 
 
 

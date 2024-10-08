@@ -11,19 +11,13 @@
 #include <string.h>
 #include <libfiles/errors.h>
 #include <libstring/string.h>
+#include <libfiles/path.h>
 
 #define FILES_DEFAULT_LEXEME_BUFFER_SIZE 512
 
 typedef files_error_t (*files_processor_t)(FILE* in, FILE* out);
 
-/**
- * @brief Adds prefix to file name in path
- * @param file_path path to file
- * @param prefix prefix to add to file name
- * @return File name with prefix or NULL on error
- * @warning This function allocates memory. Do not forget to free it.
- */
-char* files_add_prefix_to_path(const char* file_path, const char* prefix);
+
 
 /**
  * @brief Opens file and handles errors on opening
@@ -59,5 +53,7 @@ files_error_t files_apply_processor(files_processor_t processor,
  * @return FILES errors
  */
 files_error_t files_get_lexeme(FILE* file, char** lexeme);
+
+
 
 #endif //FILES_H

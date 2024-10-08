@@ -23,8 +23,8 @@ void m_arg_handler(const int token_count, const char** tokens) {
       parse_arg_params(tokens, token_count, param_types, sizeof(param_types)/
         sizeof
         (param_types[0]), params));
-  int a = params[0].integer;
-  int b = params[1].integer;
+  const int a = params[0].integer;
+  const int b = params[1].integer;
   parsing_destroy_params(params);
   if (a < 0 || b < 0) {
     error_print("Inputs should be more than zero");

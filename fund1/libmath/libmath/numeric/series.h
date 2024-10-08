@@ -14,7 +14,8 @@
 #include <stdarg.h>
 
 
-typedef long double (*series_member_func_t)(long double, va_list args);
+typedef long double (*series_member_func_t)(long double n, long double prev,
+                                            va_list args);
 
 typedef enum {
   SUM,

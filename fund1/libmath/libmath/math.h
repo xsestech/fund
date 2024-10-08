@@ -43,7 +43,8 @@ long double combinations(const int n, const int k);
  * @param c_n_k previous combination value
  * @return \f$ C_n^{k + 1} \f$
  */
-long double combinations_incr_k(const int n, const int k, const int c_n_k);
+long long int combinations_incr_k(const long double n, const long double k,
+                                const long double c_n_k);
 /**
  * @brief Computes \f$ C_{n + 1}^k \f$ using \f$ C_{n + 1}^k \f$
  * @param n n value of previous combination

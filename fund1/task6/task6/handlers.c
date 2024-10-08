@@ -22,7 +22,7 @@ void r_arg_handler(const int token_count, const char** tokens) {
   if (token_count > 1) {
     parse_handle_errors(parse_one_double(token_count, tokens, &eps));
   }
-  integrate_and_print(integrate_trapezoidal_steps, integrals_table,
+  integrate_and_print(integrate_simpson_rule, integrals_table,
                       SIZEOF_ARRAY(integrals_table), eps);
 }
 
@@ -30,6 +30,6 @@ void e_arg_handler(const int token_count, const char** tokens) {
   long double eps = 0;
   parse_handle_errors(parse_one_double(token_count, tokens, &eps));
 
-  integrate_and_print(integrate_trapezoidal_steps, integrals_table,
+  integrate_and_print(integrate_trapezoidal_rule, integrals_table,
                       SIZEOF_ARRAY(integrals_table), eps);
 }

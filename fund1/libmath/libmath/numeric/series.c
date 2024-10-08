@@ -13,11 +13,11 @@ long double series_with_precision(const series_member_func_t series_member_func,
                                   const series_type_t type,
                                   const long double eps, va_list args) {
 
-  long double member = series_member_func(1, args);
+  long double member = series_member_func(1, 0, args);
   long double result = member;
   long int k = 2;
   do {
-    member = series_member_func(k, args);
+    member = series_member_func(k, member, args);
     switch (type) {
       case SUM:
         result += member;

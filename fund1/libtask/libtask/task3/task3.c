@@ -134,6 +134,9 @@ bool check_triangle(const long double a, const long double b,
 
 bool task3_is_right_triangle(const long double a, const long double b,
                              const long double c, const long double eps) {
+  if (is_lf_equal(a, 0, eps) && is_lf_equal(b, 0, eps) && is_lf_equal(c, 0, eps)) {
+    return false;
+  }
   return check_triangle(a, b, c, eps) || check_triangle(c, b, a, eps) ||
     check_triangle(a, c, b, eps);;
 }

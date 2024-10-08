@@ -6,6 +6,7 @@
 #include <task9/handlers.h>
 #include <libtask/utils.h>
 
+// @todo: bsearch
 
 void r_arg_handler(const int token_count, const char** tokens) {
   if (token_count != 3) {
