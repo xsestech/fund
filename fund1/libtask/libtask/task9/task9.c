@@ -67,9 +67,10 @@ int find_closest(const darray_int_handle_t arr, const int target) {
 darray_int_handle_t task9_permute_darray(const darray_int_handle_t a,
                                          const darray_int_handle_t b) {
   darray_int_handle_t c = darray_int_init(darray_int_size(a));
+  darray_qsort(b);
   for (int i = 0; i < darray_int_size(a); i++) {
     const int a_elem = darray_int_get(a, i);
-    const int c_elem = a_elem + find_closest(b, a_elem);
+    const int c_elem = a_elem + darray_find_closest(b, a_elem);
     darray_int_put(c, i, c_elem);
   }
   return c;

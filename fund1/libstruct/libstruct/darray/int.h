@@ -56,6 +56,19 @@ void darray_int_put(darray_int_handle_t arr, size_t index, lld value);
  * @param arr array handle
  */
 void darray_int_print(darray_int_handle_t arr);
+/**
+ * @brief Sorts dynamic array using stdlib qsort
+ * @param arr array to sort
+ */
+void darray_qsort(darray_int_handle_t arr);
 
+/**
+ * @breif Find closest to given value in array
+ * @param arr array, where search will be done
+ * @param value value to search
+ * @return closest value
+ * @warning The array should be sorted prior to the search
+ */
+lld darray_find_closest(darray_int_handle_t arr, const lld value);
 
 #endif //DARRAY_INT_H
