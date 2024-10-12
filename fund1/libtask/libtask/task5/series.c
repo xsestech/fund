@@ -22,7 +22,7 @@ long double b_series_func(long double n, const long double prev, va_list args) {
     return 0.5L;
   }
   const long double x = va_arg(args, long double);
-  return -prev * (2 * n + 1) * (2 * n + 2);
+  return -prev * x * x / ((2 * n + 1) * (2 * n + 2));
 }
 
 long double c_series_func(long double n, long double prev, va_list args) {
@@ -37,7 +37,7 @@ long double c_series_func(long double n, long double prev, va_list args) {
 
 long double d_series_func(const long double n, long double prev, va_list args) {
   const long double x = va_arg(args, long double);
-  if (n == 0) {
+  if (n == 1) {
     return 1.0;
   }
   return -prev * (2 * n + 1) / (2 * n + 2) * x * x;

@@ -20,10 +20,10 @@ const sequence_t sequence_table[] = {
 };
 const series_t series_table[] = {
     {"e", e_series_func, SUM},
-    // {"π", pi_series_func, SUM},
-    // {"ln2", ln2_series_func, SUM},
-    // {"√2", sqrt2_series_func_prod, PRODUCT},
-    // {"γ", gamma_series_func, SUM},
+    {"π", pi_series_func, SUM},
+    {"ln2", ln2_series_func, SUM},
+    {"√2", sqrt2_series_func_prod, PRODUCT},
+    {"γ", gamma_series_func, SUM},
 };
 
 const dichotomy_t dichotomy_table[] = {
@@ -36,10 +36,10 @@ const dichotomy_t dichotomy_table[] = {
 
 void handle_calcs(long double eps) {
   printf("eps: %Lf\n", eps);
-  // limit_print_and_calc(sequence_table, SIZEOF_ARRAY(sequence_table), eps);
+  limit_print_and_calc(sequence_table, SIZEOF_ARRAY(sequence_table), eps);
   series_calc_and_print(series_table, SIZEOF_ARRAY(series_table), eps);
-  // const long double gamma_c = limit_with_precision(gamma_const_sequence, eps);
-  // dichotomy_print_solutions(dichotomy_table, SIZEOF_ARRAY(dichotomy_table), eps, gamma_c);
+  const long double gamma_c = limit_with_precision(gamma_const_sequence, eps);
+  dichotomy_print_solutions(dichotomy_table, SIZEOF_ARRAY(dichotomy_table), eps, gamma_c);
 }
 
 void r_arg_handler(const int, const char**) {

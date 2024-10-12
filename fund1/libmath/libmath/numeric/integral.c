@@ -17,11 +17,11 @@ long double integrate_simpson_rule(const integral_func_t f,
   long double y_a = f(a);
   // Handle bounds, that can't be calculated
   if (isnan(y_a) || isinf(y_a)) {
-    y_a = f(a + LDBL_EPSILON);
+    y_a = f(a + 1e-4);
   }
   long double y_b = f(b);
   if (isnan(y_b) || isinf(y_b)) {
-    y_b = f(b - LDBL_EPSILON);
+    y_b = f(b - 1e-4);
   }
   long double result = y_a + y_b;
   for (int i = 1; i < steps; i++) {
