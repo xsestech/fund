@@ -11,10 +11,11 @@ void print_number_in_base(const long long int number, const int base) {
   if (error == STRING_SUCCESS) {
     printf("%s\n", number_str);
   }
+  free(number_str);
 }
 
 
-int main(const int argc, const char* argv[]) {
+int main(const int, const char* []) {
   char* lexeme;
   long long int max_number = 0;
   printf("Input base: ");
@@ -30,18 +31,23 @@ int main(const int argc, const char* argv[]) {
       break;
     }
     if (strcmp(lexeme, "Stop") == 0) {
+      free(lexeme);
       break;
     }
     long long int number;
     const string_error_t error = string_to_int(lexeme, &number, base);
     if (error != STRING_SUCCESS) {
       string_error_handler(error);
-      printf("Invalid input\n");
+      error_print("Invalid input\n");
     }
     if (number > max_number) {
       max_number = number;
     }
     free(lexeme);
+  }
+  if (max_number == 0) {
+    error_print("Error: All number consisted of zeros of no input was provided\n");
+    return 1;
   }
   printf("Max number is ");
   print_number_in_base(max_number, base);

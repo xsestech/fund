@@ -50,21 +50,25 @@ files_error_t files_get_lexeme(FILE* file, char** lexeme) {
   }
   size_t buffer_pos = 0;
   char c = fgetc(file);
-  if (c != EOF && !string_char_is_sep(c)) {
-    buffer[buffer_pos++] = c;
-  }
+
   while ((c != EOF) && string_char_is_sep(c)) {
     c = fgetc(file);
     if (ferror(file)) {
       return FILES_IO_OPERATION_FAILED_ERROR;
     }
   }
+  if (c != EOF && !string_char_is_sep(c)) {
+    buffer[buffer_pos++] = c;
+  }
+  // if (c != EOF) {
+  //   buffer[buffer_pos++] = c;
+  // }
   while (((c = fgetc(file)) != EOF) && !string_char_is_sep(c)) {
     if (ferror(file)) {
       return FILES_IO_OPERATION_FAILED_ERROR;
     }
     buffer[buffer_pos++] = c;
-    if (buffer_pos <= buff_size - 2) {
+    if (buffer_pos >= buff_size - 2) {
       buff_size *= 2;
       char* new_token_buffer = realloc(buffer,
                                        buff_size * sizeof(char));

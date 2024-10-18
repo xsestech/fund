@@ -56,8 +56,14 @@ files_error_t files_paths_check(char** input_paths, const int n_input_paths,
     return FILES_CHECKER_NO_NAMES_PROVIDED_ERROR;
   }
   char* output_path_norm = files_path_normalize(output_path);
+  if (output_path_norm == NULL) {
+    return FILES_SUCCESS;
+  }
   for (int i = 0; i < n_input_paths; i++) {
     char* input_path = files_path_normalize(input_paths[i]);
+    if (input_path == NULL) {
+      continue;
+    }
     if (strcmp(output_path_norm, input_path) == 0) {
       free(input_path);
       free(output_path_norm);

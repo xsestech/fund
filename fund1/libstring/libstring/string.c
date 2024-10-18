@@ -24,7 +24,10 @@ char* string_reverse(char* str) {
 
 string_error_t alloc_string_for_conversion(const long long int number, char** string,
                                            const int base) {
-  const int size = logl(number) / logl(base) + 2;
+  int size = logl(number) / logl(base) + 2;
+  if (number == 0) {
+    size = 2;
+  }
   *string = malloc(size * sizeof(char));
   if (*string == NULL) {
     return STRING_ALLOCATION_ERROR;
@@ -37,6 +40,7 @@ string_convert_to_base(long long int number, const int base, char** output) {
   if (base > 36 || base < 1) {
     return STRING_UNSUPPORTED_BASE_ERROR;
   }
+
   const string_error_t error =
       alloc_string_for_conversion(number, output, base);
   if (error != STRING_SUCCESS) {
@@ -165,5 +169,5 @@ void string_error_handler(const string_error_t error) {
       error_print("Unknown error");
       break;
   }
-  printf("\n");
+  error_print("\n");
 }

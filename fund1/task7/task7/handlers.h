@@ -18,23 +18,6 @@
  */
 void r_arg_handler(const int token_count, const char** tokens);
 
-/**
- * @brief p arg
- * @details определить, является ли число x простым; является ли x составным;
- * @param token_count number of input tokens
- * @param tokens array of tokens
- */
-void p_arg_handler(const int token_count, const char** tokens);
-
-/**
- * @brief s arg
- * @details разделить число x на отдельные цифры системы счисления с основанием
- * 16 и вывести отдельно каждую цифру числа, разделяя их пробелом, от старших
- * разрядов к младшим, без ведущих нулей в строковом представлении;
- * @param token_count number of input tokens
- * @param tokens array of tokens
- */
-void s_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief a arg
