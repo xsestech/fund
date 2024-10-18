@@ -46,7 +46,7 @@ int main(const int, const char* []) {
     free(lexeme);
   }
   if (max_number == 0) {
-    error_print("Error: All number consisted of zeros of no input was provided\n");
+    error_print("Error: All number consisted of zeros or no input was provided\n");
     return 1;
   }
   printf("Max number is ");
