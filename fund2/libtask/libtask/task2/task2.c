@@ -49,7 +49,7 @@ long double rbinpowl_internal(long double x, int64_t n, int64_t current_pow, lon
   return rbinpowl_internal(x * x, n, current_pow * 2, start_x);
 }
 
-long double rbinpowl(long double x, int64_t n) {
+long double rbinpowl(long double x, uint64_t n) {
   return rbinpowl_internal(x, n, 1, x);
 }
 

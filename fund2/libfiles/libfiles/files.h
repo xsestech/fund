@@ -53,6 +53,7 @@ files_error_t files_apply_processor(files_processor_t processor,
  * @return FILES errors
  */
 files_error_t files_get_lexeme(FILE* file, char** lexeme);
+files_error_t files_get_line(FILE* file, char** lexeme);
 
 
 

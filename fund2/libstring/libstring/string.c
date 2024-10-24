@@ -157,30 +157,6 @@ bool string_char_is_sep(const char c) {
   return (c == ' ') || (c == '\t') || (c == '\n') || (c == '\r');
 }
 
-void string_error_handler(const string_error_t error) {
-  error_print("String Error: ");
-  switch (error) {
-    case STRING_SUCCESS:
-      break;
-    case STRING_ALLOCATION_ERROR:
-      error_print("Unable to allocate memory for number string");
-      break;
-    case STRING_INVALID_CHARACTER_FOR_BASE_ERROR:
-      error_print("Invalid character in string in current integer base");
-      break;
-    case STRING_INT_OVERFLOW_ERROR:
-      error_print("Integer overflow in string in current integer base");
-      break;
-    case STRING_UNSUPPORTED_BASE_ERROR:
-      error_print("Conversion base should be between 2 and 36");
-      break;
-    default:
-      error_print("Unknown error");
-      break;
-  }
-  error_print("\n");
-}
-
 unsigned int string_len(const char* str) {
   unsigned int idx = 0;
   while (str[idx] != '\0') {
@@ -209,3 +185,28 @@ string_error_t string_copy(const char* str, char** dest) {
   memcpy(*dest, str, str_len);
   return STRING_SUCCESS;
 }
+
+void string_error_handler(const string_error_t error) {
+  error_print("String Error: ");
+  switch (error) {
+    case STRING_SUCCESS:
+      break;
+    case STRING_ALLOCATION_ERROR:
+      error_print("Unable to allocate memory for number string");
+    break;
+    case STRING_INVALID_CHARACTER_FOR_BASE_ERROR:
+      error_print("Invalid character in string in current integer base");
+    break;
+    case STRING_INT_OVERFLOW_ERROR:
+      error_print("Integer overflow in string in current integer base");
+    break;
+    case STRING_UNSUPPORTED_BASE_ERROR:
+      error_print("Conversion base should be between 2 and 36");
+    break;
+    default:
+      error_print("Unknown error");
+    break;
+  }
+  error_print("\n");
+}
+
