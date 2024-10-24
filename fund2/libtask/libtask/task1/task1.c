@@ -1,65 +1,80 @@
-#include <math.h>
-#include <stdio.h>
 #include <libtask/task1/task1.h>
 
-const char HEX_CONVERSION_TABLE[16] = {'0', '1', '2', '3', '4', '5', '6', '7',
-                                       '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-void print_natural_multiples(const int multiplier, const int upper_bound) {
-  if (multiplier < 1) {
-    error_print("Multiplier is not a natural number");
-    return;
-  }
-  if (multiplier > upper_bound) {
-    error_print("Multiplier is greater than %d \n", upper_bound);
-    return;
-  }
-  bool is_multiple_found = false;
-  for (int i = multiplier; i <= upper_bound; i += multiplier) {
-      printf("Found multiple %d\n", i);
-      is_multiple_found = true;
-  }
-  if (!is_multiple_found) {
-    printf("No multiples found\n");
+void free_and_check(void* ptr) {
+  if (ptr != NULL) {
+    free(ptr);
   }
 }
 
-bool is_prime(const int number) {
-  if (number == 1) return false;
-  for (int i = 2; i < sqrt(number); i++) {
-    if (number % i == 0) {
-      return false;
+separate_chars_handle task1_separate_chars_create(uint32_t str_len) {
+  separate_chars_handle separate_chars = malloc(sizeof(separate_chars_t));
+  if (separate_chars == NULL) {
+    return nullptr;
+  }
+  size_t separate_chars_length = (str_len + 1) * sizeof(char);
+  separate_chars->digits = malloc(separate_chars_length);
+  separate_chars->etc = malloc(separate_chars_length);
+  separate_chars->letters = malloc(separate_chars_length);
+  if (!separate_chars->digits || !separate_chars->letters ||
+      !separate_chars->etc) {
+    free_and_check(separate_chars->digits);
+    free_and_check(separate_chars->letters);
+    free_and_check(separate_chars->etc);
+    free(separate_chars);
+    separate_chars = nullptr;
+  }
+  return separate_chars;
+}
+void task1_separate_chars_destroy(const separate_chars_handle separate_chars) {
+  free(separate_chars->digits);
+  free(separate_chars->letters);
+  free(separate_chars->etc);
+  free(separate_chars);
+}
+separate_chars_handle task1_separate_chars(char* str) {
+  separate_chars_handle separate_chars =
+      task1_separate_chars_create(strlen(str));
+  if (separate_chars == NULL) {
+    return nullptr;
+  }
+  uint32_t letter_idx = 0, etc_idx = 0, digits_idx = 0;
+  for (; *str != '\0'; str++) {
+    if (string_char_is_alpha(*str)) {
+      separate_chars->letters[letter_idx++] = *str;
+    } else if (string_char_is_digit(*str)) {
+      separate_chars->digits[digits_idx++] = *str;
+    } else {
+      separate_chars->etc[etc_idx++] = *str;
     }
   }
-  return true;
+  separate_chars->letters[letter_idx] = '\0';
+  separate_chars->digits[digits_idx] = '\0';
+  separate_chars->etc[etc_idx] = '\0';
+  return separate_chars;
 }
 
+char* task1_separate_chars_str(separate_chars_handle separate_chars) {
+  char* concat_str = string_cat(separate_chars->letters, separate_chars->digits);
+  concat_str = string_cat(concat_str, separate_chars->etc);
+  return concat_str;
+}
 
-void print_powers_table(const int max_power) {
-  long long int bases[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-  for (int i = 1; i <= max_power; i++) {
-    for (int j = 0; j < sizeof(bases) / sizeof(long long int); j++) {
-      bases[j] *= j + 1;
-      printf("%lld  ", bases[j]);
+void task1_make_even_pos_upper(char* str) {
+  for (int i = 0; str[i] != '\0'; i++) {
+    if ((i + 1) % 2 == 0) {
+      str[i] = string_char_to_upper(str[i]);
     }
-    printf("\n");
   }
 }
 
-long long int sum_of_natural(const int max_number) {
-  long long int ll_max = max_number;
-  return (ll_max + 1) * (ll_max) / 2;
+int random_int(int upper) {
+  return rand() % upper;
 }
 
-void task1_error_handler(const string_error_t error) {
-  switch (error) {
-    case STRING_SUCCESS:
-      return;
-    case STRING_UNSUPPORTED_BASE_ERROR:
-      error_print("Conversion base is greater, that 16");
-      return;
-    case STRING_ALLOCATION_ERROR:
-      error_print("Unable to allocate memory for number string");
-      return;
-  }
+int task1_generate_next_string_to_concat(char** arr, int len) {
+  int idx = 0;
+  do {
+    idx = random_int(len);
+  } while (!arr[idx]);
+  return idx;
 }

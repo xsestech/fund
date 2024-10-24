@@ -5,11 +5,13 @@ project(fund_lab1 C)
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
+set(CMAKE_MODULE_PATH "${CMAKE_HOME_DIRECTORY}/cmake")
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 option(LIBCPP "Build with libc++" FALSE)
 option(ENABLE_ASAN "Enable address sanitizer" FALSE)
 option(ENABLE_CLANG_TIDY "Enable testing with clang-tidy" FALSE)
 option(ENABLE_CPPCHECK "Enable testing with cppcheck" FALSE)
+option(ENABLE_TESTING "Enable unit tests" FALSE)
 option(SIMPLE_BUILD "Build the project as minimally as possible" FALSE)
 option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." TRUE)
 option(DEBUG_LOGGING "Enabling debug logging" FALSE)
@@ -78,7 +80,7 @@ if (ENABLE_CPPCHECK)
     if (CPPCHECK)
         set(CMAKE_CXX_CPPCHECK
                 ${CPPCHECK}
-                --suppress=syntaxError
+#                --suppress=syntaxError
                 --suppress=missingIncludeSystem
                 --suppress=unusedFunction
                 --check-level=exhaustive
@@ -129,6 +131,15 @@ if (DOXYGEN_FOUND)
 else (DOXYGEN_FOUND)
     message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
+
+if(ENABLE_TESTING)
+    add_library(unity STATIC
+            unity/src/unity.c
+    )
+    target_include_directories(unity PUBLIC
+            unity/src
+    )
+endif ()
 
 message("#########################################")
 message("\t \t Summary")

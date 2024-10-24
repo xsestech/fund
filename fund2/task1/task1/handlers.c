@@ -7,61 +7,82 @@
 #include <libtask/utils.h>
 
 
+void l_arg_handler(const int token_count, const char** tokens) {
+  if (token_count != 2) {
+    error_print("Error: Invalid number of arguments\n");
+    return;
+  }
+  printf("%u\n", string_len(tokens[1]));
+}
+
+
 void r_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  print_natural_multiples(input, 100);
-}
-
-
-void p_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  if (is_prime(input)) {
-    printf("Number %d is a prime number\n", input);
+  if (token_count != 2) {
+    error_print("Error: Invalid number of arguments\n");
     return;
   }
-  printf("Number %d is not a prime number\n", input);
+  char* rev_str = nullptr;
+  string_handle_errors(string_copy(tokens[1], &rev_str));
+  printf("Reversed string %s", string_reverse(rev_str));
+  free(rev_str);
 }
 
-void s_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  char* converted_str;
-  string_handle_errors(string_convert_to_base(input, 16, &converted_str));
-  while (*converted_str != '\0') {
-    printf("%c ", *converted_str);
-    converted_str++;
-  }
-}
-
-void e_arg_handler(const int token_count, const char** tokens) {
-  int max_power = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &max_power));
-  if (max_power > 10 || max_power < 1) {
-    error_print("Input number must be in 1 to 10 range");
+void u_arg_handler(const int token_count, const char** tokens) {
+  if (token_count != 2) {
+    error_print("Error: Invalid number of arguments\n");
     return;
   }
-  print_powers_table(max_power);
+  char* str_cpy = nullptr;
+  string_handle_errors(string_copy(tokens[1], &str_cpy));
+  task1_make_even_pos_upper(str_cpy);
+  printf("Modified string %s", str_cpy);
 }
 
-void a_arg_handler(const int token_count, const char** tokens) {
-  int max_number = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &max_number));
-  if (max_number < 1) {
-    error_print("Input number must be greater than 1");
+void n_arg_handler(const int token_count, const char** tokens) {
+  if (token_count != 2) {
+    error_print("Error: Invalid number of arguments\n");
     return;
   }
-  printf("Sum of natural until %d is %lld\n", max_number,
-         sum_of_natural(max_number));
+  separate_chars_handle separate_chars = task1_separate_chars(tokens[1]);
+  char* str = task1_separate_chars_str(separate_chars);
+  printf("%s\n", str);
+  task1_separate_chars_destroy(separate_chars);
 }
 
-void f_arg_handler(const int token_count, const char** tokens) {
-  int input = 0;
-  parse_handle_errors(parse_one_int(token_count, tokens, &input));
-  if (input < 1 || input > 25) {
-    error_print("Input number must be greater than 1 and less than 25.");
+void c_arg_handler(const int token_count, const char** tokens) {
+  int seed = 0;
+  if (token_count < 3) {
+    error_print("Error: Invalid number of arguments\n");
     return;
   }
-  printf("Factorial of %d is %lld\n", input, factorial(input));
+  parse_handle_errors(parse_int(tokens[2], &seed, false));
+  srand(seed);
+  int len = token_count - 2;
+  char** concat_strings = malloc(len);
+  if (concat_strings == NULL) {
+    error_print("Error: Failed to allocate memory for concat_strings\n");
+    return;
+  }
+  concat_strings[0] = (char*)tokens[1];
+
+  for (int i = 1; i < len; i++) {
+    concat_strings[i] = (char*)tokens[i + 2];
+  }
+  uint32_t total_string = 1;
+  for (int i = 0; i < len; i++) {
+    total_string += string_len(concat_strings[i]);
+  }
+  char* concat_str = nullptr;
+  string_alloc(total_string + 1, &concat_str);
+  concat_str[0] = '\0';
+  int i = 0;
+  while (i < len) {
+    int idx = task1_generate_next_string_to_concat(concat_strings, len);
+    string_cat(concat_str, concat_strings[idx]);
+    concat_strings[idx] = NULL;
+    i++;
+  }
+  printf("Random concat: %s", concat_str);
+  free(concat_strings);
+  free(concat_str);
 }

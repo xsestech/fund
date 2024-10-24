@@ -77,7 +77,37 @@ bool string_char_is_sep(const char c);
  */
 string_error_t string_to_int(const char* str, long long int* result,
                              const int base);
+/**
+ * Counts length of string
+ * @param str input string
+ * @return Length of string
+ */
+unsigned int string_len(const char* str);
 
+/**
+ * Copy string on heap
+ * @param[in] str string to copy
+ * @param[out] dest pointer to variable for string
+ * @return STRING_SUCCESS, STRING_ALLOCATION_ERROR
+ */
+string_error_t string_copy(const char* str, char** dest);
+/**
+ * Concat two string
+ * @param dest here we will be coping src string
+ * @param src string to add to dest
+ * @return concatinated string
+ */
+char* string_cat(char* dest, const char* src);
+
+bool string_char_is_alpha(const char c);
+bool string_char_is_digit(const char c);
+/**
+ * Allocate memory for string. Does not add memory for `\0`
+ * @param len string length
+ * @param dest where to copy string
+ * @return
+ */
+string_error_t string_alloc(const uint32_t len, char** dest);
 /**
  * @brief Marco, that adds return to main if error is present and prints
  * error description
@@ -86,6 +116,13 @@ string_error_t string_to_int(const char* str, long long int* result,
  */
 #define string_handle_errors(error) \
 handle_errors_void(error, STRING_SUCCESS, string_error_handler)
-
+/**
+ * @brief Marco, that adds return to main if error is present and prints
+ * error description
+ * @warning Use this macro *only* in main
+ * @param error Error return from function
+ */
+#define string_handle_errors_internal(error) \
+handle_errors_int(error, STRING_SUCCESS, error_handle_no_print)
 
 #endif //TASK_STRING_H

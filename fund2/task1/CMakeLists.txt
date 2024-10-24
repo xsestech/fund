@@ -1,3 +1,3 @@
 project(task1 C)
-include(../cmake/dsym.cmake)
+include(exec)
 add_exec_auto()

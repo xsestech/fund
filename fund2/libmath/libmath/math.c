@@ -66,5 +66,4 @@ quadratic_solution_t solve_quadratic_equation(const long double a,
   const long double x1 = (-b + sqrtl(d)) / (a * 2.0);
   const long double x2 = (-b - sqrtl(d)) / (a * 2.0);
   return (quadratic_solution_t){x1, x2};
-
 }

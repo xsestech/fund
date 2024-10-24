@@ -73,8 +73,8 @@ cli_error_t cli_init_optional_args(cli_handle_t** cli, cli_command_t* commands,
 void cli_destroy(cli_handle_t* cli);
 /**
  * @brief Triggers parsing of cli arguments
- * @param cli
- * @param argc
+ * @param cli handle pointer
+ * @param argc amount of args
  * @param argv
  * @return
  */

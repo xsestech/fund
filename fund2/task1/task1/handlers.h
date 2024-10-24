@@ -7,10 +7,10 @@
 #ifndef HANDLER_H
 #define HANDLER_H
 
-#include <libtask/task1/task1.h>
-#include <libmath/math.h>
 #include <libcli3/parsing/int.h>
 #include <libcli3/parsing/params.h>
+#include <libmath/math.h>
+#include <libtask/task1/task1.h>
 
 /**
  * @brief h arg
@@ -19,7 +19,7 @@
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void r_arg_handler(const int token_count, const char** tokens);
+void l_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief p arg
@@ -27,7 +27,7 @@ void r_arg_handler(const int token_count, const char** tokens);
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void p_arg_handler(const int token_count, const char** tokens);
+void r_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief s arg
@@ -37,7 +37,7 @@ void p_arg_handler(const int token_count, const char** tokens);
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void s_arg_handler(const int token_count, const char** tokens);
+void u_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief e arg
@@ -47,7 +47,7 @@ void s_arg_handler(const int token_count, const char** tokens);
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void e_arg_handler(const int token_count, const char** tokens);
+void n_arg_handler(const int token_count, const char** tokens);
 
 /**
  * @brief a arg
@@ -56,14 +56,7 @@ void e_arg_handler(const int token_count, const char** tokens);
  * @param token_count number of input tokens
  * @param tokens array of tokens
  */
-void a_arg_handler(const int token_count, const char** tokens);
+void c_arg_handler(const int token_count, const char** tokens);
 
-/**
- * @brief f arg
- * @details вычислить факториал x и вывести полученное значение в консоль.
- * @param token_count number of input tokens
- * @param tokens array of tokens
- */
-void f_arg_handler(const int token_count, const char** tokens);
 
 #endif //HANDLER_H

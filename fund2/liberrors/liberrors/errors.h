@@ -65,4 +65,6 @@ void error_print(const char* format, ...);
  * @param error error code
  */
 void error_handle_no_print(int error);
+
+void error_check_pointer_and_assign(int* pointer, int value);
 #endif //ERRORS_H

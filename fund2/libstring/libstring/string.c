@@ -10,11 +10,11 @@ char* string_reverse(char* str) {
   if (!str || !*str) {
     return str;
   }
-  const int len = strlen(str);
+  const uint32_t len = string_len(str);
   if (len == 1) {
     return str;
   }
-  for (int i = 0; i < floor(len / 2); ++i) {
+  for (int i = 0; i < len / 2; ++i) {
     char t = str[i];
     str[i] = str[len - i - 1];
     str[len - i - 1] = t;
@@ -22,8 +22,8 @@ char* string_reverse(char* str) {
   return str;
 }
 
-string_error_t alloc_string_for_conversion(const long long int number, char** string,
-                                           const int base) {
+string_error_t alloc_string_for_conversion(const long long int number,
+                                           char** string, const int base) {
   int size = logl(number) / logl(base) + 2;
   if (number == 0) {
     size = 2;
@@ -35,8 +35,8 @@ string_error_t alloc_string_for_conversion(const long long int number, char** st
   return STRING_SUCCESS;
 }
 
-string_error_t
-string_convert_to_base(long long int number, const int base, char** output) {
+string_error_t string_convert_to_base(long long int number, const int base,
+                                      char** output) {
   if (base > 36 || base < 1) {
     return STRING_UNSUPPORTED_BASE_ERROR;
   }
@@ -116,6 +116,14 @@ char string_char_to_upper(const char c) {
   return (c >= 'a' && c <= 'z') ? c - ('a' - 'A') : c;
 }
 
+bool string_char_is_digit(const char c) {
+  return c >= '0' && c <= '9';
+}
+
+bool string_char_is_alpha(const char c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
 string_error_t string_to_int(const char* str, long long int* result,
                              const int base) {
   *result = 0;
@@ -131,8 +139,9 @@ string_error_t string_to_int(const char* str, long long int* result,
   const char upper_letter_limit = 'A' + (base > 10 ? base - 10 : 0) - 1;
   for (; *str != '\0'; ++str) {
     const char c = string_char_to_upper(*str);
-    if (!(((c >= '0') && (c <= upper_digit_limit)) || ((c >= 'A') && (
-            c <= upper_letter_limit) && (upper_letter_limit >= 'A')))) {
+    if (!(((c >= '0') && (c <= upper_digit_limit)) ||
+          ((c >= 'A') && (c <= upper_letter_limit) &&
+           (upper_letter_limit >= 'A')))) {
       return STRING_INVALID_CHARACTER_FOR_BASE_ERROR;
     }
     if (*result * base < *result) {
@@ -170,4 +179,33 @@ void string_error_handler(const string_error_t error) {
       break;
   }
   error_print("\n");
+}
+
+unsigned int string_len(const char* str) {
+  unsigned int idx = 0;
+  while (str[idx] != '\0') {
+    idx++;
+  }
+  return idx;
+}
+
+string_error_t string_alloc(const uint32_t len, char** dest) {
+  *dest = malloc(len);
+  if (!*dest) {
+    return STRING_ALLOCATION_ERROR;
+  }
+}
+char* string_cat(char* dest, const char* src) {
+  uint32_t len = string_len(dest);
+  uint32_t src_len = string_len(src);
+  memcpy(dest + len, src, string_len(src));
+  dest[len + src_len] = '\0';
+  return dest;
+}
+
+string_error_t string_copy(const char* str, char** dest) {
+  uint32_t str_len = string_len(str) + 1;
+  string_handle_errors_internal(string_alloc(str_len, dest));
+  memcpy(*dest, str, str_len);
+  return STRING_SUCCESS;
 }

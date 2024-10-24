@@ -6,6 +6,12 @@
  */
 #include <liberrors/errors.h>
 
+void error_check_pointer_and_assign(int* pointer, int value) {
+  if (pointer != NULL) {
+    *pointer = value;
+  }
+}
+
 void error_print(const char* format, ...) {
   va_list args;
   va_start(args, format);

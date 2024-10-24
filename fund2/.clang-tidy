@@ -25,7 +25,7 @@ CheckOptions:
   abseil-string-find-str-contains.StringLikeClasses: '::std::basic_string;::std::basic_string_view;::absl::string_view'
   altera-single-work-item-barrier.AOCVersion: '1600'
   altera-struct-pack-align.MaxConfiguredAlignment: '128'
-  altera-unroll-loops.MaxLoopIterations: '100'
+  altera-unroll-loops.MaxLoopIterations: '10'
   android-comparison-in-temp-failure-retry.RetryMacros: TEMP_FAILURE_RETRY
   bugprone-argument-comment.CommentBoolLiterals: '0'
   bugprone-argument-comment.CommentCharacterLiterals: '0'
