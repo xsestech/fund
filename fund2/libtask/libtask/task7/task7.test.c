@@ -46,7 +46,7 @@ void test_small_eps(void) {
   dichotomy_error_t status = 0;
   const long double fisrt_dichot =
       dichotomy_find_solution(sqrt_equation, 0, 100000, &status, eps);
-  printf("%f\n", fisrt_dichot);
+  printf("%Lf\n", fisrt_dichot);
   TEST_ASSERT_EQUAL(DICHOT_ITERATIONS_LIMIT_ERROR, status);
 }
 
