@@ -16,6 +16,16 @@ long long int factorial(const int number) {
   return result;
 }
 
+int fsignl(const long double number) {
+  if (number < 0) {
+    return -1;
+  }
+  if (number > 0) {
+    return 1;
+  }
+  return 0;
+}
+
 
 long double combinations(const int n, const int k) {
   return factorial(n) / (factorial(k) * factorial(n - k));

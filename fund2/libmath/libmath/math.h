@@ -61,6 +61,11 @@ long double combinations_incr_n(const int n, const int k, const int c_n_k);
 void primes(bool* is_prime, const int n);
 
 /**
+ * Get a sign of a number
+ */
+int fsignl(const long double number);
+
+/**
  * @brief Checks if two long double are equal
  * @param a first number to compare
  * @param b second number to compare
