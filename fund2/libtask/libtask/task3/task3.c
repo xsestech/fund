@@ -25,7 +25,7 @@ const char* find_substring(const char* str, const char* substr, uint32_t* pos) {
 }
 
 str_pos_t* find_substring_in_files(char* substring, task3_error_t* status,
-                                    size_t n_files, ...) {
+                                   size_t n_files, ...) {
   error_check_pointer_and_assign(status, TASK3_SUCCESS);
   vector(str_pos_t) results = NULL;
   va_list args;
@@ -82,7 +82,7 @@ str_pos_t* find_substring_in_files(char* substring, task3_error_t* status,
  * write shit code as the redemption can reach sooner, than you thought.
  */
 str_pos_t* find_substring_in_files2(char* substring, task3_error_t* status,
-                                   size_t n_files, ...) {
+                                    size_t n_files, ...) {
   error_check_pointer_and_assign(status, TASK3_SUCCESS);
   vector(str_pos_t) results = NULL;
   va_list args;
@@ -103,16 +103,21 @@ str_pos_t* find_substring_in_files2(char* substring, task3_error_t* status,
     }
 
     char* current = substring;
-    uint32_t column = 0;
     uint32_t line = 1;
     uint32_t global_pos = 0;
     uint32_t last_global_pos = 0;
     uint32_t last_line_pos = 0;
+    uint32_t old_line_pos = 0;
+    uint32_t current_line_number = 1;
     // const int64_t substr_len = strlen(substring);
     while (1) {
 
       if (*current == '\0') {
-        str_pos_t pos = {i, line, last_global_pos - last_line_pos - line + 2};
+        if (last_global_pos < last_line_pos) {
+          last_line_pos = old_line_pos;
+          line = current_line_number;
+        }
+        str_pos_t pos = {i, line, last_global_pos - last_line_pos + 1};
         vector_push_back(results, pos);
         current = substring;
         if (fseek(file, last_global_pos + 1, SEEK_SET) != 0) {
@@ -121,6 +126,7 @@ str_pos_t* find_substring_in_files2(char* substring, task3_error_t* status,
           va_end(args);
           return NULL;
         }
+
         global_pos = last_global_pos + 1;
       }
       char c = fgetc(file);
@@ -128,24 +134,31 @@ str_pos_t* find_substring_in_files2(char* substring, task3_error_t* status,
         break;
       }
       if (c == '\n') {
-        column = 1;
-        last_line_pos = global_pos;
+
+        last_line_pos = global_pos + 1;
         line++;
       }
       if (c == *current) {
         if (current == substring) {
+          current_line_number = line;
           last_global_pos = global_pos;
+          old_line_pos = last_line_pos;
         }
         current++;
       } else {
         if (current != substring) {
           current = substring;
+          if (last_global_pos < last_line_pos) {
+            last_line_pos = old_line_pos;
+            line = current_line_number;
+          }
           if (fseek(file, last_global_pos + 1, SEEK_SET) != 0) {
             error_check_pointer_and_assign(status, TASK3_FILE_ERROR);
             vector_destroy(results);
             va_end(args);
             return NULL;
           }
+          global_pos = last_global_pos;
         }
         if (*current == c) {
           current++;

@@ -23,14 +23,32 @@ bool poses_cmp(str_pos_t a, str_pos_t b) {
 
 void test_no_files(void) {
   task3_error_t status;
-  str_pos_t* poses = find_substring_in_files("abc", &status, 0);
+  str_pos_t* poses = find_substring_in_files2("abc", &status, 0);
   TEST_ASSERT_EQUAL(NULL, poses);
+  TEST_ASSERT_EQUAL(TASK3_SUCCESS, status);
+}
+
+void test_simply(void) {
+  task3_error_t status;
+  str_pos_t* poses = find_substring_in_files2(
+      "abc", &status, 1, "tests/task3/file5.in");
+  print_positions(poses);
+  const str_pos_t expected_poses[] = {
+    {0, 1, 7},
+    {0, 2, 13},
+    {0, 4, 5},
+    {0, 6, 8},
+  };
+  TEST_ASSERT_EQUAL(sizeof(expected_poses) / sizeof(str_pos_t), vector_size(poses));
+  for (size_t i = 0; i < vector_size(poses); ++i) {
+    TEST_ASSERT_TRUE(poses_cmp(poses[i], expected_poses[i]));
+  }
   TEST_ASSERT_EQUAL(TASK3_SUCCESS, status);
 }
 
 void test_position(void) {
   task3_error_t status;
-  str_pos_t* poses = find_substring_in_files(
+  str_pos_t* poses = find_substring_in_files2(
       "abc", &status, 1, "tests/task3/file4.in");
   print_positions(poses);
   const str_pos_t expected_poses[] = {
@@ -47,7 +65,7 @@ void test_position(void) {
 
 void test_two_files(void) {
   task3_error_t status;
-  str_pos_t* poses = find_substring_in_files(
+  str_pos_t* poses = find_substring_in_files2(
       "abc", &status, 2, "tests/task3/file1.in", "tests/task3/file2.in");
   print_positions(poses);
   const str_pos_t expected_poses[] = {
@@ -76,9 +94,9 @@ void test_two_files(void) {
 }
 
 
-void test_test_overlapping_strings(void) {
+void test_overlapping_strings(void) {
   task3_error_t status;
-  str_pos_t* poses = find_substring_in_files(
+  str_pos_t* poses = find_substring_in_files2(
       "abba", &status, 1, "tests/task3/file3.in");
   print_positions(poses);
   const str_pos_t expected_poses[] = {
@@ -95,13 +113,50 @@ void test_test_overlapping_strings(void) {
   TEST_ASSERT_EQUAL(TASK3_SUCCESS, status);
 }
 
+void test_newline_in_string(void) {
+  task3_error_t status;
+  str_pos_t* poses =
+      find_substring_in_files2("abc\n", &status, 1, "tests/task3/file5.in");
+  print_positions(poses);
+  const str_pos_t expected_poses[] = {
+      {0, 1, 7},
+      {0, 2, 13},
+      {0, 6, 8},
+  };
+  TEST_ASSERT_EQUAL(sizeof(expected_poses) / sizeof(str_pos_t),
+                    vector_size(poses));
+  for (size_t i = 0; i < vector_size(poses); ++i) {
+    TEST_ASSERT_TRUE(poses_cmp(poses[i], expected_poses[i]));
+  }
+  TEST_ASSERT_EQUAL(TASK3_SUCCESS, status);
+}
+
+void test_two_newline_in_string(void) {
+  task3_error_t status;
+  str_pos_t* poses =
+      find_substring_in_files2("abc\n\n", &status, 1, "tests/task3/file5.in");
+  print_positions(poses);
+  const str_pos_t expected_poses[] = {
+    {0, 6, 8},
+};
+  TEST_ASSERT_EQUAL(sizeof(expected_poses) / sizeof(str_pos_t),
+                    vector_size(poses));
+  for (size_t i = 0; i < vector_size(poses); ++i) {
+    TEST_ASSERT_TRUE(poses_cmp(poses[i], expected_poses[i]));
+  }
+  TEST_ASSERT_EQUAL(TASK3_SUCCESS, status);
+}
+
 int main(void) {
   UNITY_BEGIN();
 
   RUN_TEST(test_no_files);
+  RUN_TEST(test_simply);
   RUN_TEST(test_position);
   RUN_TEST(test_two_files);
-  RUN_TEST(test_test_overlapping_strings);
+  RUN_TEST(test_overlapping_strings);
+  RUN_TEST(test_newline_in_string);
+  RUN_TEST(test_two_newline_in_string);
 
   return UNITY_END();
 }
