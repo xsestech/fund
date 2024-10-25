@@ -17,7 +17,7 @@ void tearDown(void) {
   // clean stuff up here
 }
 
-void test_straight_line(void) {
+void test_convex_straight_line(void) {
   const long double eps = 1e-9;
   dichotomy_error_t status = 0;
   const long double fisrt_dichot =
@@ -53,7 +53,7 @@ void test_small_eps(void) {
 int main(void) {
   UNITY_BEGIN();
 
-  RUN_TEST(test_straight_line);
+  RUN_TEST(test_convex_straight_line);
   RUN_TEST(test_invalid_bounds);
   RUN_TEST(test_no_root_on_range);
   RUN_TEST(test_small_eps);

@@ -186,6 +186,19 @@ string_error_t string_copy(const char* str, char** dest) {
   return STRING_SUCCESS;
 }
 
+char* string_substr(const char* str, size_t i) {
+  if (i + 1 > strlen(str)) {
+    return NULL;
+  }
+  char* substr = malloc(i + 2);
+  if (!substr) {
+    return NULL;
+  }
+  memcpy(substr, str, i + 1);
+  substr[i + 1] = '\0';
+  return substr;
+}
+
 void string_error_handler(const string_error_t error) {
   error_print("String Error: ");
   switch (error) {

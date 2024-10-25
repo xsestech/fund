@@ -109,6 +109,15 @@ bool string_char_is_digit(const char c);
  */
 string_error_t string_alloc(const uint32_t len, char** dest);
 /**
+ * Creates copy of part of string on heap
+ * @warning 1. This function allocates memory. Don't forget to free it
+ * @warning 2. This function was not tested. @todo test it
+ * @param str string
+ * @param i index of end of substring
+ * @return substring pointer
+ */
+char* string_substr(const char* str, size_t i);
+/**
  * @brief Marco, that adds return to main if error is present and prints
  * error description
  * @warning Use this macro *only* in main
