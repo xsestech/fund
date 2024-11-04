@@ -63,6 +63,7 @@ void c_arg_handler(const int token_count, const char** tokens) {
     error_print("Error: Failed to allocate memory for concat_strings\n");
     return;
   }
+
   concat_strings[0] = (char*)tokens[1];
 
   for (int i = 1; i < len; i++) {
