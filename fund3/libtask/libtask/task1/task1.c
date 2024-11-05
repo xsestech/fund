@@ -46,14 +46,19 @@ size_t log_2_pow_r(uint64_t number, uint8_t r) {
   }
   return bitwise_increment(result);
 }
+uint64_t bitabs(int64_t number) {
+  uint64_t mask = number >> 63;
+  return (number ^ mask) - mask;
+}
 
-char* convert_to_base_two(uint64_t number, uint8_t r, task1_status_t* status) {
+char* convert_to_base_two(int64_t number, uint8_t r, task1_status_t* status) {
   error_check_pointer_and_assign((int*)status, TASK1_OK);
   if (r < 1 || r > 5) {
     error_check_pointer_and_assign((int*)status, TASK1_INVALID_BASE_ERROR);
     return NULL;
   }
-  size_t number_len = bitwise_increment(log_2_pow_r(number, r));
+  size_t number_len =
+      bitwise_increment(bitwise_increment(log_2_pow_r(llabs(number), r)));
   char* result = malloc(number_len);
   if (!result) {
     error_check_pointer_and_assign((int*)status, TASK1_ALLOCATION_ERROR);
@@ -65,10 +70,15 @@ char* convert_to_base_two(uint64_t number, uint8_t r, task1_status_t* status) {
   const uint8_t mask = bitwise_decrement(1 << r);
   const char* alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   size_t pos = 0;
-  while (number) {
-    result[pos] = alphabet[number & mask];
+  uint64_t abs_number = bitabs(number);
+  while (abs_number) {
+    result[pos] = alphabet[abs_number & mask];
     pos = bitwise_increment(pos);
-    number >>= r;
+    abs_number >>= r;
+  }
+  if (number < 0) {
+    result[pos] = '-';
+    pos = bitwise_increment(pos);
   }
   result[pos] = 0;
 

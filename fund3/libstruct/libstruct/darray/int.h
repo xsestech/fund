@@ -9,6 +9,7 @@
 #define DARRAY_INT_H
 
 #include <stdlib.h>
+#include <stdarg.h>
 
 #define lld long long int
 
@@ -20,6 +21,14 @@ typedef struct darray_int_t* darray_int_handle_t;
  * @return Array handle
  */
 darray_int_handle_t darray_int_init(const size_t size);
+
+/**
+ * @brief Creates array of int of given size with values
+ * @param size Size of array to init
+ * @param ... values to init array with
+ * @return Array handle
+ */
+darray_int_handle_t darray_int_with_values(size_t size, ...);
 /**
  * @brief Resizes array
  * @param arr array handle

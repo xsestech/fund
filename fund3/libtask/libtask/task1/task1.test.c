@@ -52,6 +52,13 @@ void test_invalid_base(void) {
   TEST_ASSERT_EQUAL(TASK1_INVALID_BASE_ERROR, status);
   TEST_ASSERT_NULL(converted);
 }
+void test_task1_negative(void) {
+  task1_status_t status;
+  char* converted = convert_to_base_two(-0xFF, 4, &status);
+  TEST_ASSERT_EQUAL(TASK1_OK, status);
+  TEST_ASSERT_EQUAL_STRING("-FF", converted);
+  free(converted);
+}
 
 int main(void) {
   UNITY_BEGIN();
@@ -60,6 +67,7 @@ int main(void) {
   RUN_TEST(test_task1_32);
   RUN_TEST(test_bin);
   RUN_TEST(test_invalid_base);
+  RUN_TEST(test_task1_negative);
   UNITY_END();
   return 0;
 }

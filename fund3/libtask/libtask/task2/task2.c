@@ -8,63 +8,69 @@
 #include <liberrors/errors.h>
 #include <libtask/task2/task2.h>
 
-task2_error_t geometric_mean(long double* mean, const uint64_t n, ...) {
-  if (n == 0) {
-    return TASK2_NO_ARGS_ERROR;
+void destroy_norms(mvector_handle_t** norms, size_t num_norms) {
+  for (int i = 0; i < num_norms; i++) {
+    free(norms[i]);
   }
-  va_list args;
-  va_start(args, n);
-  long double prod = 1;
-  for (uint64_t i = 0; i < n; i++) {
-    long double x = va_arg(args, long double);
-    prod *= x;
-    if (!isnormal(prod)) {
-      va_end(args);
-      return TASK2_LDBL_OVERFLOW_ERROR;
+  free(norms);
+}
+
+mvector_handle_t** calc_norms(size_t num_vectors, size_t num_dimensions,
+                              size_t num_norms, task2_error_t* status, ...) {
+  error_check_pointer_and_assign((int*)status, TASK2_OK);
+  mvector_handle_t* vectors = malloc(num_vectors * sizeof(mvector_handle_t));
+  if (vectors == NULL) {
+    error_check_pointer_and_assign((int*)status, TASK2_ALLOCATION_ERROR);
+    return NULL;
+  }
+
+  mvector_handle_t** norms = malloc(num_norms * sizeof(mvector_handle_t*));
+  if (norms == NULL) {
+    error_check_pointer_and_assign((int*)status, TASK2_ALLOCATION_ERROR);
+    free(vectors);
+    return NULL;
+  }
+  for (size_t i = 0; i < num_norms; i++) {
+    norms[i] = (mvector_handle_t*)calloc(num_vectors, sizeof(mvector_handle_t));
+    if (norms[i] == NULL) {
+      error_check_pointer_and_assign((int*)status, TASK2_ALLOCATION_ERROR);
+      for (int j = 0; j < i; j++) {
+        free(norms[j]);
+      }
+      free(norms);
+      free(vectors);
+      return NULL;
     }
   }
-  if (prod < 0) {
-    va_end(args);
-    return TASK2_NEGATIVE_PROD_NOT_ALLOWED_ERROR;
+
+  va_list args;
+  va_start(args, status);
+  for (size_t i = 0; i < num_vectors; i++) {
+    vectors[i] = va_arg(args, mvector_handle_t);
   }
-  *mean = powl(prod, 1.0L/(long double)n);
+  long double m_norm = -LDBL_MAX;
+  for (size_t i = 0; i < num_norms; i++) {
+    norm_func_t norm = va_arg(args, norm_func_t);
+    void* func_args = va_arg(args, void*);
+    // norms[i] = NULL;
+    size_t current_pos = 0;
+    for (size_t j = 0; j < num_vectors; j++) {
+      long double current_norm = norm(vectors[j], func_args);
+      if (current_norm != current_norm) {
+        continue;
+      }
+      if (current_norm > m_norm) {
+        m_norm = current_norm;
+        current_pos = 0;
+        for (int k = 0; k < num_vectors; k++) {
+          norms[i][k] = NULL;
+        }
+        norms[i][current_pos++] = vectors[j];
+      } else if (fabsl(current_norm - m_norm) < TASK2_EPS) {
+        norms[i][current_pos++] = vectors[j];
+      }
+    }
+  }
   va_end(args);
-  return TASK2_SUCCESS;
-}
-
-long double rbinpowl_internal(long double x, int64_t n, int64_t current_pow, long double start_x) {
-  if (x == INFINITY) {
-    return INFINITY;
-  }
-  if (n == 0) {
-    return 1.0;
-  }
-  if (n == current_pow) {
-    return x;
-  }
-
-  if (current_pow * 2 > n) {
-    return start_x * rbinpowl_internal(x, n, current_pow + 1, start_x);
-  }
-  return rbinpowl_internal(x * x, n, current_pow * 2, start_x);
-}
-
-long double rbinpowl(long double x, uint64_t n) {
-  return rbinpowl_internal(x, n, 1, x);
-}
-
-void task2_error_handler(task2_error_t error) {
-  printf("Task2 Error: ");
-  switch (error) {
-    case TASK2_SUCCESS:
-      break;
-    case TASK2_LDBL_OVERFLOW_ERROR:
-      error_print("Double overflow");
-    break;
-    case TASK2_NO_ARGS_ERROR:
-      error_print("Invalid arguments");
-    break;
-    case TASK2_NEGATIVE_PROD_NOT_ALLOWED_ERROR:
-      error_print("Negative product not allowed, because of square root");
-  }
+  return norms;
 }

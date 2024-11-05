@@ -8,41 +8,36 @@
 #ifndef TASK2_H
 #define TASK2_H
 
-#include <stdlib.h>
-#include <stdarg.h>
-#include <math.h>
 #include <liberrors/errors.h>
+#include <libstruct/vector/vector.h>
+#include <libtask/task2/norms.h>
+#include <math.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <float.h>
 
-typedef enum  {
-  TASK2_SUCCESS,
-  TASK2_NO_ARGS_ERROR,
-  TASK2_LDBL_OVERFLOW_ERROR,
-  TASK2_NEGATIVE_PROD_NOT_ALLOWED_ERROR,
+#define TASK2_EPS 1e-5
+
+typedef enum {
+  TASK2_OK,
+  TASK2_ALLOCATION_ERROR,
 } task2_error_t;
 
-/**
- * Fast pow function, but recursive
- * @param x any double
- * @param n natural number + zero
- * @return \f$ x^n \f$
- */
-long double rbinpowl(long double x, uint64_t n);
+typedef double** calc_norms_ans;
 
 /**
- * Computes gemetic mean of n values
- * @param[out] mean computed mean
- * @param n amount of numbers
- * @param ... n long doubles, that are positive
- * @return TASK2_SUCCESS,
-  TASK2_NO_ARGS_ERROR,
-  TASK2_LDBL_OVERFLOW_ERROR,
-  TASK2_NEGATIVE_PROD_NOT_ALLOWED_ERROR
+ * @brief Calculate norms of vectors
+ * @details Example: \code{c} calc_norms(5, 2, 3, v1, v2, max_norm, NULL, p_norm, 2.0,
+ * energy_norm, A) \endcode
+ * @param num_vectors number of vectors
+ * @param num_dimensions number of dimensions
+ * @param num_norms number of norms
+ * @param status status of calculation, can be NULL if you don't need it
+ * @param ... all vectors, then norm functions with their args
+ * @return array of norms
  */
-task2_error_t geometric_mean(long double* mean, const uint64_t n, ...);
+mvector_handle_t** calc_norms(size_t num_vectors, size_t num_dimensions,
+                                 size_t num_norms, task2_error_t* status, ...);
+void destroy_norms(mvector_handle_t** norms, size_t num_norms);
 
-void task2_error_handler(task2_error_t error);
-
-#define task2_handle_errors(error) \
-  handle_errors(error, TASK2_SUCCESS, task2_error_handler)
-
-#endif //TASK2_H
+#endif  //TASK2_H

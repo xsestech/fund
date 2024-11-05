@@ -7,8 +7,8 @@
  */
 #include <assert.h>
 #include <libstruct/darray/int.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 struct darray_int_t {
   size_t size;
@@ -31,12 +31,30 @@ void darray_resize(const darray_int_handle_t arr, const size_t new_size) {
 }
 
 darray_int_handle_t darray_int_init(const size_t size) {
+  if (size <= 0) {
+    return NULL;
+  }
   const darray_int_handle_t handle = malloc(sizeof(struct darray_int_t));
-  assert(handle);
+  if (!handle) {
+    return NULL;
+  }
   handle->size = 0;
   handle->data = NULL;
   darray_resize(handle, size);
   return handle;
+}
+darray_int_handle_t darray_int_with_values(const size_t size, ...) {
+  const darray_int_handle_t arr = darray_int_init(size);
+  if (arr == NULL) {
+    return NULL;
+  }
+  va_list args;
+  va_start(args, size);
+  for (size_t i = 0; i < size; i++) {
+    arr->data[i] = va_arg(args, long long int);
+  }
+  va_end(args);
+  return arr;
 }
 
 void darray_int_destroy(darray_int_handle_t arr) {
@@ -50,8 +68,8 @@ size_t darray_int_size(const darray_int_handle_t arr) {
   return arr->size;
 }
 
-long long int
-darray_int_get(const darray_int_handle_t arr, const size_t index) {
+long long int darray_int_get(const darray_int_handle_t arr,
+                             const size_t index) {
   if (index >= arr->size || index < 0) {
     return 0;
   }
@@ -83,30 +101,4 @@ void darray_qsort(darray_int_handle_t arr) {
     return;
   }
   qsort(arr->data, arr->size, sizeof(arr->data[0]), lld_compare);
-}
-
-size_t darray_int_search(const darray_int_handle_t arr, const lld value) {
-  size_t low = 0;
-  size_t high = darray_int_size(arr) - 1;
-  while (low <= high) {
-    const size_t mid = (low + high) / 2;
-    const lld mid_value = darray_int_get(arr, mid);
-    if (mid_value == value) {
-      return mid;
-    }
-    if (mid_value < value) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-  if (llabs(darray_int_get(arr, low) - value) > llabs(
-          darray_int_get(arr, high) - value)) {
-    return high;
-  }
-  return low;
-}
-
-lld darray_find_closest(darray_int_handle_t arr, const lld value) {
-  return darray_int_get(arr, darray_int_search(arr, value));
 }

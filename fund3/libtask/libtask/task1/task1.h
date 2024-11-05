@@ -20,6 +20,6 @@ typedef enum {
   TASK1_ALLOCATION_ERROR,
 } task1_status_t;
 
-char* convert_to_base_two(uint64_t number, uint8_t r, task1_status_t* status);
+char* convert_to_base_two(int64_t number, uint8_t r, task1_status_t* status);
 
 #endif  //TASK1_H
