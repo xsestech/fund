@@ -15,7 +15,7 @@
 
 #define FILES_DEFAULT_LEXEME_BUFFER_SIZE 512
 
-typedef files_error_t (*files_processor_t)(FILE* in, FILE* out);
+typedef files_error_t (*files_processor_t)(FILE* in, FILE* out, void* arg);
 
 
 
@@ -38,11 +38,13 @@ files_error_t files_open_and_check_error(const char* file_path,
  * @param processor Function will be doing processing
  * @param input_file_path path to input file
  * @param output_file_path path to output file
+ * @param processor_arg argument passed to processor
  * @return FILES_SUCCESS or FILE_OPEN_FAILED_ERROR or error from processor
  */
-files_error_t files_apply_processor(files_processor_t processor,
+files_error_t files_apply_processor(const files_processor_t processor,
                                     const char* input_file_path,
-                                    const char* output_file_path);
+                                    const char* output_file_path,
+                                    void* processor_arg);
 /**
  * @brief Reads one lexeme from file ignoring all spaces
  * @details Returns FILE_SUCCESS and puts NULL to lexeme on EOF

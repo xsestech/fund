@@ -20,7 +20,8 @@ files_error_t files_open_and_check_error(const char* file_path,
 
 files_error_t files_apply_processor(const files_processor_t processor,
                                     const char* input_file_path,
-                                    const char* output_file_path) {
+                                    const char* output_file_path,
+                                    void* processor_arg) {
   FILE *in_file, *out_file;
   files_handle_errors_internal(
       files_paths_check(&input_file_path, 1, output_file_path));
@@ -28,7 +29,7 @@ files_error_t files_apply_processor(const files_processor_t processor,
       files_open_and_check_error(input_file_path, "r", &in_file));
   files_handle_errors_internal(
       files_open_and_check_error(output_file_path, "w", &out_file));
-  files_handle_errors_internal(processor(in_file, out_file));
+  files_handle_errors_internal(processor(in_file, out_file, processor_arg));
   fclose(in_file);
   fclose(out_file);
   return FILES_SUCCESS;
@@ -118,4 +119,3 @@ files_error_t files_get_line(FILE* file, char** lexeme) {
   *lexeme = buffer;
   return FILES_SUCCESS;
 }
-
