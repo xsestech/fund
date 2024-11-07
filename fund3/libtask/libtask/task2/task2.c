@@ -71,6 +71,7 @@ mvector_handle_t** calc_norms(size_t num_vectors, size_t num_dimensions,
       }
     }
   }
+  free(vectors);
   va_end(args);
   return norms;
 }
