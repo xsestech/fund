@@ -167,8 +167,11 @@ add_subdirectory(libfiles)
 add_subdirectory(libstring)
 add_subdirectory(libstruct)
 add_subdirectory(libconfig)
+add_subdirectory(libinteractive)
 add_subdirectory(task3)
+add_subdirectory(task5)
 add_subdirectory(task10)
+
 #add_subdirectory(task1)
 
 
@@ -177,11 +180,14 @@ target_link_libraries(libmath PUBLIC liberrors libconfig project_options)
 target_link_libraries(libstring PUBLIC liberrors libconfig project_options)
 target_link_libraries(libstruct PUBLIC liberrors libconfig project_options)
 target_link_libraries(libcli3 PUBLIC liberrors libstring project_options)
+target_link_libraries(libinteractive PUBLIC liberrors libstruct project_options)
 target_link_libraries(libfiles PUBLIC liberrors libconfig libstring project_options)
 target_link_libraries(libtask PUBLIC liberrors libcli3 libmath libfiles libconfig libstruct project_options libstring)
 target_link_libraries(task3 PUBLIC liberrors libcli3 libmath libstring libtask project_options
         project_warnings)
 target_link_libraries(task10 PUBLIC liberrors libcli3 libmath libstring libtask project_options
+        project_warnings)
+target_link_libraries(task5 PUBLIC liberrors libinteractive libmath libstring libtask project_options
         project_warnings)
 find_program(DSYMUTIL_PROGRAM dsymutil)
 if (APPLE)
