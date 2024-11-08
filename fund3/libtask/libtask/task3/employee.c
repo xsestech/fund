@@ -155,7 +155,7 @@ void employee_error_handler(employee_error_t error) {
       error_print("Salary can't be negative\n");
       break;
     default:
-      error_print("Unkown error");
+      error_print("Unknown error");
       break;
   }
 }
