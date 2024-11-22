@@ -4,3 +4,6 @@
 [submodule "fund3/unity"]
 	path = fund3/unity
 	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "fund4/unity"]
+	path = fund4/unity
+	url = https://github.com/ThrowTheSwitch/Unity.git

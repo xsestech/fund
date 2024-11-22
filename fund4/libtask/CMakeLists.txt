@@ -1,0 +1,5 @@
+project(libtask C)
+include(lib)
+add_lib_auto()
+include(unity)
+add_unity()

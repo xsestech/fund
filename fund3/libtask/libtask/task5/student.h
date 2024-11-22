@@ -8,4 +8,14 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#endif //STUDENT_H
+#include <limits.h>
+#include <stdint.h>
+
+#include <liberrors/errors.h>
+#include <libstruct/vector/vector.h>
+#include <libtask/task5/student_types.h>
+
+
+
+
+#endif  //STUDENT_H
