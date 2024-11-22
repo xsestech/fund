@@ -114,7 +114,6 @@ hmap_item_t* hmap_item_create(hmap_handle_t hmap, const char* key,
   return item;
 }
 
-
 void hmap_bucket_add_item(hmap_bucket_t* bucket, hmap_item_t* item) {
   hmap_item_t* current = bucket->first;
   item->next = current;
@@ -179,7 +178,6 @@ hmap_status_t hmap_check_chain_sizes_and_evacuate(hmap_handle_t hmap) {
         return status;
       }
       item = next;
-
     }
   }
   free(old_buckets);
@@ -221,24 +219,6 @@ hmap_status_t hmap_insert(hmap_handle_t hmap, const char* key,
   return HMAP_OK;
 }
 
-hmap_status_t hmap_insert_str(hmap_handle_t hmap, const char* key,
-                          const char* value) {
-  hmap_status_t status;
-  char* value_copy = strdup(value)
-  hmap_item_t* item = hmap_item_create(hmap, key, value, &status);
-  if (status != HMAP_OK) {
-    return status;
-  }
-  hmap_insert_item(hmap, item);
-
-  if (hmap_is_rebuild_needed(hmap)) {
-    hmap_check_chain_sizes_and_evacuate(hmap);
-  }
-  return HMAP_OK;
-}
-
-
-
 void* hmap_get(hmap_handle_t hmap, const char* key, hmap_status_t* status) {
   hmap_item_t* item = hmap_get_item(hmap, key, status);
   if (!item) {
@@ -266,4 +246,35 @@ hmap_status_t hmap_remove(hmap_handle_t hmap, const char* key) {
   free(item);
   hmap->buckets[bucket_idx].size--;
   return HMAP_OK;
+}
+void hmap_error_handler(hmap_status_t status) {
+  error_print("HMAP Error: ");
+  switch (status) {
+    case HMAP_OK:
+      break;
+    case HMAP_ALLOCATION_ERROR:
+      error_print("Failed to allocate memory for hmap structure");
+      break;
+    case HMAP_HASH_COMPUTATION_ERROR:
+      error_print("Failed hash computation");
+      break;
+    case HMAP_KEY_ALLOCATION_ERROR:
+      error_print("Failed to allocate memory for key");
+      break;
+    case HMAP_ITEM_ALLOCATION_ERROR:
+      error_print("Failed to allocate memory for item");
+      break;
+    case HMAP_INVALID_KEY_ERROR:
+      error_print("NULL key was provided");
+      break;
+    case HMAP_ITEM_NOT_FOUND_ERROR:
+      error_print("Item for this key was not found");
+      break;
+    case HMAP_BUCKET_ALLOCATION_ERROR:
+      error_print("Can't allocate memory for hmap buckets");
+      break;
+    default:
+      error_print("Unkown error");
+      break;
+  }
 }

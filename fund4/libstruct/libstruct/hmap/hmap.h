@@ -114,4 +114,6 @@ void* hmap_get(hmap_handle_t hmap, const char* key, hmap_status_t* status);
  */
 hmap_status_t hmap_remove(hmap_handle_t hmap, const char* key);
 
+void hmap_error_handler(hmap_status_t status);
+
 #endif  //HASH_MAP_H
