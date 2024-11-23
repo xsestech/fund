@@ -13,6 +13,17 @@
 #include <libstring/string.h>
 #include <libfiles/path.h>
 
+typedef enum {
+  FILES_LEXEME_NONE,
+  FILES_LEXEME_SEPARATOR,
+  FILES_LEXEME_TOKEN,
+} files_lexeme_type_t;
+
+typedef struct {
+  char* lexeme;
+  files_lexeme_type_t type;
+} files_lexeme_t;
+
 #define FILES_DEFAULT_LEXEME_BUFFER_SIZE 512
 
 typedef files_error_t (*files_processor_t)(FILE* in, FILE* out, void* arg);
@@ -56,6 +67,7 @@ files_error_t files_apply_processor(const files_processor_t processor,
  */
 files_error_t files_get_lexeme(FILE* file, char** lexeme);
 files_error_t files_get_line(FILE* file, char** lexeme);
+files_error_t files_get_lexeme_with_seps(FILE* file, files_lexeme_t* lexeme);
 
 
 
