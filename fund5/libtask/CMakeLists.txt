@@ -1,0 +1,5 @@
+project(libtask CXX)
+include(lib)
+add_lib_auto()
+include(testing)
+index_tests()

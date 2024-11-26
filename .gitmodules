@@ -7,3 +7,6 @@
 [submodule "fund4/unity"]
 	path = fund4/unity
 	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "fund5/libgoogletest"]
+	path = fund5/libgoogletest
+	url = https://github.com/google/googletest.git
