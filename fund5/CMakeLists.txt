@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.20)
-project(fund_lab1 C)
+cmake_minimum_required(VERSION 3.27)
+project(fund_lab1 CXX)
 
-set(CMAKE_C_STANDARD 17)
+#set(CMAKE_C_STANDARD 17)
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
@@ -19,7 +19,8 @@ option(BUILD_DOC "Build documentation" FALSE)
 add_library(project_warnings INTERFACE)
 add_library(project_options INTERFACE)
 
-target_compile_features(project_options INTERFACE c_std_23)
+#target_compile_features(project_options INTERFACE c_std_20)
+target_compile_features(project_options INTERFACE cxx_std_20)
 
 
 if (ENABLE_ASAN)
@@ -39,7 +40,7 @@ target_compile_options(project_warnings
         -Wunused
         -Woverloaded-virtual
         -Wpedantic
-#        -Wconversion
+        #        -Wconversion
         #        -Wsign-conversion
         -Wnull-dereference
         -Wdouble-promotion
@@ -80,7 +81,7 @@ if (ENABLE_CPPCHECK)
     if (CPPCHECK)
         set(CMAKE_CXX_CPPCHECK
                 ${CPPCHECK}
-#                --suppress=syntaxError
+                #                --suppress=syntaxError
                 --suppress=missingIncludeSystem
                 --suppress=unusedFunction
                 --check-level=exhaustive
@@ -132,13 +133,16 @@ else (DOXYGEN_FOUND)
     message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
 
-if(ENABLE_TESTING)
-    add_library(unity STATIC
-            unity/src/unity.c
+if (ENABLE_TESTING)
+    include(FetchContent)
+    FetchContent_Declare(
+            googletest
+            # Specify the commit you depend on and update it regularly.
+            URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
     )
-    target_include_directories(unity PUBLIC
-            unity/src
-    )
+    # For Windows: Prevent overriding the parent project's compiler/linker settings
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
 endif ()
 
 message("#########################################")
@@ -157,30 +161,15 @@ message("Building doc:     \t ${BUILD_DOC}")
 message("------------------------------------------")
 message("Version:          \t ${PROJECT_VERSION}")
 
-add_subdirectory(liberrors)
-#add_subdirectory(libcli)
-#add_subdirectory(libcli2)
-add_subdirectory(libcli3)
 add_subdirectory(libtask)
-add_subdirectory(libmath)
-add_subdirectory(libfiles)
-add_subdirectory(libstring)
-add_subdirectory(libstruct)
-add_subdirectory(libconfig)
-add_subdirectory(task1)
 
 
-#target_link_libraries(libcli PUBLIC liberrors project_options)
-target_link_libraries(libmath PUBLIC liberrors libconfig project_options m)
-target_link_libraries(libstring PUBLIC liberrors libconfig project_options m)
-target_link_libraries(libstruct PUBLIC liberrors libconfig project_options m)
-target_link_libraries(libcli3 PUBLIC liberrors libstring project_options m)
-target_link_libraries(libfiles PUBLIC liberrors libconfig libstring project_options m)
-target_link_libraries(libtask PUBLIC liberrors libcli3 libmath libfiles libconfig libstruct project_options libstring m)
-target_link_libraries(task1 PUBLIC liberrors libcli3 libmath libstring libtask project_options
-        project_warnings m)
-find_program(DSYMUTIL_PROGRAM dsymutil)
+target_link_libraries(libtask PUBLIC project_options project_warnings)
+#target_link_libraries(task1 PUBLIC project_options
+#        project_warnings)
+
 if (APPLE)
+    find_program(DSYMUTIL_PROGRAM dsymutil)
     add_custom_command(TARGET ${task_name} POST_BUILD
             COMMAND dsymutil $<TARGET_FILE:${task_name}>
             COMMENT Generate dSYM files for ${task_name}

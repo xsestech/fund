@@ -10,7 +10,6 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-afl
 
 ### CLion+all template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -91,7 +90,7 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-libconfig/libconfig/*.h
+libconfig/libconfig/config.h
 .DS_Store
 docs/html
 *.out

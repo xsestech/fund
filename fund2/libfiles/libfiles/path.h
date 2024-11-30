@@ -10,7 +10,11 @@
 
 #include <stdlib.h>
 #include <stdlib.h>
+#if defined(__APPLE__)
 #include <sys/syslimits.h>
+#elif defined(__linux__)
+#include <linux/limits.h>
+#endif
 #include <libfiles/errors.h>
 /**
  * @brief Adds prefix to file name in path

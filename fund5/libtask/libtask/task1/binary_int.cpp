@@ -36,8 +36,7 @@ void BinaryInt::Add(const BinaryInt &other) {
   }
 }
 void BinaryInt::Subtract(const BinaryInt &other) {
-  BinaryInt neg_other = -other; // Our operator is used here
-  Add(-neg_other);
+  Add(-other); // Our operator is used here
 }
 
 void BinaryInt::Multiply(const task::BinaryInt &other) {
@@ -55,7 +54,7 @@ void BinaryInt::Multiply(const task::BinaryInt &other) {
   }
 
   if (result_negative) {
-    *this = -result;
+    result = -result;
   }
   *this =  result;
 }
@@ -93,13 +92,13 @@ BinaryInt BinaryInt::operator-(const BinaryInt &other) const {
   return result;
 }
 BinaryInt &BinaryInt::operator--() {
+  Decrement();
+  return *this;
+}
+BinaryInt BinaryInt::operator--(int) {
   BinaryInt temp(*this);
   Decrement();
   return temp;
-}
-BinaryInt BinaryInt::operator--(int) {
-  Decrement();
-  return *this;
 }
 
 BinaryInt BinaryInt::operator*(const BinaryInt &other) const {
@@ -109,6 +108,7 @@ BinaryInt BinaryInt::operator*(const BinaryInt &other) const {
 }
 BinaryInt& BinaryInt::operator<<=(int shift) {
   value_ <<= shift;
+  return *this;
 }
 
 BinaryInt& BinaryInt::operator>>=(int shift) {
@@ -116,17 +116,17 @@ BinaryInt& BinaryInt::operator>>=(int shift) {
   return *this;
 }
 BinaryInt& BinaryInt::operator+=(const BinaryInt &other) {
-  this->Multiply(other);
+  Add(other);
   return *this;
 }
 
 BinaryInt& BinaryInt::operator-=(const BinaryInt &other) {
-  this->Subtract(other);
+  Subtract(other);
   return *this;
 }
 
 BinaryInt& BinaryInt::operator*=(const BinaryInt &other) {
-  this->Multiply(other);
+  Multiply(other);
   return *this;
 }
 
@@ -135,7 +135,14 @@ std::pair<BinaryInt, BinaryInt> BinaryInt::splitInHalf() const {
   const int high_mash = 0xFFFF0000;
   return {BinaryInt(value_ & high_mash), BinaryInt(value_ & low_mask)};
 }
+std::ostream &operator<<(std::ostream &os, const BinaryInt &binary_int) {
+  os << std::bitset<32>(binary_int.value_);
+  return os;
+}
 
+int BinaryInt::get_value() {
+  return value_;
+}
 
 }
 

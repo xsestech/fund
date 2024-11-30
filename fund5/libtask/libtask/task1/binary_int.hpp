@@ -27,8 +27,12 @@ class BinaryInt {
   BinaryInt& operator>>=(int shift);
   BinaryInt& operator<<=(int shift);
 
-  std::pair<BinaryInt, BinaryInt> splitInHalf() const;
   friend std::ostream &operator<<(std::ostream &os, const BinaryInt &binary_int);
+
+  std::pair<BinaryInt, BinaryInt> splitInHalf() const;
+
+  int get_value();
+
 
 
  private:
