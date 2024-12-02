@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <libtask/task2/state_array.hpp>
+#include <libtask/task2/exceptions.hpp>
 
 
 
@@ -28,16 +29,19 @@ using vectorOfBytes = std::vector<std::byte>;
 
 class Encoder {
   public:
-    explicit Encoder(const vectorOfBytes& key);
+    explicit Encoder(vectorOfBytes& key);
+    Encoder(const Encoder &other) = default;
+    Encoder(Encoder &&other) = default;
+    Encoder &operator=(const Encoder &other) = default;
+    Encoder &operator=(Encoder &&other) = default;
+    ~Encoder() = default;
+
     void EncodeFile(const std::string& input_file_name,
                 const std::string& output_file_name);
 
-    void set_key(const std::vector<std::byte>& key);
+    void set_key(vectorOfBytes& key);
 
   private:
-
-
-    vectorOfBytes key_;
     StateArray state_array_;
 
 

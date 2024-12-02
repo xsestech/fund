@@ -8,7 +8,7 @@
 #include <libtask/task2/state_array.hpp>
 
 namespace task {
-constexpr size_t kStateArraySize = 256;
+constexpr std::size_t kStateArraySize = 256;
 
 StateArray::PRGAGenerator::PRGAGenerator(StateArray& state_array): i_(0), j_(0),
   state_array_(state_array) {
@@ -23,7 +23,7 @@ StateArray::PRGAGenerator StateArray::PRGAGenerator::operator++(int) {
   ++(*this);
   return temp;
 }
-u_char StateArray::PRGAGenerator::operator*() const {
+uint8_t StateArray::PRGAGenerator::operator*() const {
   return state_array_.At(i_) + state_array_.At(j_);
 }
 
@@ -34,29 +34,39 @@ bool StateArray::PRGAGenerator::operator!=(const PRGAGenerator& other) const {
   return true;
 }
 
-StateArray::StateArray(const vectorOfBytes& key): key_(key) {
+StateArray::StateArray(vectorOfBytes& key): key_(key) {
   state_array_.reserve(kStateArraySize);
   for (size_t i = 0; i < kStateArraySize; ++i) {
     state_array_.push_back(i);
   }
   applyKSA();
 }
-
-void StateArray::set_key(const vectorOfBytes& key): key_(key) {
+void StateArray::ResetState() {
   std::iota(state_array_.begin(), state_array_.end(), 0);
   applyKSA();
+}
+StateArray::PRGAGenerator StateArray::begin()  {
+  return PRGAGenerator(*this);
+}
+StateArray::PRGAGenerator StateArray::end()  {
+  return PRGAGenerator(*this);
+}
+
+void StateArray::set_key(vectorOfBytes& key) {
+  key_ = key;
+  ResetState();
 }
 
 void StateArray::applyKSA() {
   size_t j = 0;
   for (size_t i = 0; i < kStateArraySize; ++i) {
-    j = (j + state_array_.at(i) + key_.at(i % key_.size())) % kStateArraySize;
+    j = (j + state_array_.at(i) + static_cast<uint8_t>(key_.at(i % key_.size()))) % kStateArraySize;
     std::swap(state_array_.at(i), state_array_.at(j));
   }
 }
 void StateArray::PRGANextStep(size_t& i, size_t& j) {
   i = (i + 1) % 256;
-  j = (j + state_array_.at(i) % 256;
+  j = (j + state_array_.at(i)) % 256;
   std::swap(state_array_.at(i), state_array_.at(j));
 }
 u_char& StateArray::At(size_t idx) {

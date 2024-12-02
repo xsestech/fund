@@ -25,9 +25,11 @@ class StateArray {
         explicit PRGAGenerator(StateArray& state_array);
         PRGAGenerator& operator++();
         PRGAGenerator operator++(int);
-        u_char operator*() const;
+        uint8_t operator*() const;
         bool operator==(const PRGAGenerator& other) const;
         bool operator!=(const PRGAGenerator& other) const;
+
+
 
       private:
         size_t i_;
@@ -36,9 +38,12 @@ class StateArray {
 
     };
 
-    explicit StateArray(const vectorOfBytes& key);
+    explicit StateArray(vectorOfBytes& key);
+    void ResetState();
+    PRGAGenerator begin();
+    PRGAGenerator end();
 
-    void set_key(const vectorOfBytes& key);
+    void set_key(vectorOfBytes& key);
 
 
   private:
@@ -48,6 +53,6 @@ class StateArray {
     u_char& At(size_t idx);
 
     vectorOfUChars state_array_;
-    const vectorOfBytes& key_;
+    vectorOfBytes& key_;
 };
 } // task

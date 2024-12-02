@@ -15,6 +15,6 @@ namespace task {
 
 
 using vectorOfBytes = std::vector<std::byte>;
-using vectorOfUChars = std::vector<u_char>;
+using vectorOfUChars = std::vector<uint8_t>;
 
 }
