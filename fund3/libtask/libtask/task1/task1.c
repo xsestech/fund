@@ -48,7 +48,7 @@ size_t log_2_pow_r(uint64_t number, uint8_t r) {
 }
 uint64_t bitabs(int64_t number) {
   uint64_t mask = number >> 63;
-  return (number ^ mask) - mask;
+  return (number ^ mask) + (~mask + 1);
 }
 
 char* convert_to_base_two(int64_t number, uint8_t r, task1_status_t* status) {
