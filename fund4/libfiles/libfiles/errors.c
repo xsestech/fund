@@ -21,12 +21,16 @@ void files_error_handler(const files_error_t error) {
       break;
     case FILES_LOWER_LEVEL_ERROR:
       error_print("Error was raised on lower level\n");
+    break;
     case FILES_ALLOCATION_ERROR:
       error_print("Allocation failed during processing\n");
+    break;
     case FILES_CHECKER_NO_NAMES_PROVIDED_ERROR:
       error_print("Checker was not provided provided with names\n");
+      break;
     case FILES_OUTPUT_PATH_ERROR:
       error_print("Output path is the same as input path\n");
+    break;
     default:
       error_print("Unknown error\n");
       break;

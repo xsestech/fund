@@ -17,6 +17,7 @@ typedef enum {
   FILES_LEXEME_NONE,
   FILES_LEXEME_SEPARATOR,
   FILES_LEXEME_TOKEN,
+  FILES_LEXEME_MARCO_CONTENT,
 } files_lexeme_type_t;
 
 typedef struct {
@@ -67,7 +68,7 @@ files_error_t files_apply_processor(const files_processor_t processor,
  */
 files_error_t files_get_lexeme(FILE* file, char** lexeme);
 files_error_t files_get_line(FILE* file, char** lexeme);
-files_error_t files_get_lexeme_with_seps(FILE* file, files_lexeme_t* lexeme);
+// files_error_t files_get_valid_lexeme(FILE* file, files_lexeme_t* lexeme);
 
 
 

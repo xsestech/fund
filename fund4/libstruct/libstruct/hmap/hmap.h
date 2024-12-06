@@ -31,7 +31,9 @@ typedef enum {
   HMAP_ALLOCATION_ERROR, /**< Memory allocation error occurred */
   HMAP_ITEM_ALLOCATION_ERROR, /**< Item memory allocation error occurred */
   HMAP_INVALID_KEY_ERROR, /**< Invalid key error */
+  HMAP_INVALID_STR_VALUE_ERROR, /**< String is null */
   HMAP_KEY_ALLOCATION_ERROR, /**< Key memory allocation error occurred */
+  HMAP_VALUE_STR_ALLOCATION_ERROR,/**< Memory allocation error occurred for string copy */
   HMAP_BUCKET_ALLOCATION_ERROR, /**< Bucket memory allocation error occurred */
   HMAP_HASH_COMPUTATION_ERROR, /**< Hash computation error occurred */
   HMAP_ITEM_NOT_FOUND_ERROR /**< Item not found error */
@@ -93,6 +95,16 @@ void hmap_destroy_with_content(hmap_handle_t hmap);
  * @return Status code of the operation
  */
 hmap_status_t hmap_insert(hmap_handle_t hmap, const char* key, const void* value);
+
+/**
+ * @brief Insert string into the hash map
+ * @details Copies string and inserts it into hmap. If the key already exists, its value is updated.
+ * @param hmap Handle to the hash map
+ * @param key The key to insert
+ * @param value The value to associate with the key
+ * @return Status code of the operation
+ */
+hmap_status_t hmap_insert_str(hmap_handle_t hmap, const char* key, const char* value);
 
 
 /**

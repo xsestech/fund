@@ -50,15 +50,15 @@ void hmap_destructor(hmap_handle_t hmap, bool with_content) {
   for (size_t i = 0; i < hmap->size; ++i) {
     hmap_bucket_t bucket = hmap->buckets[i];
     hmap_item_t* item = bucket.first;
-    while (item && item->next) {
+    while (item) {
       hmap_item_t* next = item->next;
       if (item->key) {
         free(item->key);
       }
-      free(item);
       if (item->value && with_content) {
         free(item->value);
       }
+      free(item);
       item = next;
     }
   }
@@ -218,8 +218,24 @@ hmap_status_t hmap_insert(hmap_handle_t hmap, const char* key,
   }
   return HMAP_OK;
 }
+hmap_status_t hmap_insert_str(hmap_handle_t hmap, const char* key,
+                              const char* value) {
+  if (value == NULL) {
+    return HMAP_INVALID_STR_VALUE_ERROR;
+  }
+  char* str_copy = strdup(value);
+  if (!str_copy) {
+    return HMAP_VALUE_STR_ALLOCATION_ERROR;
+  }
+  return hmap_insert(hmap, key, str_copy);
+}
 
 void* hmap_get(hmap_handle_t hmap, const char* key, hmap_status_t* status) {
+  error_check_pointer_and_assign(status, HMAP_OK);
+  if (key == NULL) {
+    error_check_pointer_and_assign(status, HMAP_INVALID_KEY_ERROR);
+    return NULL;
+  }
   hmap_item_t* item = hmap_get_item(hmap, key, status);
   if (!item) {
     return NULL;
@@ -273,8 +289,15 @@ void hmap_error_handler(hmap_status_t status) {
     case HMAP_BUCKET_ALLOCATION_ERROR:
       error_print("Can't allocate memory for hmap buckets");
       break;
+    case HMAP_VALUE_STR_ALLOCATION_ERROR:
+      error_print("Can't allocate memory for value string");
+      break;
+    case HMAP_INVALID_STR_VALUE_ERROR:
+      error_print("Null string was provided as value");
+      break;
     default:
       error_print("Unkown error");
       break;
   }
+  error_print("\n");
 }

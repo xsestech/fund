@@ -122,52 +122,5 @@ files_error_t files_get_line(FILE* file, char** lexeme) {
   return FILES_SUCCESS;
 }
 
-files_lexeme_type_t files_char_type(char c) {
-  if (string_char_is_sep(c)) {
-    return FILES_LEXEME_SEPARATOR;
-  }
-  return FILES_LEXEME_TOKEN;
-}
 
-files_error_t files_get_lexeme_with_seps(FILE* file, files_lexeme_t* lexeme) {
-  lexeme->lexeme = NULL;
-  lexeme->type = FILES_LEXEME_NONE;
-  size_t buff_size = FILES_DEFAULT_LEXEME_BUFFER_SIZE;
-  char* buffer = calloc(buff_size, sizeof(char));
-  if (!buffer) {
-    return FILES_ALLOCATION_ERROR;
-  }
-  files_lexeme_type_t type = FILES_LEXEME_NONE;
-  char c = 0;
-  size_t buffer_pos = 0;
-  while (((c = fgetc(file)) != EOF)) {
-    files_lexeme_type_t current_type = files_char_type(c);
-    if (type == FILES_LEXEME_NONE) {
-      type = current_type;
-    }
-    if (current_type != type) {
-      if (ungetc(c, file) == -1) {
-        free(buffer);
-        return FILES_IO_OPERATION_FAILED_ERROR;
-      }
-      break;
-    }
-    buffer[buffer_pos++] = c;
-    if (buffer_pos >= buff_size - 2) {
-      buff_size *= 2;
-      char* new_token_buffer = realloc(buffer, buff_size * sizeof(char));
-      if (!new_token_buffer) {
-        free(buffer);
-        return FILES_ALLOCATION_ERROR;
-      }
-      buffer = new_token_buffer;
-    }
-  }
-  if (c == EOF) {
-    free(buffer);
-    return FILES_SUCCESS;
-  }
-  lexeme->type = type;
-  lexeme->lexeme = buffer;
-  return FILES_SUCCESS;
-}
+
