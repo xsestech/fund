@@ -18,6 +18,7 @@ typedef enum {
   TASK10_ARGUMENT_ERROR,
 } task10_error_t;
 
-task10_error_t find_coefficients(double eps, double a, double* g, int n, ...);
+task10_error_t find_coefficients(double eps, double a, double* g, uint32_t n,
+                                 ...);
 
 #endif //TASK10_H

@@ -25,7 +25,7 @@ double new_derivative(int i, double a, int n, const double* coeffs) {
   return result;
 }
 
-task10_error_t find_coefficients(double eps, double a, double* result, int n,
+task10_error_t find_coefficients(double eps, double a, double* result, uint32_t n,
                                  ...) {
   if (!result) {
     return TASK10_ARGUMENT_ERROR;

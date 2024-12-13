@@ -29,10 +29,12 @@ void test_polynomial_simple_case(void) {
   double coefs1[] = {2.0, 3.0, 4.0};
 
   task10_error_t code = find_coefficients(epsilon, a, result, n, 2.0, 3.0, 4.0);
+
   TEST_ASSERT_EQUAL_DOUBLE(calc_value_in_point(2, coefs1, n), calc_value_in_point(1, result, n));
   TEST_ASSERT_EQUAL(TASK10_SUCCESS, code);
   double expected[] = {9.0, 11.0, 4.0};
   TEST_ASSERT_EQUAL_MEMORY(expected, result, (n + 1) * sizeof(double));
+  free(result);
 }
 
 int main(void) {
