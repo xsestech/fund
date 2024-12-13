@@ -58,11 +58,7 @@ void c_arg_handler(const int token_count, const char** tokens) {
   parse_handle_errors(parse_int(tokens[2], &seed, false));
   srand(seed);
   int len = token_count - 2;
-  char** concat_strings = malloc(len);
-  if (concat_strings == NULL) {
-    error_print("Error: Failed to allocate memory for concat_strings\n");
-    return;
-  }
+  char* concat_strings[len];
 
   concat_strings[0] = (char*)tokens[1];
 
@@ -73,8 +69,12 @@ void c_arg_handler(const int token_count, const char** tokens) {
   for (int i = 0; i < len; i++) {
     total_string += string_len(concat_strings[i]);
   }
-  char* concat_str = nullptr;
-  string_alloc(total_string + 1, &concat_str);
+  char* concat_str = malloc(total_string + 1);
+  if (!concat_str) {
+    error_print("Error: string allocation error");
+    free(concat_str);
+    return;
+  }
   concat_str[0] = '\0';
   int i = 0;
   while (i < len) {
@@ -84,6 +84,5 @@ void c_arg_handler(const int token_count, const char** tokens) {
     i++;
   }
   printf("Random concat: %s", concat_str);
-  free(concat_strings);
   free(concat_str);
 }
