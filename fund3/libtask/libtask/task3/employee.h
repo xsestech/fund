@@ -12,6 +12,7 @@
 #include <libstruct/vector/vector.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #define EMPLOYEE_TABLE_INITIAL_SIZE 32
 #define EMPLOYEE_MAX_NAME_SIZE 50

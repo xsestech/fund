@@ -12,11 +12,12 @@ files_error_t employee_file_processor(FILE* input_file, FILE* output_file, void*
   size_t len = 0;
   ssize_t read;
   employee_table_t table = employee_table_create();
-  uint64_t line_num = 1;
+  uint64_t line_num = 0;
   while ((read = getline(&line, &len, input_file)) != -1) {
     if (ferror(input_file)) {
       return FILES_IO_OPERATION_FAILED_ERROR;
     }
+    line_num++;
     employee_error_t status;
     employee_t employee = employee_parse(line, ';', &status);
     if (status != EMPLOYEE_OK) {
@@ -25,7 +26,7 @@ files_error_t employee_file_processor(FILE* input_file, FILE* output_file, void*
       continue;
     }
     employee_table_add(table, employee);
-    line_num++;
+
   }
   bool is_accenting_order = *(bool*)arg;
   employee_table_sort(table, is_accenting_order);

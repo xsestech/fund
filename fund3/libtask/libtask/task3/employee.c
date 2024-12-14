@@ -58,8 +58,19 @@ employee_t employee_parse(const char* line, char delimiter,
   char* endptr;
 
   check_token_and_return_on_error(token, status);
+  if (token[0] == '-') {
+    error_check_pointer_and_assign(status, EMPLOYEE_INVALID_ID_FORMAT);
+    free(line_copy);
+    return employee;
+  }
   employee.id = strtoull(token, &endptr, 10);
   check_endptr_and_return_on_error(endptr, status, EMPLOYEE_INVALID_ID_FORMAT);
+  if (errno == ERANGE) {
+    error_check_pointer_and_assign(status, EMPLOYEE_INVALID_ID_FORMAT);
+    free(line_copy);
+    errno = 0;
+    return employee;
+  }
 
   token = strtok(NULL, &delimiter);
   check_token_and_return_on_error(token, status);
