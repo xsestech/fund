@@ -8,7 +8,6 @@
 
 #include <gtest/gtest.h>
 #include <libtask/task3/logical_values_array.hpp>
-#include <cstdint>
 #include <iostream>
 
 namespace task {

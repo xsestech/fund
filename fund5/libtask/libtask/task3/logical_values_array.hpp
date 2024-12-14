@@ -10,8 +10,7 @@
 #include <string>
 
 namespace task {
-
-const std::size_t kDefaultStringSize = 10;
+constexpr std::size_t kDefaultStringSize = 10;
 class LogicalValuesArray {
   public:
     explicit LogicalValuesArray(unsigned int value = 0): value_(value) {

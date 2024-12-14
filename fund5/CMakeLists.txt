@@ -40,8 +40,8 @@ target_compile_options(project_warnings
         -Wunused
         -Woverloaded-virtual
         -Wpedantic
-        #        -Wconversion
-        #        -Wsign-conversion
+        -Wconversion
+        -Wsign-conversion
         -Wnull-dereference
         -Wdouble-promotion
         -Wformat=2)
@@ -89,7 +89,7 @@ if (ENABLE_CPPCHECK)
                 --inconclusive)
         set(CMAKE_C_CPPCHECK
                 ${CPPCHECK}
-                --suppress=syntaxError
+#                --suppress=syntaxError
                 --suppress=unusedFunction
                 --suppress=missingIncludeSystem
                 --check-level=exhaustive
