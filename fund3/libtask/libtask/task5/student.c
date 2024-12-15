@@ -100,6 +100,6 @@ student_t student_parse(const char* line, char delimiter,
   return student;
 }
 
-void employee_table_destroy(student_table_t table) {
-  vector_destroy(table);
-}
+// void employee_table_destroy(student_table_t table) {
+//   vector_destroy(table);
+// }
