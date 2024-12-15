@@ -169,7 +169,7 @@ add_subdirectory(libstruct)
 add_subdirectory(libconfig)
 #add_subdirectory(libinteractive)
 add_subdirectory(task3)
-add_subdirectory(task5)
+#add_subdirectory(task5)
 add_subdirectory(task10)
 
 #add_subdirectory(task1)
