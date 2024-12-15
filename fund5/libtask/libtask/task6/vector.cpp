@@ -256,6 +256,9 @@ Vector::iterator Vector::Begin() {
   return Iterator(data_);
 }
 Vector::iterator Vector::End() {
+  if (data_ == nullptr) {
+    return Iterator(data_);
+  }
   return Iterator(data_ + size_);
 }
 Vector::const_iterator Vector::Begin() const {

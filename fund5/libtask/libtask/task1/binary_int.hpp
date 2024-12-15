@@ -21,9 +21,9 @@ class BinaryInt {
   BinaryInt& operator--();
   BinaryInt& operator++();
   BinaryInt operator++(int);
-  BinaryInt& operator+=(const BinaryInt &other);
-  BinaryInt& operator-=(const BinaryInt &other);
-  BinaryInt& operator*=(const BinaryInt &other);
+  BinaryInt& operator+=(const BinaryInt &other) &;
+  BinaryInt& operator-=(const BinaryInt &other) &;
+  BinaryInt& operator*=(const BinaryInt &other) &;
   BinaryInt& operator>>=(int shift);
   BinaryInt& operator<<=(int shift);
 

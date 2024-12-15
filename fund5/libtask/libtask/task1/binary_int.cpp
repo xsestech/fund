@@ -115,17 +115,17 @@ BinaryInt& BinaryInt::operator>>=(int shift) {
   value_ >>= shift;
   return *this;
 }
-BinaryInt& BinaryInt::operator+=(const BinaryInt &other) {
+BinaryInt& BinaryInt::operator+=(const BinaryInt &other) & {
   Add(other);
   return *this;
 }
 
-BinaryInt& BinaryInt::operator-=(const BinaryInt &other) {
+BinaryInt& BinaryInt::operator-=(const BinaryInt &other) & {
   Subtract(other);
   return *this;
 }
 
-BinaryInt& BinaryInt::operator*=(const BinaryInt &other) {
+BinaryInt& BinaryInt::operator*=(const BinaryInt &other) & {
   Multiply(other);
   return *this;
 }
