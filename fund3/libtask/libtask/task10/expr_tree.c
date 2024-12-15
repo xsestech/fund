@@ -120,9 +120,9 @@ expr_tree_t expr_tree_create(char* data, expr_tree_error_t* status) {
   }
   if (vector_size(stack) != 0) {
     error_check_pointer_and_assign(status, TREE_INSUFFICIENT_BRACKETS_ERROR);
-    // expr_tree_create_cleanup_and_return();
-    vector_destroy(stack);
-    return nodes;
+    expr_tree_create_cleanup_and_return();
+    // vector_destroy(stack);
+    // return nodes;
   }
   vector_destroy(stack);
   return nodes;
