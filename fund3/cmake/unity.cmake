@@ -5,12 +5,15 @@ function(add_unity)
     add_compile_definitions(UNITY_INCLUDE_DOUBLE)
 
     message("${CMAKE_HOME_DIRECTORY}")
-    add_library(unity STATIC
-            "${CMAKE_HOME_DIRECTORY}/unity/src/unity.c"
-    )
-    target_include_directories(unity PUBLIC
-            "${CMAKE_HOME_DIRECTORY}/unity/src"
-    )
+    if (NOT TARGET unity)
+
+        add_library(unity STATIC
+                "${CMAKE_HOME_DIRECTORY}/unity/src/unity.c"
+        )
+        target_include_directories(unity PUBLIC
+                "${CMAKE_HOME_DIRECTORY}/unity/src"
+        )
+    endif()
     file(GLOB tests "${PROJECT_SOURCE_DIR}/${PROJECT_NAME}/*/*.test.c"
             "${PROJECT_SOURCE_DIR}/${PROJECT_NAME}/*.test.c"
             "${PROJECT_SOURCE_DIR}/${PROJECT_NAME}/*/*/*.test.c")
