@@ -21,6 +21,7 @@
 typedef enum {
   TASK2_OK,
   TASK2_ALLOCATION_ERROR,
+  TASK2_INVALID_ARGS,
 } task2_error_t;
 
 typedef double** calc_norms_ans;

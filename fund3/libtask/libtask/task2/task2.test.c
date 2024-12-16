@@ -54,8 +54,8 @@ void test_vec(void) {
     TEST_ASSERT_EQUAL(2, norm_len(norms[i], 4));
   }
   for (int i = 0; i < 3; i++) {
-    TEST_ASSERT_EQUAL(v2, norms[i][0]);
-    TEST_ASSERT_EQUAL(v2, norms[i][1]);
+    TEST_ASSERT_TRUE(mvector_equals(v2, norms[i][0]));
+    TEST_ASSERT_TRUE(mvector_equals(v2, norms[i][1]));
   }
   mvector_destroy(v1);
   mvector_destroy(v2);
