@@ -295,6 +295,9 @@ TEST(VectorTest, SortVector) {
   for (int i = 0; i < vec.Size() - 1; ++i) {
     EXPECT_LE(vec.At(i), vec.At(i + 1));
   }
+  // for (auto a: vec) {
+  //   std::cout << a << ' ';
+  // }
 }
 
 

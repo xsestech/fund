@@ -59,6 +59,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif ()
 
 if (${FORCE_COLORED_OUTPUT})
+    set(CMAKE_COLOR_DIAGNOSTICS ON)
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         target_compile_options(project_options INTERFACE -fdiagnostics-color=always)
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -89,7 +90,7 @@ if (ENABLE_CPPCHECK)
                 --inconclusive)
         set(CMAKE_C_CPPCHECK
                 ${CPPCHECK}
-#                --suppress=syntaxError
+                #                --suppress=syntaxError
                 --suppress=unusedFunction
                 --suppress=missingIncludeSystem
                 --check-level=exhaustive
@@ -117,32 +118,41 @@ if (DOXYGEN_FOUND)
     # request to configure the file
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
     message("Doxygen build started")
+    doxygen_add_docs(doc_doxygen ALL
+            ${PROJECT_SOURCE_DIR}
+            CONFIG_FILE ${DOXYGEN_OUT}
 
+    )
     # note the option ALL which allows to build the docs together with the application
-    add_custom_target(doc_doxygen ALL
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMENT "Generating API documentation with Doxygen"
-            VERBATIM)
-    ADD_CUSTOM_COMMAND(OUTPUT ${DOXYGEN_HTML}
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
-            MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
-            COMMENT "Generating Doxygen documentation"
-            VERBATIM)
+    #    add_custom_target(doc_doxygen ALL
+    #            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+    #            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    #            COMMENT "Generating API documentation with Doxygen"
+    #            VERBATIM)
+    #    ADD_CUSTOM_COMMAND(OUTPUT ${DOXYGEN_HTML}
+    #            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+    #            MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
+    #            COMMENT "Generating Doxygen documentation"
+    #            VERBATIM)
 else (DOXYGEN_FOUND)
     message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
 
 if (ENABLE_TESTING)
-    include(FetchContent)
-    FetchContent_Declare(
-            googletest
-            # Specify the commit you depend on and update it regularly.
-            URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
-    )
-    # For Windows: Prevent overriding the parent project's compiler/linker settings
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    FetchContent_MakeAvailable(googletest)
+    block(SCOPE_FOR VARIABLES)
+        unset(CMAKE_CXX_CPPCHECK)
+        include(FetchContent)
+        FetchContent_Declare(
+                googletest
+                GIT_REPOSITORY "https://github.com/google/googletest.git"
+                GIT_TAG "main"
+        )
+        # For Windows: Prevent overriding the parent project's compiler/linker settings
+        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+        FetchContent_MakeAvailable(googletest)
+
+        include(GoogleTest)
+    endblock()
 endif ()
 
 message("#########################################")
@@ -170,9 +180,11 @@ target_link_libraries(libtask PUBLIC project_options project_warnings)
 
 if (APPLE)
     find_program(DSYMUTIL_PROGRAM dsymutil)
-    add_custom_command(TARGET ${task_name} POST_BUILD
-            COMMAND dsymutil $<TARGET_FILE:${task_name}>
-            COMMENT Generate dSYM files for ${task_name}
-            OUTPUT $
-    )
+    if (DSYMUTIL_PROGRAM)
+        foreach (lang C CXX)
+            foreach (var LINK_EXECUTABLE CREATE_SHARED_LIBRARY)
+                set(CMAKE_${lang}_${var} "${CMAKE_${lang}_${var}}" "${DSYMUTIL_PROGRAM} <TARGET>")
+            endforeach ()
+        endforeach ()
+    endif ()
 endif ()

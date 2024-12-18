@@ -11,24 +11,43 @@
 #include <iostream>
 
 namespace task {
+enum class ProductType {
+  kProduct,
+  kBuildingMaterial,
+  kElectronicProduct,
+  kPerishableProduct,
+};
 const double kWeightStorageCoef = 0.05;
+
 class Product {
   public:
-    Product(uint32_t id, const std::string& name, double weight, double cost,
+    using id_type = uint32_t;
+    Product(id_type id, const std::string& name, double weight, double cost,
             uint32_t storage_days);
     Product(const Product& other);
     virtual ~Product() = default;
     Product& operator=(const Product& other) &;
+    bool operator<(const Product& other) const;
+    friend std::ostream& operator<<(std::ostream& stream, const Product& product);
 
-    virtual double CalculateStorageFee();
+    [[nodiscard]] virtual double CalculateStorageFee() const;
     virtual void DisplayInfo();
+    [[nodiscard]] virtual std::unique_ptr<Product> Clone() const;
 
+    [[nodiscard]] virtual std::string get_type_str() const;
+    [[nodiscard]] virtual ProductType get_type_id() const;
+
+    [[nodiscard]] id_type get_id() const;
+    [[nodiscard]] const std::string& get_name() const;
+    [[nodiscard]] double get_cost() const;
+    [[nodiscard]] uint32_t get_storage_days() const;
+    [[nodiscard]] double get_weight() const;
 
   protected:
-    uint32_t id_;
-    std::string name_;
-    double weight_;
-    double cost_;
-    uint32_t storage_days_;
+    id_type id_;  // NOLINT(*-non-private-member-variables-in-classes)
+    std::string name_;  // NOLINT(*-non-private-member-variables-in-classes)
+    double weight_;  // NOLINT(*-non-private-member-variables-in-classes)
+    double cost_;  // NOLINT(*-non-private-member-variables-in-classes)
+    uint32_t storage_days_;  // NOLINT(*-non-private-member-variables-in-classes)
 };
-} // task
+} // namespace task

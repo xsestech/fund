@@ -11,15 +11,29 @@
 
 namespace task {
 
+const double kFlamableFeeCoef = 10.0;
+
 class BuildingMaterial: public Product {
   public:
-  BuildingMaterial(const uint32_t id, const std::string& name,
-               const double weight,
-               const double cost, const uint32_t storage_days, const bool is_flammable);
+  BuildingMaterial(uint32_t id, const std::string& name,
+               double weight,
+               double cost, uint32_t storage_days, bool is_flammable);
+  BuildingMaterial(const BuildingMaterial& other) = default;
+  BuildingMaterial(BuildingMaterial&& other) = default;
+
+  BuildingMaterial& operator=(const BuildingMaterial& other) = default;
+  BuildingMaterial& operator=(BuildingMaterial&& other) = default;
+
+  [[nodiscard]] double CalculateStorageFee() const override;
+
+  [[nodiscard]] std::unique_ptr<Product> Clone() const override;
+
+  [[nodiscard]] std::string get_type_str() const override;
+  [[nodiscard]] ProductType get_type_id() const override;
 
   private:
    bool is_flammable_;
 
 };
 
-} // task
+} // namespace task
