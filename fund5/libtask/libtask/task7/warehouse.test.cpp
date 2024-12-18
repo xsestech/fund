@@ -283,7 +283,6 @@ TEST_F(WarehouseTest, testDisplayInfo) {
   warehouse_.AddProduct(std::make_unique<ElectronicProduct>(
       2, "Steel", 20.0, 100.0, 30, 5, 500.0));
 
-
   warehouse_[1].DisplayInfo();
   warehouse_[2].DisplayInfo();
 }

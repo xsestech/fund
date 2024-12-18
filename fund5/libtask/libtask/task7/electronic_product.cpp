@@ -5,7 +5,7 @@
  * @author xsestech 
  * @date 14.12.2024
  */
-#include "electronic_product.hpp"
+#include <libtask/task7/electronic_product.hpp>
 
 namespace task {
 ElectronicProduct::ElectronicProduct(const uint32_t id, const std::string& name,

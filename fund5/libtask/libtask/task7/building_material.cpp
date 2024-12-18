@@ -5,7 +5,7 @@
  * @author xsestech 
  * @date 14.12.2024
  */
-#include "building_material.hpp"
+#include <libtask/task7/building_material.hpp>
 
 namespace task {
 BuildingMaterial::BuildingMaterial(const id_type id, const std::string& name,

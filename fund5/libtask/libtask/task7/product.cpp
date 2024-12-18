@@ -5,13 +5,14 @@
  * @author xsestech 
  * @date 14.12.2024
  */
-#include "product.hpp"
+#include <libtask/task7/product.hpp>
+
 
 namespace task {
-Product::Product(const id_type id, const std::string& name,
+Product::Product(const id_type id, std::string  name,
                  const double weight,
                  const double cost, const uint32_t storage_days): id_(id),
-  name_(name),
+  name_(std::move(name)),
   weight_(weight), cost_(cost), storage_days_(storage_days) {
 }
 Product::Product(const Product& other): id_(other.id_), name_(other.name_), // NOLINT(*-use-equals-default)

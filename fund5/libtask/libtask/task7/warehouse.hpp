@@ -21,6 +21,7 @@ class Warehouse {
     Warehouse(Warehouse&& warehouse) noexcept = default;
     Warehouse& operator=(const Warehouse& warehouse);
     Warehouse& operator=(Warehouse&& warehouse) = default;
+    ~Warehouse() = default;
 
     Warehouse& operator+=(std::unique_ptr<Product> product);
     Warehouse& operator-=(Product::id_type id);

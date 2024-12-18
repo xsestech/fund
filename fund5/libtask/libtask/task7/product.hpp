@@ -17,17 +17,22 @@ enum class ProductType {
   kElectronicProduct,
   kPerishableProduct,
 };
+// ReSharper disable once CppVariableCanBeMadeConstexpr
 const double kWeightStorageCoef = 0.05;
 
 class Product {
   public:
     using id_type = uint32_t;
-    Product(id_type id, const std::string& name, double weight, double cost,
+    Product(id_type id, std::string  name, double weight, double cost,
             uint32_t storage_days);
     Product(const Product& other);
+    Product(Product&& other) = default;
     virtual ~Product() = default;
+
     Product& operator=(const Product& other) &;
+    Product& operator=(Product&& other) = default;
     bool operator<(const Product& other) const;
+
     friend std::ostream& operator<<(std::ostream& stream, const Product& product);
 
     [[nodiscard]] virtual double CalculateStorageFee() const;

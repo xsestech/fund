@@ -5,7 +5,7 @@
  * @author xsestech 
  * @date 14.12.2024
  */
-#include "perishable_product.hpp"
+#include <libtask/task7/perishable_product.hpp>
 
 namespace task {
 PerishableProduct::PerishableProduct(uint32_t id, const std::string& name,
@@ -37,6 +37,6 @@ double PerishableProduct::calculateExpirationFee() const {
   if (delta < 0) {
     return 0;
   }
-  return delta * kExprationCoef;
+  return delta * kExpirationCoef;
 }
 } // namespace task

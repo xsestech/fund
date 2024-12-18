@@ -11,7 +11,8 @@
 
 namespace task {
 
-const double kExprationCoef = 5.0;
+// ReSharper disable once CppVariableCanBeMadeConstexpr
+const double kExpirationCoef = 5.0;
 
 class PerishableProduct final : public Product {
   public:
@@ -20,7 +21,12 @@ class PerishableProduct final : public Product {
                       uint32_t storage_days,
                       uint32_t expiration_date);
     PerishableProduct(const PerishableProduct& other) = default;
+    PerishableProduct(PerishableProduct&& other) = default;
     ~PerishableProduct() override = default;
+
+    PerishableProduct& operator=(const PerishableProduct& other) = default;
+    PerishableProduct& operator=(PerishableProduct&& other) = default;
+
     [[nodiscard]] double CalculateStorageFee() const override;
     [[nodiscard]] std::unique_ptr<Product> Clone() const override;
 
@@ -30,6 +36,6 @@ class PerishableProduct final : public Product {
 
   private:
     uint32_t expiration_date_;
-    double calculateExpirationFee() const;
+    [[nodiscard]] double calculateExpirationFee() const;
 };
 } // namespace task
