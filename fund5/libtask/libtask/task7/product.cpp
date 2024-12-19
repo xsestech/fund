@@ -7,21 +7,22 @@
  */
 #include <libtask/task7/product.hpp>
 
-
 namespace task {
-Product::Product(const id_type id, std::string  name,
+Product::Product(const id_type id, std::string name,
                  const double weight,
                  const double cost, const uint32_t storage_days): id_(id),
   name_(std::move(name)),
   weight_(weight), cost_(cost), storage_days_(storage_days) {
 }
-Product::Product(const Product& other): id_(other.id_), name_(other.name_), // NOLINT(*-use-equals-default)
+Product::Product(const Product& other): id_(other.id_), name_(other.name_),
+                                        // NOLINT(*-use-equals-default)
                                         weight_(other.weight_),
                                         cost_(other.cost_),
                                         storage_days_(
                                             other.storage_days_) {
 }
-Product& Product::operator=(const Product& other) & { // NOLINT(*-use-equals-default)
+Product& Product::operator=(const Product& other) & {
+  // NOLINT(*-use-equals-default)
   id_ = other.id_;
   name_ = other.name_;
   cost_ = other.cost_;
@@ -59,7 +60,7 @@ double Product::get_cost() const {
 uint32_t Product::get_storage_days() const {
   return storage_days_;
 }
-double Product::get_weight() const{
+double Product::get_weight() const {
   return weight_;
 }
 bool Product::operator<(const Product& other) const {
@@ -67,8 +68,10 @@ bool Product::operator<(const Product& other) const {
 }
 std::ostream& operator<<(std::ostream& stream, const Product& product) {
   stream << product.get_type_str() << std::endl;
-  stream << "id: " << product.get_id() << " name: " << product.get_name() << std::endl;
-  stream << "cost: " << product.get_cost() << " weight: " << product.get_weight() << std::endl;
+  stream << "id: " << product.get_id() << " name: " << product.get_name() <<
+      std::endl;
+  stream << "cost: " << product.get_cost() << " weight: " << product.
+      get_weight() << std::endl;
   stream << "storage days: " << product.get_storage_days() << std::endl;
   return stream;
 }

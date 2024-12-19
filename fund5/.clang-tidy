@@ -2,7 +2,7 @@
 Checks:          'clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,modernize-*,-modernize-use-trailing-return-type'
 WarningsAsErrors: true
 HeaderFilterRegex: ''
-ExcludeHeaderFilterRegex: '(\w*.test.cpp)'
+ExcludeHeaderFilterRegex: '.*\/test\/.*.'
 FormatStyle:     google
 CheckOptions:
   - key:             cert-dcl16-c.NewSuffixes

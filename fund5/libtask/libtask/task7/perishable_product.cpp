@@ -21,7 +21,8 @@ double PerishableProduct::CalculateStorageFee() const {
   return Product::CalculateStorageFee() + calculateExpirationFee();
 }
 std::unique_ptr<Product> PerishableProduct::Clone() const {
-  return std::make_unique<PerishableProduct>(id_, name_, weight_, cost_, storage_days_, expiration_date_);
+  return std::make_unique<PerishableProduct>(id_, name_, weight_, cost_,
+                                             storage_days_, expiration_date_);
 }
 std::string PerishableProduct::get_type_str() const {
   return "Perishable product";
@@ -33,7 +34,8 @@ uint32_t PerishableProduct::get_expiration_date() const {
   return expiration_date_;
 }
 double PerishableProduct::calculateExpirationFee() const {
-  double delta = static_cast<double>(storage_days_) - static_cast<double>(expiration_date_);
+  double delta = static_cast<double>(storage_days_) - static_cast<double>(
+                   expiration_date_);
   if (delta < 0) {
     return 0;
   }

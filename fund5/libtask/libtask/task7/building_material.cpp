@@ -12,7 +12,7 @@ BuildingMaterial::BuildingMaterial(const id_type id, const std::string& name,
                                    const double weight, const double cost,
                                    const uint32_t storage_days,
                                    const bool is_flammable): Product(id, name,
-  weight, cost, storage_days), is_flammable_(is_flammable) {
+    weight, cost, storage_days), is_flammable_(is_flammable) {
 }
 double BuildingMaterial::CalculateStorageFee() const {
   return Product::CalculateStorageFee() + kFlamableFeeCoef;
